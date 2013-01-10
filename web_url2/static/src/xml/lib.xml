@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
-    <t t-name="FieldUrl2">
+    <t t-name="FieldRelativeUrl">
         <span class="oe_form_field oe_form_field_email" t-att-style="widget.node.attrs.style">
             <a t-if="widget.get('effective_readonly')" href="#" class="oe_form_uri" target="_blank"/>
             <t t-if="!widget.get('effective_readonly')">
@@ -10,7 +10,7 @@
                         t-att-tabindex="widget.node.attrs.tabindex"
                         t-att-autofocus="widget.node.attrs.autofocus"
                         t-att-placeholder="widget.node.attrs.placeholder"
-                    t-att-maxlength="widget.field.size"
+                        t-att-maxlength="widget.field.size"
                     />
                 </div>
             </t> 
