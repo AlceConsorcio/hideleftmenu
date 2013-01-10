@@ -25,8 +25,32 @@
     'author': "Vauxoo",
     'category' : "Hidden",
     'description': """
-    This module provides a color widget to display the color from
-    the hexadecimal value of your field.
+Url advanced management.
+========================
+
+Due to the correct management of Urls fields in openerp, we improve the widget 
+with an alternative way to mange this feature:
+
+After this module, the widget just recognized as url all what start with http and if it dont start with this text then the original widget concatenated an http:// at the begining.
+
+Now, after you install this module, 
+
+ * The field will be recognized as link when it start with: (ftp|http|https)
+ * The link is managed with a _NEW target attr to avoid miss the actual page.
+ * If the field bring just a text this one will be considered as a relative one to openerp (specially usefull when you need to put links to internal files/requests).
+ 
+ TODO: with this feature we lost the option of fill a field url with just www.domain.com and become automagically the link, i think this is correct too,but no so clear for me, i prefer use explicitaly the http:// stuff.
+
+How to test:
+After install the module Just define your field with the atrubute 
+widget='relative_url' and it is ready i.e.
+
+<field name="link_doc" widget="relative_url"/>
+
+.. warning::
+
+    be sure make your module depends of this one, to avoid brake the view when it will be loaded.
+
     """,
     'version': "1.0",
     'depends': ['web'],
