@@ -7,7 +7,7 @@ openerp.web_url2 = function(instance) {
     var _t = instance.web._t,
        _lt = instance.web._lt;
     widget_name = 'relative_url';
-    //Add in the widgets list
+    //Declare the widget
     instance.web.form.widgets.add(widget_name, 'instance.web.form.FieldRelativeUrl'); 
     //instance of the widget itself
     instance.web.form.FieldRelativeUrl = instance.web.form.FieldChar.extend({
@@ -29,7 +29,6 @@ openerp.web_url2 = function(instance) {
             } else {
                 var tmp = this.get('value');
                 if (!isUrl(tmp)) {
-                    console.log(instance.webclient.session.server);
                     tmp = instance.webclient.session.server + this.get('value');
                 }
                 this.$el.find('a').attr('href', tmp).text(this.get('value') ? tmp : '');
