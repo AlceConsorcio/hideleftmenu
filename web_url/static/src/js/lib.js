@@ -1,5 +1,5 @@
 function isUrl(s) {
-	var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+	var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 	return regexp.test(s);
 }
 
@@ -17,6 +17,7 @@ openerp.web_url2 = function(instance) {
         display_name: _lt('Field relative Url'),
 
         initialize_content: function() {
+            console.log("Im here in ic");
             this._super();
             var $button = this.$el.find('button');
             $button.click(this.on_button_clicked);
@@ -24,6 +25,7 @@ openerp.web_url2 = function(instance) {
         },
         
         render_value: function() {
+            console.log("Im here");
             if (!this.get("effective_readonly")) {
                 this._super();
             } else {
