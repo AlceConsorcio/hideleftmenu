@@ -1,7 +1,15 @@
-function isUrl(s) {
+function isUrl(url) {
 	var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-	return regexp.test(s);
-};
+	return regexp.test(url);
+}
+
+function UrlExists(url) {
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  http.send();
+  return http.status!=404;
+}
+
 openerp.web_url = function(instance) {
     var _t = instance.web._t,
         _lt = instance.web._lt,
@@ -27,7 +35,11 @@ openerp.web_url = function(instance) {
                 if (!isUrl(tmp)) {
                     tmp = instance.webclient.session.server + this.get('value');
                 }
-                this.$el.find('a').attr('href', tmp).text(this.get('value') ? tmp : '');
+                if (UrlExists(tmp)){
+                    this.$el.find('a').attr('href', tmp).text(this.get('value') ? tmp : '');
+                } else {
+                    this.$el.find('a').attr('href', instance.webclient.session.server + '/web_url/static/404.html').text('Link is broken verify destiny.');
+                }
             }
         },
     });
