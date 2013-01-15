@@ -38,7 +38,7 @@ openerp.web_url = function(instance) {
                 if (UrlExists(tmp)){
                     this.$el.find('a').attr('href', tmp).text(this.get('value') ? tmp : '');
                 } else {
-                    this.$el.find('a').attr('href', instance.webclient.session.server + '/web_url/static/404.html').text('Link is broken verify destiny.');
+                    this.$el.find('a').attr('href', instance.webclient.session.server + '/web_url/static/html/404.html').text('Link is broken verify destiny.');
                 }
             }
         },
