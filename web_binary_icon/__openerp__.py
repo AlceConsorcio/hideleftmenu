@@ -53,10 +53,26 @@ All text extentions:
  * .rst
  * .xml (Usefull for electronic invoices.)
 
-Links as attachments should be cool of recognize too! 
-
+Links as attachments should be cool of recognize too!.
+ 
  * .googledoc
-    """,
+
+Images should be usefull, probably working in thumbnails feature.
+
+ * .jpg
+ * .png
+ * .gif
+ * .jpeg
+ * .svg
+ * .gimp
+
+Other Formats usefull in the middle.
+
+ * .project
+ * .planner
+ * .Xmind
+ * .log
+""",
     'version': "1.0",
     'depends': ['web'],
     'js': [
