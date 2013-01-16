@@ -32,6 +32,30 @@ Binary Icon plugin.
 When you are using a binary field, it is cool, if depending of the extension
 the field show the icon of the app, something like the plugin for gmail does,
 recognizing the extension and showing the correct icon.
+
+Files to consider TODO:.
+
+All openoffice extensions:
+
+ * .odt
+ * .odp
+ * .odf
+
+All Ms Office extensions:
+
+ * .xls, xlsx
+ * .doc, docx
+ * .ppt, pptx
+
+All text extentions:
+
+ * .txt
+ * .rst
+ * .xml (Usefull for electronic invoices.)
+
+Links as attachments should be cool of recognize too! 
+
+ * .googledoc
     """,
     'version': "1.0",
     'depends': ['web'],
