@@ -38,9 +38,15 @@ openerp.web_url = function(instance) {
 
         UrlExists: function(url) {
             var http = new XMLHttpRequest();
-            http.open('HEAD', url, false);
-            http.send();
-            return http.status!=404;
+            var hn = url.replace("http://","").replace("https://","").replace("ftp://","").split("/")[0];
+            if (location.host === hn) {                
+                http.open('HEAD', url, false);
+                http.send();
+                return http.status!=404;
+            } else {
+                return true;
+                console.log('Are Not the same');
+            }
         },
     });
 }
