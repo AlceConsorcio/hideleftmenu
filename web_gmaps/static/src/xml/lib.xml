@@ -3,7 +3,7 @@
     <t t-name="FieldGmaps">
         <span class="oe_form_field oe_form_field_email" t-att-style="widget.node.attrs.style">
         
-            <div t-if="widget.get('effective_readonly')"  id="map_canvas"></div>
+            <div t-if="widget.get('effective_readonly')"  class="oe_map_canvas"></div>
             <t t-if="!widget.get('effective_readonly')">
                 <div>
                     <input type="text"
