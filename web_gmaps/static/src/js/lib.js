@@ -25,15 +25,12 @@ openerp.web_gmaps = function(instance) {
 //                //}
                 var mapOptions = {
                   center: new google.maps.LatLng(10.505833, -66.914444),
-                  zoom: 8,
-                  disableDefaultUI: true,
-                  overviewMapControl: true,
-                  scaleControl: true,
+                  zoom: 10,
                   mapTypeId: google.maps.MapTypeId.SATELLITE
                 }, 
                     torender = this.$el.find('div.oe_map_canvas');
-                
-//                var map = new google.maps.Map(torender, mapOptions);
+                var map = new google.maps.Map(torender[0], mapOptions);
+                console.log(map);
             }
         },
     });

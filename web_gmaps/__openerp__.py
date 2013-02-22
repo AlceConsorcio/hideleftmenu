@@ -37,6 +37,7 @@ Just allow given a point with this format X,Y in decimal coordinates, show the m
         'static/src/js/lib.js',
     ],
     'css': [
+        'static/src/css/gmaps.css',
     ],
     'qweb': [
         'static/src/xml/lib.xml',
