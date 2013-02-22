@@ -19,14 +19,14 @@ openerp.web_gmaps = function(instance) {
             if (!this.get("effective_readonly")) {
                 this._super();
             } else {
+                var val = this.get('value').split(",");
                 var mapOptions = {
-                  center: new google.maps.LatLng(10.505833, -66.914444),
-                  zoom: 8,
-                  mapTypeId: google.maps.MapTypeId.SATELLITE
+                  center: new google.maps.LatLng(parseFloat(val[0]), parseFloat(val[1])),
+                  zoom: 20,
+                  mapTypeId: google.maps.MapTypeId.ROADMAP
                 }, 
                     torender = this.$el.find('div.oe_map_canvas');
                 var map = new google.maps.Map(torender[0], mapOptions);
-                console.log(map);
             }
         },
     });

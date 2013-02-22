@@ -30,6 +30,13 @@ Gmaps view:
 ===========
 
 Just allow given a point with this format X,Y in decimal coordinates, show the map.
+You must to add:
+        
+        <script type="text/javascript"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDo-1vLyCKoMU1JkZZSe2Z9xpknaB0d6Qc&sensor=true">
+        </script>
+
+on line 516 in addons/web/controllers/main.py of web project. 
     """,
     'version': "1.0",
     'depends': [
@@ -45,6 +52,9 @@ Just allow given a point with this format X,Y in decimal coordinates, show the m
     'qweb': [
         'static/src/xml/lib.xml',
     ],
+    'data': [
+        'view/partner_view.xml'
+            ],
     'installable': True,
     'auto_install': False,
     'web_preload': False,
