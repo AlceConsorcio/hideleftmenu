@@ -1,4 +1,7 @@
 .oe_map_canvas {
-                 height: 600px; 
-                 width: 100%;
+                 height: 600px;
+                 width: 600px;
+                 padding:40px;
+                 position:relative;
+                 overflow: hidden;
                 }
