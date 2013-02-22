@@ -16,30 +16,25 @@ openerp.web_gmaps = function(instance) {
         },
         
         render_value: function() {
-            console.log('Entre al render');
             if (!this.get("effective_readonly")) {
                 this._super();
             } else {
-                var tmp = this.get('value');
-////                //if (this.UrlExists(tmp)){
-////                    //Magia de renderizado
-////                     this.$el.find('div.oe_map_canvas').text("Hola Mundo");
+//                this.$el.find('div.oe_map_canvas').text("Hola Mundo");
 //                //} else {
 //                //    this.$el.find('a').attr('href', instance.webclient.session.server + '/web_url/static/html/404.html').text('Link is broken verify destiny.');
 //                //}
-//                console.log(google);
-//                var mapOptions = {
-//                  center: new google.maps.LatLng(10.505833, -66.914444),
-//                  zoom: 8,
-//                  disableDefaultUI: true,
-//                  overviewMapControl: true,
-//                  scaleControl: true,
-//                  mapTypeId: google.maps.MapTypeId.SATELLITE
-//                };
-//                var map = new google.maps.Map(this.$el.find('div.oe_map_canvas'),
-//                    mapOptions);
-                }
-//            },
+                var mapOptions = {
+                  center: new google.maps.LatLng(10.505833, -66.914444),
+                  zoom: 8,
+                  disableDefaultUI: true,
+                  overviewMapControl: true,
+                  scaleControl: true,
+                  mapTypeId: google.maps.MapTypeId.SATELLITE
+                }, 
+                    torender = this.$el.find('div.oe_map_canvas');
+                
+//                var map = new google.maps.Map(torender, mapOptions);
+            }
         },
     });
 }

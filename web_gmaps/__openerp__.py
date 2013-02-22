@@ -34,8 +34,7 @@ Just allow given a point with this format X,Y in decimal coordinates, show the m
     'version': "1.0",
     'depends': ['web'],
     'js': [
-        'static/src/js/lib.js', 
-        'https://maps.googleapis.com/maps/api/js?key=AIzaSyDo-1vLyCKoMU1JkZZSe2Z9xpknaB0d6Qc&sensor=true',
+        'static/src/js/lib.js',
     ],
     'css': [
     ],
