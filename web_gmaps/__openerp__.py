@@ -32,7 +32,10 @@ Gmaps view:
 Just allow given a point with this format X,Y in decimal coordinates, show the map.
     """,
     'version': "1.0",
-    'depends': ['web'],
+    'depends': [
+                'web',
+                'crm_partner_assign'
+               ],
     'js': [
         'static/src/js/lib.js',
     ],
