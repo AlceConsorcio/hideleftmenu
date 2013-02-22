@@ -19,13 +19,9 @@ openerp.web_gmaps = function(instance) {
             if (!this.get("effective_readonly")) {
                 this._super();
             } else {
-//                this.$el.find('div.oe_map_canvas').text("Hola Mundo");
-//                //} else {
-//                //    this.$el.find('a').attr('href', instance.webclient.session.server + '/web_url/static/html/404.html').text('Link is broken verify destiny.');
-//                //}
                 var mapOptions = {
                   center: new google.maps.LatLng(10.505833, -66.914444),
-                  zoom: 10,
+                  zoom: 8,
                   mapTypeId: google.maps.MapTypeId.SATELLITE
                 }, 
                     torender = this.$el.find('div.oe_map_canvas');
