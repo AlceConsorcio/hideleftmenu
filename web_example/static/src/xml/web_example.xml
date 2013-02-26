@@ -1,0 +1,4 @@
+<templates>
+    <div t-name="web_example.action" id="map_canvas" class="oe_map_canvas" style="position:relative; width: 300px;">
+    </div>
+</templates>
