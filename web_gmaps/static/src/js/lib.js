@@ -22,6 +22,9 @@ openerp.web_gmaps = function(instance) {
                 //Get the value of the field.
                 var val = this.get('value').split(",");
                 //Convert the value in an LatLng object
+            if (!google.maps.LatLng) {
+                this.$el.find('div.oe_map_canvas').text("I can not render the map - Verify your key point: " + val);
+            } else {
                 var myLatlng = new google.maps.LatLng(parseFloat(val[0]), parseFloat(val[1]));
                 //Set the options for the map.
                 var mapOptions = {
@@ -61,6 +64,7 @@ openerp.web_gmaps = function(instance) {
                 google.maps.event.addListener(marker, 'click', function() {
                     infowindow.open(map,marker);
                 });
+              };
             }
         },
     });
