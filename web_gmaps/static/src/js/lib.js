@@ -28,13 +28,18 @@ openerp.web_gmaps = function(instance) {
                 this._super();
             } else {
                 var val = this.get('value').split(",");
+                latlng = new google.maps.LatLng(parseFloat(val[0]), parseFloat(val[1]))
                 var mapOptions = {
-                  center: new google.maps.LatLng(parseFloat(val[0]), parseFloat(val[1])),
+                  center: latlng,
                   zoom: 20,
                   mapTypeId: google.maps.MapTypeId.ROADMAP
                 }, 
                 torender = this.$el.find('div.oe_map_canvas');
-                var map = new google.maps.Map(torender[0], mapOptions);
+                var map_rendered = new google.maps.Map(torender[0], mapOptions);
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map_rendered
+                });
             }
         },
     });

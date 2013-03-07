@@ -34,6 +34,7 @@ class partner_geo_map(osv.osv):
         gmaps = GoogleMaps("http://maps.googleapis.com/maps/api/js?key=AIzaSyBwNE-vFDyyOb62ODaRiqpiL2kz8wR0aTc")
         for partner in self.browse(cr,uid,ids):
             address = partner.street
+            print address
             lat, lng = gmaps.address_to_latlng(address) 
             latlng = str(lat) +","+ str(lng)
             result[partner.id] = str(latlng)
