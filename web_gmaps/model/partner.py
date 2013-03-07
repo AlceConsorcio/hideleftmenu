@@ -36,7 +36,6 @@ class partner_geo_map(osv.osv):
             address = partner.street
             lat, lng = gmaps.address_to_latlng(address) 
             latlng = str(lat) +","+ str(lng)
-            print latlng
             result[partner.id] = str(latlng)
         return result
     _inherit = 'res.partner'
