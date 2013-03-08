@@ -6,7 +6,6 @@ openerp.web_gmaps = function(instance) {
     instance.web.form.widgets.add(widget_name, 'instance.web.form.Gmaps'); 
     //instance of the widget itself
     instance.web.form.Gmaps = instance.web.form.FieldChar.extend({
-
         template: 'FieldGmaps',
         
         display_name: _lt('Field Gmaps'),

@@ -45,6 +45,7 @@ on line 516 in addons/web/controllers/main.py of web project.
                ],
     'js': [
         'static/src/js/lib.js',
+        'static/src/js/load_gmap_key.js',
     ],
     'css': [
         'static/src/css/gmaps.css',
