@@ -10,18 +10,6 @@ openerp.web_gmaps = function(instance) {
         
         display_name: _lt('Field Gmaps'),
         
-        initialize_content: function() {
-            var script = document.createElement("script");
-            this._super();
-            script.type = "text/javascript";
-            script.src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBwNE-vFDyyOb62ODaRiqpiL2kz8wR0aTc&sensor=true&callback=gmap_draw"
-            window.gmap_draw = function(){
-                console.log("Dunno wtd here");
-            }
-            $("head").append(script);
-
-        },
-        
         render_value: function() {
             if (!this.get("effective_readonly")) {
                 this._super();
