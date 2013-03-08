@@ -23,22 +23,20 @@
 from openerp import pooler, tools
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
+from googlemaps import GoogleMaps
 
 class partner_geo_map(osv.osv):
     """
     Compute in server side data to rendered with gmaps
     """
     def _geo_loc(self, cr, uid, ids, field_name, arg, context):
-        """
-        Description about method
-        @return: Either way, it must return a dictionary of values of the form {id’_1_’: value’_1_’, id’_2_’: value’_2_’,...}.
-        """
-
         result = {}
-        for i in ids:
-            lat = self.browse(cr, uid, i, context=context).partner_latitude
-            lon = self.browse(cr, uid, i, context=context).partner_longitude
-            result[i] = '%s,%s' % (lat,lon)
+        gmaps = GoogleMaps("http://maps.googleapis.com/maps/api/js?key=AIzaSyBwNE-vFDyyOb62ODaRiqpiL2kz8wR0aTc")
+        for partner in self.browse(cr,uid,ids):
+            address = partner.street
+            lat, lng = gmaps.address_to_latlng(address) 
+            latlng = str(lat) +","+ str(lng)
+            result[partner.id] = str(latlng)
         return result
     _inherit = 'res.partner'
     _columns = {
