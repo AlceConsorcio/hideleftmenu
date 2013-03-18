@@ -86,6 +86,134 @@
 <!--                TODO: Verify this from the process element.-->
             </td>
         </tr>
+        <tr>
+            <td class="oe_process_main_label">
+                <span class="oe_process_label">Definition</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_content">
+<!--                TODO: It will be marked with a boolean in the process.process object-->
+                <span class="oe_process_label">
+                <img src="/web_process_prettyprint/static/src/img/Person_icon.png" width="32px"></img>
+                Manual: Actividades que no requieren el uso de ningún sistema de cómputo para su ejecución.</span><br/>
+                <span class="oe_process_label">
+                <img src="/web_process_prettyprint/static/src/img/Computer_Icon_7.jpg" width="32px"></img>Automática: Actividades que requieren el uso de algún sistema o aplicación de cómputo para ser ejecutada..</span>
+            </td>
+        </tr>
+        <!--            TODO: This will be an iterable in Nodes, every node is an activity.-->
+<!--            Links with menu.action.link for details.-->
+        <tr>
+
+            <td class="oe_process_main_label">
+                <span class="oe_process_label">Activities</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_content">
+                <table class="view" border="1px" width="auto" height="auto" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Activity Type</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Activity Description</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Procedure</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Responsible</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Comments</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="oe_process_label">From Boolean on process with icon</span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">From menu.action</span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">
+                            <table class="view" 
+                                   border="1px" 
+                                   width="auto" 
+                                   height="auto" 
+                                   cellpadding="0" 
+                                   cellspacing="0">
+                                <tr>
+                                    <td class="oe_process_main_label_procedure">
+                                        Input
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_detail">
+                                        <span>
+                                            <ul>
+                                                <li>Input description</li> 
+                                                <li>Input description</li>
+                                                <li>Input description.</li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_procedure">
+                                        Procedure
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_detail">
+                                        <span>
+                                        <ol>
+                                            <li>Step description</li> 
+                                            <li>Step description</li> 
+                                            <li>Step description .</li>
+                                        </ol>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_procedure">
+                                        Output
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_detail">
+                                        <span>
+                                            <ul>
+                                                <li>Output description</li> 
+                                                <li>Output description</li>
+                                                <li>Output description.</li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">
+                            From New Field called responsible 
+                            (Group or HR charge to study this option.)
+                        </span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">
+                            <ul>
+                            <li>From Comments in Node.</li>
+                            <li>(Group or HR charge to study this option.)</li>
+                            </ul>
+                        </span>
+                    </td>
+                </tr>
+                </table>
+<!--                TODO: Verify this from the process node.-->
+            </td>
+        </tr>
     </table>
 <!--    <table class="view" border="0" width="auto" height="auto" cellpadding="0" cellspacing="0">-->
 <!--        <tr>-->

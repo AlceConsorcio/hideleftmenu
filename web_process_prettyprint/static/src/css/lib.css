@@ -37,3 +37,11 @@ td.oe_process_main_content {
     color: #2e3436;
     background-color: white;
 }
+td.oe_process_main_label_activity {
+    color: white;
+    background-color: #4e9a06;
+}
+td.oe_process_main_label_procedure {
+    color: white;
+    background-color: #888a85;
+}
