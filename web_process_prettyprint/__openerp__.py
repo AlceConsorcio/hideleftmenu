@@ -34,7 +34,13 @@ This module configure all the necesary tools to print in the right way
 
     """,
     'version': "1.0",
-    'depends': ['web'],
+    'depends': [
+                'web',
+                'process', #To show the process
+                'hr', #To link process to hr departments and resposabilities.
+                'document_page', #To build internal documentation Human readable.
+                'document_ftp', #To links with external files.
+                ],
     'js': [
         'static/src/js/lib.js', 
     ],

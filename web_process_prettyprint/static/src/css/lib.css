@@ -1,0 +1,39 @@
+.oe_process_global {
+    width: 100%;
+}
+
+.oe_process_information {
+
+}
+
+.oe_process_process {
+    width: auto;
+}
+
+.process_canvas {
+    border: None;
+    background: Transparent;
+}
+
+td.oe_process_label, td.oe_process_value {
+    font-size: 1.1em;
+    margin:  4px 4px 4px 4px;
+    padding: 4px 4px 4px 4px;
+    color: white;
+    font-weight:bold;
+    background-color: gray;
+}
+
+td.oe_process_value {
+    color: #2e3436;
+    background-color: white;
+}
+
+td.oe_process_main_label {
+    color: white;
+    background-color: #9a2525;
+}
+td.oe_process_main_content {
+    color: #2e3436;
+    background-color: white;
+}
