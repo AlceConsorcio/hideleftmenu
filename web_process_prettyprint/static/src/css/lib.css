@@ -1,20 +1,17 @@
 .oe_process_global {
     width: 100%;
 }
-
 .oe_process_information {
-
 }
-
 .oe_process_process {
     width: auto;
 }
-
 .process_canvas {
     border: None;
-    background: Transparent;
+    background: white;
+    width: 100%;
+    height: 500px;
 }
-
 td.oe_process_label, td.oe_process_value {
     font-size: 1.1em;
     margin:  4px 4px 4px 4px;
@@ -44,4 +41,8 @@ td.oe_process_main_label_activity {
 td.oe_process_main_label_procedure {
     color: white;
     background-color: #888a85;
+}
+.process_canvas svg{
+    height:auto;
+    padding:15px;
 }
