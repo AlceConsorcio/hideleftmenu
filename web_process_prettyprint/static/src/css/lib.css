@@ -1,0 +1,48 @@
+.oe_process_global {
+    width: 100%;
+}
+.oe_process_information {
+}
+.oe_process_process {
+    width: auto;
+}
+.process_canvas {
+    border: None;
+    background: white;
+    width: 100%;
+    height: 500px;
+}
+td.oe_process_label, td.oe_process_value {
+    font-size: 1.1em;
+    margin:  4px 4px 4px 4px;
+    padding: 4px 4px 4px 4px;
+    color: white;
+    font-weight:bold;
+    background-color: gray;
+}
+
+td.oe_process_value {
+    color: #2e3436;
+    background-color: white;
+}
+
+td.oe_process_main_label {
+    color: white;
+    background-color: #9a2525;
+}
+td.oe_process_main_content {
+    color: #2e3436;
+    background-color: white;
+}
+td.oe_process_main_label_activity {
+    color: white;
+    background-color: #4e9a06;
+}
+td.oe_process_main_label_procedure {
+    color: white;
+    background-color: #888a85;
+}
+.process_canvas svg{
+    height:auto;
+    padding:15px;
+}

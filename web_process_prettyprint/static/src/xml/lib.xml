@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<t t-name="process.ProcessView">
+    <div class="oe_process_global">
+        <div class="oe_view_manager oe_view_manager_current">
+           <div class="oe_view_manager_header" style="padding: 8px;">
+                <h1>Policies and Procedures Manual</h1>
+                <h2 class="oe_view_title">
+                    <span class="oe_view_title_text oe_breadcrumb_title">
+    <t t-esc="process_title"/> Process on <t t-esc="action.name"/> (<a t-attf-href="http://doc.openerp.com/v6.1/index.php?model=#{action.res_model}"><t t-esc="action.res_model"/></a>)</span>
+                </h2>
+           </div>
+        </div>
+    </div>
+    <table class="view" border="1px" width="100%" height="auto" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="oe_process_label">
+                <div>
+                    <span class="oe_process_label">Policies and Procedures Manual </span>
+                </div>
+            </td>
+            <td class="oe_process_value">
+                <div>
+                    <span class="oe_process_value"><t t-esc="process_title"/></span>
+                </div>
+            </td>
+            <td class="oe_process_label">
+                <div>
+                    <span class="oe_process_label">Issued on</span>
+                </div>
+            </td>
+            <td class="oe_process_value">
+                <div>
+                    <span class="oe_process_value">26 de Agosto de 2011</span>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_label">
+                <div>
+                    <span class="oe_process_label">Revision</span>
+                </div>
+            </td>
+            <td class="oe_process_value">
+                <div>
+                    <span class="oe_process_value"></span>
+                </div>
+            </td>
+            <td class="oe_process_label">
+                <div>
+                    <span class="oe_process_label">Department</span>
+                </div>
+            </td>
+            <td class="oe_process_value">
+                <div>
+                    <span class="oe_process_value"></span>
+<!--                    TODO: Department should be added to the process object-->
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="oe_process_process">
+        <table class="view" border="1px" width="100%" height="auto" cellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <table class="view" border="1px" width="100%" height="auto" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="oe_process_main_label_procedure"><span>Activities</span></td>
+                        </tr>
+                        <tr>
+                            <td class="oe_process_main_label">
+                                <span>
+                                    <ul>
+                                        <li>List of elements nodes</li>
+                                        <li>List of elements nodes</li>
+                                        <li>List of elements nodes</li>
+                                    </ul>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="oe_process_main_label_procedure"><span>Main Process</span></td>
+                        </tr>
+                        <tr>
+                            <td class="oe_process_main_label">
+                                <span>  
+                                    <t t-if="process_related.length and process_related[0][0] != process_id">
+                                        <p>
+                                            <a class="oe_bold process_subflow" t-att-id="process_related[0][0]" href="javascript: void(0)">
+                                                <t t-esc="process_related[0][1]"/>
+                                            </a>
+                                        </p>
+                                    </t>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="oe_process_main_label_procedure"><span>Related Processes</span></td>
+                        </tr>
+                        <tr>
+                            <td class="oe_process_main_label">
+                                <t t-if="process_subflows.length">
+                                    <t t-foreach="process_subflows" t-as="subflow">
+                                        <t t-if="subflow.subflow[0] != process_id">
+                                            <p>
+                                                <a class="oe_bold" t-att-id="subflow.subflow[0]" href="javascript: void(0)">
+                                                    <t t-esc="subflow.subflow[1]"/>
+                                                </a>
+                                            </p>
+                                        </t>
+                                    </t>
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="process_canvas"></div>
+                </td>
+            </tr>
+        </table>
+    </div>    
+    <table class="view" border="1px"  width="100%" height="auto" cellpadding="0" cellspacing="0">
+        <tr>
+            <td class="oe_process_main_label">
+                <span class="oe_process_label">Process Objectives</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_content">
+                <span class="oe_process_label">Asegurar el mayor potencial de negocio de acuerdo a los recursos existentes, identificando los riesgos para minimizar los factores que inciden en ventas bajas  o rechazos por parte del cliente. En específico realizar investigación que permita conocer y tener identificados  los terrenos de la zona geográfica para evaluar el potencial de comercializar, así mismo identificar todo aquel terreno cultivable para conocer sus características de materia orgánica, arcilla, salinidad y arenosidad, para conocer quién es el productor.  </span>
+<!--                TODO: Verify this from the process element.-->
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_label">
+                <span class="oe_process_label">Scope</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_content">
+                <span class="oe_process_label">Abarca todas las zonas geográficas donde comercializa AGRINOS.</span>
+<!--                TODO: Verify this from the process element.-->
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_label">
+                <span class="oe_process_label">Definition</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_content">
+<!--                TODO: It will be marked with a boolean in the process.process object-->
+                <span class="oe_process_label">
+                <img src="/web_process_prettyprint/static/src/img/Person_icon.png" width="32px"></img>
+                Manual: Actividades que no requieren el uso de ningún sistema de cómputo para su ejecución.</span><br/>
+                <span class="oe_process_label">
+                <img src="/web_process_prettyprint/static/src/img/Computer_Icon_7.jpg" width="32px"></img>Automática: Actividades que requieren el uso de algún sistema o aplicación de cómputo para ser ejecutada..</span>
+            </td>
+        </tr>
+        <!--            TODO: This will be an iterable in Nodes, every node is an activity.-->
+<!--            Links with menu.action.link for details.-->
+        <tr>
+
+            <td class="oe_process_main_label">
+                <span class="oe_process_label">Activities</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="oe_process_main_content">
+                <table class="view" border="1px" width="100%" height="auto" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Activity Type</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Activity Description</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Procedure</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Responsible</span>
+                    </td>
+                    <td class="oe_process_main_label_activity">
+                        <span class="oe_process_label">Comments</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="oe_process_label">From Boolean on process with icon</span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">From menu.action</span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">
+                            <table class="view" 
+                                   border="1px" 
+                                   width="100%" 
+                                   height="auto" 
+                                   cellpadding="0" 
+                                   cellspacing="0">
+                                <tr>
+                                    <td class="oe_process_main_label_procedure">
+                                        Input
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_detail">
+                                        <span>
+                                            <ul>
+                                                <li>Input description</li> 
+                                                <li>Input description</li>
+                                                <li>Input description.</li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_procedure">
+                                        Procedure
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_detail">
+                                        <span>
+                                        <ol>
+                                            <li>Step description</li> 
+                                            <li>Step description</li> 
+                                            <li>Step description .</li>
+                                        </ol>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_procedure">
+                                        Output
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="oe_process_main_label_detail">
+                                        <span>
+                                            <ul>
+                                                <li>Output description</li> 
+                                                <li>Output description</li>
+                                                <li>Output description.</li>
+                                            </ul>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">
+                            From New Field called responsibles a a many2many_tags 
+<!--                                TODO:-->
+                            (Group or HR charge to study this option.)
+                        </span>
+                    </td>
+                    <td>
+                        <span class="oe_process_label">
+                            <ul>
+                            <li>From Comments in Node.</li>
+                            <li>(Group or HR charge to study this option.)</li>
+                            </ul>
+                        </span>
+                    </td>
+                </tr>
+                </table>
+<!--                TODO: Verify this from the process node.-->
+            </td>
+        </tr>
+    </table>
+<!--    <table class="view" border="0" width="auto" height="auto" cellpadding="0" cellspacing="0">-->
+<!--        <tr>-->
+<!--            <td width="70%" valign="top" class="fields collapsed">-->
+<!--                <div class="oe_view_manager oe_view_manager_current">-->
+<!--                   <div class="oe_view_manager_header" style="padding: 8px;">-->
+<!--                            <h2 class="oe_view_title">-->
+<!--                                <span class="oe_view_title_text oe_breadcrumb_title">-->
+<!--                <t t-esc="process_title"/> Process on <t t-esc="action.name"/> (<a t-attf-href="http://doc.openerp.com/v6.1/index.php?model=#{action.res_model}"><t t-esc="action.res_model"/></a>)</span>-->
+<!--                            </h2>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td style="padding-left:10px;">-->
+<!--                    <p>-->
+<!--                        <strong>Notes:</strong> <t t-esc="process_notes"/>-->
+<!--                    </p>-->
+<!--                <p><t t-raw="process_help"/></p>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td style="padding-left:10px;">-->
+<!--                <t t-if="process_notes">-->
+<!--                    <p>-->
+<!--                        <strong>Last modified by:</strong> N/A-->
+<!--                    </p>-->
+<!--                    <t t-if="process_subflows.length">-->
+<!--                        <strong>Subflows:</strong>-->
+<!--                        <t t-foreach="process_subflows" t-as="subflow">-->
+<!--                            <t t-if="subflow.subflow[0] != process_id">-->
+<!--                                <p>-->
+<!--                                    <a class="oe_bold process_subflow" t-att-id="subflow.subflow[0]" href="javascript: void(0)">-->
+<!--                                        <t t-esc="subflow.subflow[1]"/>-->
+<!--                                    </a>-->
+<!--                                </p>-->
+<!--                            </t>-->
+<!--                        </t>-->
+<!--                    </t>-->
+<!--                    <t t-if="process_related.length and process_related[0][0] != process_id">-->
+<!--                        <strong>Related:</strong>-->
+<!--                        <p>-->
+<!--                            <a class="oe_bold process_subflow" t-att-id="process_related[0][0]" href="javascript: void(0)">-->
+<!--                                <t t-esc="process_related[0][1]"/>-->
+<!--                            </a>-->
+<!--                        </p>-->
+<!--                    </t>-->
+<!--                </t>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr t-if="process_selection">-->
+<!--            <td style="padding-left:10px;">-->
+<!--                <fieldset>-->
+<!--                    <legend>-->
+<!--                        Select Process-->
+<!--                        </legend>-->
+<!--                    <select id="select_process">-->
+<!--                        <t t-foreach="process_selection" t-as="prc">-->
+<!--                            <option t-att-value="prc[0]">-->
+<!--                                <t t-esc="prc[1]"/>-->
+<!--                            </option>-->
+<!--                        </t>-->
+<!--                    </select>-->
+<!--                    <button class="oe_button oe_highlight" id="change_process">Select</button>-->
+<!--                </fieldset>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr t-if="process_id">-->
+<!--            <td>-->
+<!--                <div class="process_canvas"></div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr t-if="process_id">-->
+<!--            <td style="padding-left:10px;">-->
+<!--                <button class="oe_button oe_highlight" id="edit_process">Edit Process</button>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+</t>
+</templates>
