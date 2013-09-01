@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+<t t-name="webcam_temp">
+
+<button id="snap"><b>Take photo</b></button>
+<button id="change_snap" disabled="disabled"><b>Change photo</b></button>
+
+<div class="oe_form_binary_file_save_data" id="save_as">
+    <button class="oe_button oe_form_binary_file_save" id="save_button" type="button" title="Save As">
+        <img t-att-src='_s + "/web/static/src/img/icons/gtk-save.png"'/>
+        <span>Save</span>
+    </button>
+</div>
+
+<br></br>
+<br></br>
+<video id="video" width="250" height="250"></video>
+<canvas id="canvas" width="250" height="250"></canvas>
+
+</t>
+<t t-name="FieldBinaryImage-camimg">
+    <img t-att-src='url'/>
+    
+</t>
+</templates>
