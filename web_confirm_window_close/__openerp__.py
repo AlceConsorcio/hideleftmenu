@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2009-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
+#    OpenERP, Open Source Management Solution
+#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,19 +20,25 @@
 ##############################################################################
 
 {
-    'name': "Webcam Widget Module",
-    'version': "1.0",
-    'description': """
-        Widget for Capturing Image using a webcam.
-    """,
-    'depends': ['web'],
-    'website' : "http://www.techreceptives.com",
-    'author': "Tech-Receptives Solutions Pvt. Ltd",
-    'js': ['static/src/js/view.js'],
-    'qweb': ['static/src/xml/webcam_template.xml'],
-    'installable': True,
-    'auto_install': False,
-    'application': True,
-}
+    'name': 'Check for unsaved data when closing browser window',
+    'description': '''
+This addon will show a confirmation dialog when the user closes
+a window with an OpenERP form containing unsaved data.
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+This functionality is browser dependent. Opera ignores it at all,
+while Firefox displays a generic confirmation message.
+
+This module is compatible with OpenERP 7.0.
+''',
+    'version': '7.0.1',
+    'author': 'Therp BV',
+    'category': 'Usability',
+    'website': 'https://launchpad.net/web-addons',
+    'license': 'AGPL-3',
+    'depends': [
+        'web',
+        ],
+    'js': [
+        'static/src/js/web_confirm_window_close.js'
+        ],
+}

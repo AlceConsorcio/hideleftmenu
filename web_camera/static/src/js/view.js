@@ -1,6 +1,10 @@
 openerp.web_camera = function(instance){
 	var _t = instance.web._t,
 	_lt = instance.web._lt;
+	var Enable_change_button;
+	var width;
+	var height
+	var first;
 	var check;
 	var canvas;
 	var context;
@@ -12,10 +16,13 @@ openerp.web_camera = function(instance){
     instance.web.form.webcam_Mywidget = instance.web.form.FieldBinaryImage.extend(
     			{
     			template : 'webcam_temp',
-    			   
+    			placeholder: "/web/static/src/img/placeholder.png",
     			    render_value: function() {
     			        var self = this;
     			        var url;
+    			        			        
+    			        width=this.options.width;
+    			        height=this.options.height;
     			        if (this.get('value') && !instance.web.form.is_bin_size(this.get('value'))) {
     			        	check="yes";
     			        	if(self.field_manager.get("actual_mode")=='edit'){
@@ -78,6 +85,8 @@ openerp.web_camera = function(instance){
     			        }
     			        else {
     			        	var self=this
+    			        	first="yes";
+    			        	$("#snap").children("img").hide();
     			        	$("#save_as").children("img").remove();
     			        	$("#save_button").hide();
     			        	if(check=="yes")
@@ -89,7 +98,7 @@ openerp.web_camera = function(instance){
     			        				$("#snap").attr("disabled",false);    			        				
 			    			        	}
     			        	 self.on_start_camera();
-    			             
+    			        	 url = this.placeholder;
     			            }
     			         
     			        var $img = $(QWeb.render("FieldBinaryImage-camimg", { widget: this, url: url }));
@@ -103,6 +112,19 @@ openerp.web_camera = function(instance){
     			            $img.css("margin-left", "" + (self.options.size[0] - $img.width()) / 2 + "px");
     			            $img.css("margin-top", "" + (self.options.size[1] - $img.height()) / 2 + "px");
     			        });
+    			        if(Enable_change_button == "yes")
+    			        {
+    			        	$("#change_snap").attr("disabled",false);
+    			        	Enable_change_button="no"
+    			        }
+    			        $("#snap").children("b").show();
+    			        $("#snap").children("img").remove();
+    			        if(first=="yes")
+    			        {
+    			        	$("#snap").children("img").hide();
+    			        	first="no";
+    			    	}
+    			        
     			        $("#save_as").children("img").remove();
     			        $("#change_snap").children("img").remove();
     			        $("#snap").click(function(){
@@ -117,7 +139,7 @@ openerp.web_camera = function(instance){
 			            	$("#video").hide();
 			            	$('#snap').attr('disabled',true);
 			            	file_base64=image_src.replace("data:image/png;base64,", "");
-			                self.on_file_uploaded_and_valid(file_base64);
+			                self.on_file_uploaded_and_valid1(file_base64);
 			                $("#change_snap").children("img").hide();
 			                $("#save_button").show()
 			                $("#save_as").children("img").remove();
@@ -168,10 +190,17 @@ openerp.web_camera = function(instance){
 		        			video.src = stream;
 		        			video.play();
 		            	}
-    			    }
-    			    ,
+    			    },
     			    
-    			    on_file_uploaded_and_valid: function(file_base64) {
+    			    on_file_uploaded_and_valid: function(size, name, content_type, file_base64) {
+    			    	Enable_change_button="yes";
+    			        this.internal_set_value(file_base64);
+    			        this.binary_value = true;
+    			        this.render_value();
+    			        this.set_filename(name);
+    			    },
+    			    
+    			    on_file_uploaded_and_valid1: function(file_base64) {
     			    	
     			        this.internal_set_value(file_base64);
     			        this.binary_value = true;
