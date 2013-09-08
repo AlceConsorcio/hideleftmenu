@@ -64,7 +64,11 @@ You will find a directory called bootstrap3 with the bootstrap's source code, th
 do that is be able to just pull from original bootstrap project and commit in this module almost
 directly.
 
+Is you want compile your own version of bootstrap_ download the source code in the link_
+
 .. _here http://getbootstrap.com/
+.. _bootstrap https://github.com/twbs/bootstrap/
+.. _link https://github.com/twbs/bootstrap/
     """,
     'version': "1.0",
     'depends': [
