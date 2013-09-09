@@ -75,7 +75,7 @@ Is you want compile your own version of bootstrap_ download the source code in t
         'web'
         ],
     'js': [
-        'static/src/bootstrap3/dist/js/bootstrap.js',
+        'static/src/js/bootstrap.js',
     ],
     'css': [
         'static/src/css/bs3-openerp.css',
