@@ -26,13 +26,12 @@
     "author" : "Serpent Consulting Services Pvt. Ltd.",
     "category": 'Image',
     'complexity': "easy",
-    'depends': ['product'],
+    'depends': ['web'],
     "description": """
         This module provides the functionality to store multiple images for one record.
-        All images store in server directory. so database size does not increase.
+        All images store in server directory. so database size doesnot increase.
     """,
     'update_xml': [
-        'product_view.xml',
     ],
     'js':[
           "static/lib/lightbox/js/jquery.lightbox.js",
