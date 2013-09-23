@@ -54,13 +54,13 @@ Will render something like this:
 .. image:: /web_fontawesome/static/src/img/menu.png
    :alt: Menu Example.
 
-You can use it too directly in your Form Views, simply try this examples_ on the
-oficial FontAwesome documentation directly as simple html on your Form and Kanban Views.
-
 .. note::
    
-   Until `THIS MERGE`_ is not applied you must apply this patch in your sever or simply merge the
-   revno 4031 of this branch_.
+   Until `THIS MERGE`_ is not applied on server, to be able to use the feature explained above you
+   must apply this patch in your sever or simply merge the revno 4031 of this branch_.
+
+You can use it too directly in your Form Views, simply try this examples_ on the
+oficial FontAwesome documentation directly as simple html on your Form and Kanban Views.
 
 .. _examples: http://fontawesome.io/examples/ 
 .. _THIS MERGE: https://code.launchpad.net/~vauxoo/openerp-web/7.0-missing-menu-attr-nhomar/+merge/186960  
