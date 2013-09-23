@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- vim:fdl=1:
+-->
+<templates id="template" xml:space="preserve">
+    <t t-extend="Menu.link">
+        <t t-jquery="span.oe_menu_text" t-operation="prepend">
+            <t t-if="menu.web_icon"> <i t-att-class="menu.web_icon.split(',')[1]"></i> </t>
+        </t>
+    </t>
+</templates>

@@ -24,13 +24,47 @@
 {
     'name': "FontAwesome 3.2.1",
     'author': "Vauxoo",
+    'website': "http://www.vauxoo.com",
     'category': "Hidden",
     'description': """
-Just let have available: fontawesome for Bootstrap 3.0.2 available on V7.0
+Just let have available: fontawesome for Bootstrap 3.0.2 available on Openerp V7.0
 
 More information and documentation about how use it:
 
 http://fontawesome.io
+
+Some things you will be able to do:
+
+if you declare a menu with web_icon in v7 it was ignored, now, you can set simply the class name
+available in this examples:
+
+A menu declared like this:
+
+.. code::
+    
+    + 45     <menuitem action="action_client_main"
+    <!-- Icon Home a little bigger. -->
+    + 46               web_icon="icon-home icon-large" 
+    <!-- Name with an Space to avoid be ignored by the Web Client -->
+    + 47               name=" " 
+    + 48               id="menu_client_home" sequence="1"/>
+
+Will render something like this:
+
+.. image:: /web_fontawesome/static/src/img/menu.png
+   :alt: Menu Example.
+
+You can use it too directly in your Form Views, simply try this examples_ on the
+oficial FontAwesome documentation directly as simple html on your Form and Kanban Views.
+
+.. note::
+   
+   Until `THIS MERGE`_ is not applied you must apply this patch in your sever or simply merge the
+   revno 4031 of this branch_.
+
+.. _examples: http://fontawesome.io/examples/ 
+.. _THIS MERGE: https://code.launchpad.net/~vauxoo/openerp-web/7.0-missing-menu-attr-nhomar/+merge/186960  
+.. _branch: https://code.launchpad.net/~vauxoo/openerp-web/7.0-missing-menu-attr-nhomar 
     """,
     'version': "1.0",
     'depends': ['web'],
@@ -41,6 +75,7 @@ http://fontawesome.io
 #        'static/src/css/font-awesome-ie7.css',
     ],
     'qweb': [
+        'static/src/xml/base.xml',
     ],
     'installable': True,
     'auto_install': False,
