@@ -122,27 +122,30 @@ instance.web.form.FieldMany2ManyTagsAttachments = instance.web.form.FieldMany2Ma
         * should have a different behavior
         */
         if (this.field.relation==='ir.attachment' && (this.field.type==='many2many' || this.field.type==='one2many')){
-        imgCont = ('<img src=/download_attachment/#field="datas"&model="ir.attachment"&id="'+value.id+'"></img>')        
-        console.log(imgCont);
-        headerText = $('<textarea class="field_text" style="overflow: hidden; width:550px; word-wrap: break-word; margin-right:0px; margin-bottom:0px;"></textarea>').val(imgCont);
-        DialogHtml = $('<div class="oe_view_manager oe_view_manager_new">');
-        headerText.appendTo(DialogHtml);
-        DialogHtml.dialog({
-            show: {
-                effect: "blind",
-                duration: 500
-            },
-            title: 'To Use it: Copy and paste in your html',
-            width: 580,
-            buttons: {
-                'Copy to Clipboard': function(){console.log("Copied");},
-                'Test It': function(){console.log("All Ok!");},
+            image_url = instance.mail.ChatterUtils.get_image(this.session, 'ir.attachment', 'datas', value.id);
+            imgCont = ('<img src='+image_url+' class="thumbnail" style="margin-left: auto; margin-right: auto;">'+value.name+'</img>')        
+            headerText = $('<textarea class="field_text" style="overflow: hidden; width:550px; word-wrap: break-word; margin-right:0px; margin-bottom:0px;"></textarea>').val(imgCont);
+            DialogHtml = $('<div class="oe_view_manager oe_view_manager_new bs3"><div id="AlertNoRepeatThisID" class="text-center"></div></div>');
+            headerText.appendTo(DialogHtml);
+            DialogHtml.dialog({
+                show: {
+                    effect: "blind",
+                    duration: 500
+                },
+                title: 'To Use it: Copy and paste in your html',
+                width: 580,
+                buttons: {
+                    'Test It': function(){
+                        /*
+                        * Preview the image
+                        */
+                        console.log($('#AlertNoRepeatThisID'));
+                        $('#AlertNoRepeatThisID').html(imgCont);
+                        $('#AlertNoRepeatThisID').show();
+               },
             }
         }); 
-        console.log(this.field.relation);
-        console.log('Click Workiiiing');
         } else {
-        console.log('It is not attachments');
         }
     },
     on_change_value_check : function () {
