@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<templates>
+<t t-extend="FieldMany2ManyTag">
+    <t t-jquery="span.oe_tag" t-operation="inner">
+        <a href="#"><i class="icon-copy"></i></a><t t-esc="el[1]"/>
+        <t t-log="el"/>
+    </t>
+</t>
+</templates>
