@@ -3,6 +3,34 @@ var _t = instance.web._t,
    _lt = instance.web._lt;
 var QWeb = instance.web.qweb;
 /**
+ * Extend the html widget to allow manage correctly internal images before go to the server
+ * We take off the "session_id" from the attr "src" and "href" in all links that are locals to this
+ * server and include them when it is needed.
+ */
+instance.web.form.FieldTextHtml.include({
+    render_value: function() {
+        if (! this.get("effective_readonly")) {
+            this.$textarea.val(this.get('value') || '');
+            this._updating_editor = true;
+            this.$cleditor.updateFrame();
+            this._updating_editor = false;
+        } else {
+            this.$el.html(this.get('value'));
+        }
+    },
+    set_value: function(value_) {
+                   /**
+                    * Stop TODO: with URI.js manipulate the urls.
+                    */
+        console.log('En mi set Value');
+        variable = $(value_).find('img');
+        console.log(variable.length);
+        console.log('Fin de mi set value');
+        parsed = $(value_).html();
+        this._super.apply(this, [parsed]);
+    }
+});
+/**
  * Extend of FieldMany2ManyTags widget method.
  * When many2many is used with attachments show a preview of the attachment if it is an image
  */
