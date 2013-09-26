@@ -4,8 +4,7 @@ var _t = instance.web._t,
 var QWeb = instance.web.qweb;
 /**
  * Extend of FieldMany2ManyTags widget method.
- * When the user add a partner and the partner don't have an email, open a popup to purpose to add an email.
- * The user can choose to add an email or cancel and close the popup.
+ * When many2many is used with attachments show a preview of the attachment if it is an image
  */
 instance.web.form.FieldMany2ManyTagsAttachments = instance.web.form.FieldMany2ManyTags.extend({
 
