@@ -157,45 +157,6 @@ instance.web.form.FieldMany2ManyTagsAttachments = instance.web.form.FieldMany2Ma
             // check values
         }
     }
-
-    /*
-    _check_email_popup: function (ids) {
-        var self = this;
-        new instance.web.Model('res.partner').call("search", [[
-                ["id", "in", ids], 
-                ["email", "=", false], 
-                ["notification_email_send", "in", ['all', 'comment']] ]], 
-                {context: this.build_context()})
-            .then(function (record_ids) {
-                // valid partner
-                var valid_partner = _.difference(ids, record_ids);
-                self.values = self.values.concat(valid_partner);
-                self.values_checking = _.difference(self.values_checking, valid_partner);
-
-                // unvalid partner
-                _.each(record_ids, function (id) {
-                    var pop = new instance.web.form.FormOpenPopup(self);
-                    pop.show_element(
-                        'res.partner',
-                        id,
-                        self.build_context(),
-                        {
-                            title: _t("Please complete partner's informations and Email"),
-                        }
-                    );
-                    pop.on('write_completed', self, function () {
-                        this.values.push(id);
-                        this.values_checking = _.without(this.values_checking, id);
-                        this.set({'value': this.values});
-                    });
-                    pop.on('closed', self, function () {
-                        this.values_checking = _.without(this.values_checking, id);
-                        this.set({'value': this.values});
-                    });
-                });
-            });
-    },
-    */
 });
 
 
