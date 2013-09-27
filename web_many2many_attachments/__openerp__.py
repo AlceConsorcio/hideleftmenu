@@ -34,7 +34,8 @@ attachments in OpenERP depends of it.
     'version': "1.0",
     'depends': ['web', 'mail'],
     'js': [
-        'static/src/js/many2many_att.js'
+        'static/src/js/many2many_att.js',
+        'static/src/lib/URI.js'
     ],
     'css': [
     ],
