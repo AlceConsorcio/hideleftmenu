@@ -20,12 +20,13 @@
 ##############################################################################
 
 {
-    'name': "webcam",
+    'name': "Webcam Widget Module",
     'version': "1.0",
     'description': """
-        Widget for Taking Photo using a webcam.
+        Widget for Capturing Image using a webcam.
     """,
     'depends': ['web'],
+    'website' : "http://www.techreceptives.com",
     'author': "Tech-Receptives Solutions Pvt. Ltd",
     'js': ['static/src/js/view.js'],
     'qweb': ['static/src/xml/webcam_template.xml'],
