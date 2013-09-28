@@ -53,7 +53,7 @@ openerp.web.form.FieldBinaryImageMulti = openerp.web.form.FieldBinaryImage.exten
         }
         this.image_list_dialog = new openerp.web.Dialog(this, {
             title: _t("Image List"),
-            width: '840px',
+            width: '700px',
             height: '70%',
             min_width: '600px',
             min_height: '500px',
@@ -194,6 +194,7 @@ openerp.web.form.FieldBinaryImageMulti = openerp.web.form.FieldBinaryImage.exten
         }
     },
     on_preview_button: function() {
+    	console.log(this.get('value'))
         var images_list = JSON.parse(this.get('value'));
         var url_list = [];
         var self = this;

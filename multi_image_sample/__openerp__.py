@@ -20,6 +20,20 @@
 #
 ##############################################################################
 
-import controllers
+{
+    "name" : "Multi Image Sample",
+    "version" : "1.0",
+    "author" : "Serpent Consulting Services Pvt. Ltd.",
+    'website': 'http://www.serpentcs.com',
+    "category": 'Image',
+    'complexity': "easy",
+    'depends': ['multi_image', 'product'],
+    "description": """
+        This module is used for added multi image widget in product.
+    """,
+    'update_xml': ['product_view.xml'],
+    'installable': True,
+    'auto_install': False,
+}
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

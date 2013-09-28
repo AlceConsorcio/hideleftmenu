@@ -45,7 +45,7 @@
 				imageData += '<span id="helpDisplay">' + opts.strings.help + '</span>';
 			}
 
-			imageData += '<a href="javascript://" id="bottomNavClose" title="' + opts.strings.closeTitle + '"><img src="'+opts.fileBottomNavCloseImage+'"></a></div></div></div>';
+			imageData += '<a href="javascript://" id="bottomNavClose" class="ui-dialog-titlebar-close ui-corner-all ui-state-hover" title="' + opts.strings.closeTitle + '"><span class="ui-icon ui-icon-closethick">close</span></a></div></div></div>';
 
 			var string;
 

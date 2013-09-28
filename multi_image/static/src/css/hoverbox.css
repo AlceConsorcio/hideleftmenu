@@ -21,8 +21,7 @@
    color: inherit;
    padding: 2px;
    vertical-align: top;
-   width: 180px;
-   height: 150px;
+   width: 150px;
 }
 
 .hoverbox
@@ -41,7 +40,6 @@
 {
    border-color: #000;
    width: 320px;
-   height: 250px;
 }
 
 .oe-remove-image
