@@ -8,6 +8,7 @@ var QWeb = instance.web.qweb;
  * server and include them when it is needed.
  */
 instance.web.form.FieldTextHtml.include({
+    /*
     render_value: function() {
         if (! this.get("effective_readonly")) {
             this.$textarea.val(this.get('value') || '');
@@ -18,30 +19,21 @@ instance.web.form.FieldTextHtml.include({
             this.$el.html(this.get('value'));
         }
     },
-    rem_authority: function(uri_){
-        console.log('Removed Clean Authority');
-        uriClean = uri_
-    return uriClean
-    },
-    set_session_id: function(uri_){
-        console.log('Removed Session Id');
-        uriSession_id = uri_
-    return uriSession_id
-    },
-    /**
-     * Overwritten to allow us remove the authority part and the session id always we can.
-     */
     set_value: function(value_) {
-        variable = $(value_);
-        //prueba con selector
-        sessionInfo = new URI(this.session.origin)
-        variable.find('img:uri(authority = '+sessionInfo.authority()+')').each(function(){
-            u = $(this).uri()
-            u.addQuery({session_id: sessionInfo.session_id})
-        });
-        parsed = variable.html();
+*/
+                   /**
+                    * Stop TODO: with URI.js manipulate the urls.
+                    */
+                   /**
+        console.log('En mi set Value');
+        variable = $(value_).find('img');
+        console.log(variable.length);
+        console.log('Fin de mi set value');
+        parsed = $(value_).html();
         this._super.apply(this, [parsed]);
+
     }
+                    */
 });
 /**
  * Extend of FieldMany2ManyTags widget method.
