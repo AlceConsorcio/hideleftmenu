@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_attachment_public_form" model="ir.ui.view">
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="model">ir.attachment</field>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header>
+                    <button type="object" string="Publish" class="oe_highlight oe_inline" name="publish_document"
+                        attrs="{'invisible': [('public_path', '!=', False)]}"
+help="This document actually is private and you can access it trought and http link if you click this button, to be able to share this kind of document you must ask access to administrator to be sure you have the correct acces rights to share internal documents, You must be part of 'Share User' group to put publically your own documents and you must be part od 'Share Manager' to share documents owned by others, 'All this is true if the folder allow Share Public Access'."/>
+                    <button type="object" string="Unpublish" class="oe_highlight oe_inline" name="unpublish_document"
+                        attrs="{'invisible': [('public_path', '=', False)]}"
+help="Stop share this document, If it is owned by you or if you are part of 'Share Manager' users.'"/>
+                    <div class="oe_form_box_info oe_text_center" attrs="{'invisible': [('public_path', '=', False)]}">
+                        <p>You can access to this file publically in the following link</p>
+                        <field name="public_path" widget="url"/>
+                    </div>
+                    </header>
+                </xpath>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_document_directory_publish_form">
+            <field name="inherit_id" ref="document.view_document_directory_form"/>
+            <field name="model">document.directory</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="publish"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

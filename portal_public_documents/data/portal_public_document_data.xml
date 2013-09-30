@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <record model="document.directory.content.type" id="png">
+        <field name="code">.png</field>
+        <field name="name">PNG Image</field>
+        <field name="mimetype">image/png</field>
+    </record>
+    <record model="document.directory.content.type" id="jpg">
+        <field name="code">.jpg</field>
+        <field name="name">JPG Image</field>
+        <field name="mimetype">image/jpg</field>
+    </record>
+    <record model="document.directory.content.type" id="jpeg">
+        <field name="code">.jpeg</field>
+        <field name="name">JPEG Image</field>
+        <field name="mimetype">image/jpeg</field>
+    </record>
+    <record model="document.directory.content.type" id="jpeg">
+        <field name="code">.jpeg</field>
+        <field name="name">JPEG Image</field>
+        <field name="mimetype">image/pjpeg</field>
+    </record>
+    <record model="document.directory.content.type" id="gif">
+        <field name="code">.gif</field>
+        <field name="name">GIF Image</field>
+        <field name="mimetype">image/gif</field>
+    </record>
+</data>
+<data>
+    <!-- Pre Create a public Folder. -->
+    <record model="document.directory" id="dir_public_root">
+        <field name="name">Public</field>
+        <field name="user_id" eval="False"/>
+        <field name="group_ids" eval="[(6,0,[ref('share.group_share_user')])]"/>
+        <field name="publish" eval="True"/>
+        <field name="ressource_id">0</field>
+    </record>
+</data>
+</openerp>
