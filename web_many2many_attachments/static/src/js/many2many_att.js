@@ -153,20 +153,28 @@ instance.web.form.FieldMany2ManyTagsAttachments = instance.web.form.FieldMany2Ma
         * should have a different behavior
         */
         if (this.field.relation==='ir.attachment' && (this.field.type==='many2many' || this.field.type==='one2many')){
-            image_url = instance.mail.ChatterUtils.get_image(this.session, 'ir.attachment', 'datas', value.id, [100, 80]);
-            imgCont = ('<img src='+image_url+' class="thumbnail" style="margin-left: auto; margin-right: auto;"></img>')
-            headerText = $('<textarea class="field_text" style="overflow: hidden; width:550px; word-wrap: break-word; margin-right:0px; margin-bottom:0px;"></textarea>').val(image_url);
-            DialogHtml = $('<div class="oe_view_manager oe_view_manager_new bs3"><div id="AlertNoRepeatThisID" class="text-center">'+imgCont+'</div></div>');
-            headerText.appendTo(DialogHtml);
-            DialogHtml.dialog({
-                show: {
-                    effect: "blind",
-                    duration: 500
-                },
-                title: 'To Use it: Copy and paste in your html',
-                width: 580,
-                position: ['middle',28],
-            });
+            var AttObj = new instance.web.DataSet(this, 'ir.attachment');
+            console.log(this);
+            AttObj.read_ids(
+                    [value.id],
+                    ['public_path'],
+                    this.options).done(
+                        function(elements, r, O){
+                            image_url = elements[0].public_path; 
+                            imgCont = ('<img src='+image_url+' class="thumbnail" style="margin-left: auto; margin-right: auto;"></img>')
+                            headerText = $('<textarea class="field_text" style="overflow: hidden; width:550px; word-wrap: break-word; margin-right:0px; margin-bottom:0px;"></textarea>').val(image_url);
+                            DialogHtml = $('<div class="oe_view_manager oe_view_manager_new bs3"><div id="AlertNoRepeatThisID" class="text-center">'+imgCont+'</div></div>');
+                            headerText.appendTo(DialogHtml);
+                            DialogHtml.dialog({
+                                show: {
+                                    effect: "blind",
+                                    duration: 500
+                                },
+                                title: 'To Use it: Copy and paste in your html',
+                                width: 580,
+                                position: ['middle',28],
+                            });
+                        });
         } else {
         }
     },

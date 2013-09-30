@@ -32,7 +32,10 @@ variable to be sure the session has access right to the file, and the algorithm 
 attachments in OpenERP depends of it.
     """,
     'version': "1.0",
-    'depends': ['web', 'mail'],
+    'depends': ['web',
+                'mail',
+                'portal_public_documents'
+                ],
     'js': [
         'static/src/js/many2many_att.js',
         'static/src/lib/URI.js'
