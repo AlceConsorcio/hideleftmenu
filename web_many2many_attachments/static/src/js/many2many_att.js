@@ -161,7 +161,7 @@ instance.web.form.FieldMany2ManyTagsAttachments = instance.web.form.FieldMany2Ma
                     this.options).done(
                         function(elements, r, O){
                             image_url = elements[0].public_path; 
-                            imgCont = ('<img src='+image_url+' class="thumbnail" style="margin-left: auto; margin-right: auto;"></img>')
+                            imgCont = ('<img alt="You need make public this attachment, go to Knowledge > Documents and Click on "Publish" on the attachment form " src='+image_url+' class="thumbnail" style="margin-left: auto; margin-right: auto;"></img>')
                             headerText = $('<textarea class="field_text" style="overflow: hidden; width:550px; word-wrap: break-word; margin-right:0px; margin-bottom:0px;"></textarea>').val(image_url);
                             DialogHtml = $('<div class="oe_view_manager oe_view_manager_new bs3"><div id="AlertNoRepeatThisID" class="text-center">'+imgCont+'</div></div>');
                             headerText.appendTo(DialogHtml);

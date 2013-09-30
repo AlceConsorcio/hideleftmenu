@@ -15,7 +15,7 @@ help="This document actually is private and you can access it trought and http l
 help="Stop share this document, If it is owned by you or if you are part of 'Share Manager' users.'"/>
                     <div class="oe_form_box_info oe_text_center" attrs="{'invisible': [('public_path', '=', False)]}">
                         <p>You can access to this file publically in the following link</p>
-                        <field name="public_path" widget="url"/>
+                      <field name="public_path" widget="url"/>
                     </div>
                     </header>
                 </xpath>
