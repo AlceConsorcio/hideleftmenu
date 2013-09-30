@@ -1,2 +1,3 @@
 ^.DS_Store
 *.DS_Store
+portal_public_documents/static/files/*
