@@ -4,4 +4,16 @@
     TODO: may be write the template with the preview of the image resized
     TODO: A lo mejor el preview sea necesario como lo hacer chatterUtils en el método backward.
 -->
+<t t-name="previewImg">
+    <div class="oe_view_manager oe_view_manager_new bs3">
+        <div id="AlertNoRepeatThisID" class="text-center">
+        <a t-att-href="'#model=ir.attachment&amp;id='+widget.img_id">
+            <img t-att-src="widget.image_url" class="thumbnail col-md-8 col-md-offset-2"/>
+        </a>
+        <div class="col-md-12" style="overflow:hidden;">
+            <a t-att-href="widget.image_url"> Right click "Copy Link Address"</a>
+        </div>
+        </div>
+    </div>
+</t>
 </templates>
