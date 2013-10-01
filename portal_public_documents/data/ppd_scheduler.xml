@@ -3,7 +3,7 @@
 <data>
     <record model="ir.cron" id="run_autovacuum_public">
         <field name="name">Reset Public Files</field>
-        <field name="interval_number">5</field>
+        <field name="interval_number">60</field>
         <field name="interval_type">minutes</field>
         <field name="numbercall">-1</field>
         <field name="model">ir.attachment</field>
