@@ -31,7 +31,7 @@ class Binary(Binary):
                 'datas_fname': ufile.filename,
                 'res_model': model,
                 'res_id': int(id),
-                'parent_id': group_folder_id[1],
+                'parent_id': model == 'mail.group' and group_folder_id[1] or False,
             }, req.context)
             args = {
                 'filename': ufile.filename,
