@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+    <record model="ir.cron" id="run_autovacuum_public">
+        <field name="name">Reset Public Files</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="model">ir.attachment</field>
+        <field name="function">run_autovacuum</field>
+    </record>
+</data>
+</openerp>

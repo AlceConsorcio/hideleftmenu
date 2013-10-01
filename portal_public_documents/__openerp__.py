@@ -25,10 +25,11 @@ Share the link extending the "many2many tag widget."
         ],
     'data': [
         'view/ir_attachment_view.xml',
-        'data/portal_public_document_data.xml'
+        'data/portal_public_document_data.xml',
+        'data/ppd_scheduler.xml',
         ],
     'demo': [
-        'demo/portal_public_document_demo.xml'
+        'demo/portal_public_document_demo.xml',
         ],
     'js': [
         ],

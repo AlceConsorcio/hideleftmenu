@@ -120,6 +120,7 @@ class ir_attachment(osv.Model):
     def publish_document(self, cr, uid, ids, context=None):
         '''
         Make Public a list of attachments.
+        A file is public IF the user_id is anonymous
         '''
         a_brw = self._get_anonymous_id(cr, uid, ids, context=context)
         doc_brw = self.browse(cr, uid, ids, context=context)
@@ -209,12 +210,32 @@ class ir_attachment(osv.Model):
                         'This file was already deleted. %s' % destiny)
         return super(ir_attachment, self).unlink(cr, uid, ids, context)
 
-    def _file_write(self, cr, uid, location, value):
-        return super(ir_attachment, self)._file_write(cr, uid, location, value)
-
     def write(self, cr, uid, ids, vals, context=None):
         self.check(cr, uid, ids, 'write', context=context, values=vals)
         for i in self.browse(cr, uid, ids, context=context):
             if i.public_path:
                 self.unpublish_document(cr, uid, [i.id], context=context)
         return super(ir_attachment, self).write(cr, uid, ids, vals, context)
+
+    def run_autovacuum(self, cr, uid, context=None):
+        if context is None:
+            context = {}
+        def location_p(f):
+            return self._full_path_plocation(cr, uid, plocation, i)
+        a_brw = self._get_anonymous_id(cr, uid, [], context=context)
+        public_ids = self.search(cr, uid, [('user_id', '=', a_brw.id)], context=context)
+        _logger.info('Running Autovacuum Files all your public files will be reseted %s ' %
+                str(public_ids))
+        #I make no public, and then make public again, in this way we ensure all public information
+        #is reseted.
+        self.unpublish_document(cr, uid, public_ids, context=context)
+        plocation = self.pool.get('ir.config_parameter').get_param(cr, uid,
+                                                                   'ir_attachment.plocation')
+        destiny = self._full_path_plocation(
+                cr, uid, plocation, '')
+        p_files = os.listdir(destiny)
+        _logger.info('Destiny folder %s was empty totally' % destiny)
+        if os.path.isdir(destiny):
+            [rmtree(location_p(i)) for i in p_files]
+        self.publish_document(cr, uid, public_ids, context=context)
+        return True
