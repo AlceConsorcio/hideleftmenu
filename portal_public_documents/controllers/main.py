@@ -24,14 +24,12 @@ class Binary(Binary):
                     win.jQuery(win).trigger(%s, %s);
                 </script>"""
         try:
-            import datetime
             attachment_id = Model.create({
-                'name': str(time.time()).replace('.','') + ' ' + ufile.filename,
+                'name': ufile.filename,
                 'datas': base64.encodestring(ufile.read()),
                 'datas_fname': ufile.filename,
                 'res_model': model,
                 'res_id': int(id),
-                'parent_id': model == 'mail.group' and group_folder_id[1] or False,
             }, req.context)
             args = {
                 'filename': ufile.filename,
