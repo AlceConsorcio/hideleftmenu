@@ -10,7 +10,7 @@ import os
 import StringIO
 import xmlrpclib
 import base64
-
+'''
 class Binary(Binary):
     @openerpweb.httprequest
     def upload_attachment(self, req, callback, model, id, ufile):
@@ -38,3 +38,4 @@ class Binary(Binary):
         except xmlrpclib.Fault, e:
             args = {'error':e.faultCode }
         return out % (simplejson.dumps(callback), simplejson.dumps(args))
+'''
