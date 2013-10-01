@@ -36,5 +36,16 @@
         <field name="publish" eval="True"/>
         <field name="ressource_id">0</field>
     </record>
+    <!-- Pre Create a public Folder for mail.group. -->
+    <record model="document.directory" id="portal_public_mail_groups_folder">
+        <field name="name">Mail Group Folder</field>
+        <field name="user_id" eval="False"/>
+        <field name="ressource_type_id" eval="ref('mail.model_mail_group')"/>
+        <field name="group_ids" eval="[(6,0,[ref('share.group_share_user')])]"/>
+        <field name="publish" eval="True"/>
+        <field name="ressource_id">0</field>
+        <field name="type">ressource</field>
+        <field name="parent_id" eval="ref('dir_public_root')"/>
+    </record>
 </data>
 </openerp>
