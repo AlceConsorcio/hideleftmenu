@@ -76,9 +76,12 @@ Is you want compile your own version of bootstrap_ download the source code in t
         ],
     'js': [
         'static/src/js/bootstrap.js',
+        'static/src/js/bootstrap-lightbox.js',
+        #'static/src/js/ekko-lightbox.js',
     ],
     'css': [
         'static/src/css/bs3-openerp.css',
+        'static/src/css/bs3-lightbox.css',
     ],
     'qweb': [
     ],
