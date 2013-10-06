@@ -8,8 +8,10 @@
   <link rel="stylesheet" href="/web_bootstrap3/static/src/css/bs3-openerp.css" type="text/css" media="screen" title="no title" charset="utf-8" />
   <link rel="stylesheet" href="/web_bootstrap3/static/src/css/bs3-lightbox.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 </head>
-<body id="base">
-<p><a data-toggle="lightbox" href="#demoLightbox1">Small Lightbox</a>
+<body id="base" class="bs3"> <!-- Wrap all the example with bs3 namespace-->
+<!-- Example 1: Simple lightbox responsive Element-->
+<div class="row text-center">
+<p><a data-toggle="lightbox" href="#demoLightbox1">Small Lightbox</a> 
 
 </p>
 <div id="demoLightbox1" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -19,5 +21,69 @@
         </div>
     </div>
 </div>
+<!--  -->
+<!-- End First Example -->
+<!-- Example 2: Gallery Elements with Html in the pop up-->
+<section class="row">
+  <div class="container">
+    <ul class="thumbnails">
+      <li class="col-md-3">
+        <a href="#example1" data-toggle="lightbox" class="thumbnail">
+        <img src="/web_bootstrap3/static/src/img/icon.png"/>
+        </a>
+      </li>
+      <li class="col-md-3">
+        <a href="#example2" data-toggle="lightbox" class="thumbnail">
+        <img src="http://www.hello.es/wp-content/uploads/2013/05/512-youtube-icon.png"/>
+        </a>
+      </li>
+      <li class="col-md-3">
+        <a href="#example3" data-toggle="lightbox" class="thumbnail">
+        <img src="/web_bootstrap3/static/src/img/icon.png"/>
+        </a>
+      </li>
+    </ul>
+    <div id="example1" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="lightbox-dialog">
+        <div class="lightbox-content">
+            <img src='data:image/gif;base64,R0lGODdhjACMAOMAAMzMzJaWlsXFxaOjo7GxsZycnLe3t76+vqqqqgAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAjACMAAAE/hDISau9OOvNu/9gKI5kaZ5oqq5s675wLM90bd94ru987//AoHBILBqPyKRyyWw6n9CodEqtWq/YrHbL7Xq/4LB4TC6bz+i0es1uu9/wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWeQI1mWkCAwEXBgGbAAQFBQQinZ8WoaOlp2EEAbMXphMHAQOeByCytBa2Eri6Abxfp54WssYACKICAQggyKsUyxPOAtDSYckU0AMUwcETswe41RTeE+DiBRLkX+sSzge6ErkS86TRzqgW++rdA5APwL4u84YZDEeQ4UFn0TAkzDew4EEu8zwZEFCAocV0mxKgiZKYTiNHjw5BIkw3q+Wqce8qhApggCQFl79giplnoGeomNm2AesYE2A6nz/pPYsIplQAAv9uMhy2q4KznkytFXgatdzUXFXB4LRQkJSprvhG/rrpkixDs7AuyZ1Lt67du3jz6t3Lt6/fv4ADCx5MuLDhw4gTK17MuLHjx5AjS55MubLly5gza97MubPnz6BDix5NurTpuxEAADs='>
+            
+         <div class="lightbox-caption"><p>Your caption here</p></div>
+        </div>
+    </div>
+  </div>
+    <div id="example2" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="lightbox-dialog">
+        <div class="lightbox-content">
+            <img src='data:image/gif;base64,R0lGODdhjACMAOMAAMzMzJaWlsXFxaOjo7GxsZycnLe3t76+vqqqqgAAAAAAAAAAAAAAAAAAAAAAAAAAACwAAAAAjACMAAAE/hDISau9OOvNu/9gKI5kaZ5oqq5s675wLM90bd94ru987//AoHBILBqPyKRyyWw6n9CodEqtWq/YrHbL7Xq/4LB4TC6bz+i0es1uu9/wuHxOr9vv+Lx+z+/7/4CBgoOEhYaHiImKi4yNjo+QkZKTlJWWeQI1mWkCAwEXBgGbAAQFBQQinZ8WoaOlp2EEAbMXphMHAQOeByCytBa2Eri6Abxfp54WssYACKICAQggyKsUyxPOAtDSYckU0AMUwcETswe41RTeE+DiBRLkX+sSzge6ErkS86TRzqgW++rdA5APwL4u84YZDEeQ4UFn0TAkzDew4EEu8zwZEFCAocV0mxKgiZKYTiNHjw5BIkw3q+Wqce8qhApggCQFl79giplnoGeomNm2AesYE2A6nz/pPYsIplQAAv9uMhy2q4KznkytFXgatdzUXFXB4LRQkJSprvhG/rrpkixDs7AuyZ1Lt67du3jz6t3Lt6/fv4ADCx5MuLDhw4gTK17MuLHjx5AjS55MubLly5gza97MubPnz6BDix5NurTpuxEAADs='>
+            
+         <div class="lightbox-caption"><p>Your caption here</p></div>
+        </div>
+    </div>
+  </div>
+  <div id="example3" class="lightbox fade lightbox-html" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="lightbox-dialog">
+        <div class="lightbox-content lead">
+        <div>
+         <div class="col-md-3">
+          <ul>
+             <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+             <li>Aliquam tincidunt mauris eu risus.</li>
+             <li>Vestibulum auctor dapibus neque.</li>
+          </ul>
+         </div>
+         <div class="col-md-9">
+         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+         <iframe width="560" height="315" src="//www.youtube.com/embed/858kpMv7hDQ" frameborder="0" allowfullscreen></iframe>
+         <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+         </div>
+        </div>
+         <div class="lightbox-caption"><p>Your caption here</p></div>
+        </div>
+    </div>
+  </div>
+  </div>
+</section>
+
 </body>
 </html>

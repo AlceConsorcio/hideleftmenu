@@ -3,7 +3,7 @@
 * Copyright 2013 Jason Butz
 * http://www.apache.org/licenses/LICENSE-2.0.txt
 */
- .lightbox-open {
+.lightbox-open {
     overflow: hidden;
 }
 body.lightbox-open, .lightbox-open .navbar-fixed-top, .lightbox-open .navbar-fixed-bottom {
@@ -74,4 +74,14 @@ body.lightbox-open, .lightbox-open .navbar-fixed-top, .lightbox-open .navbar-fix
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
     background: #000;
     background: rgba(0, 0, 0, 0.6);
+}
+
+.lightbox.lightbox-html {
+    position: fixed;
+    width: 1018px;
+    height: 682px;
+    top: 24px;
+    left: 50%;
+    margin-left: -509px;
+    display: none;
 }
