@@ -288,10 +288,12 @@
 
     $(document)
         .on('show.bs.lightbox', '.lightbox', function () {
-        $(document.body).addClass('lightbox-open')
+        $(document.body).addClass('lightbox-open');
+        $(document.body).addClass('bs3');
     })
         .on('hidden.bs.lightbox', '.lightbox', function () {
-        $(document.body).removeClass('lightbox-open')
+        $(document.body).removeClass('lightbox-open');
+        $(document.body).removeClass('bs3');
     })
 
 }(window.jQuery);
