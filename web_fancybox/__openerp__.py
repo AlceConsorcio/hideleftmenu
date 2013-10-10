@@ -32,8 +32,11 @@ This module only make available this lib_ for openerp.
         'web'
         ],
     'js': [
+        'static/src/lib/fancyapps-fancyBox-18d1712/source/jquery.fancybox.js',
+        'static/src/lib/fancyapps-fancyBox-18d1712/source/helpers/*.js',
     ],
     'css': [
+        'static/src/lib/fancyapps-fancyBox-18d1712/source/jquery.fancybox.css',
     ],
     'qweb': [
     ],
