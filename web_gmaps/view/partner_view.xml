@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+    
+        <record model="ir.ui.view" id="view_res_partner_form_gmaps">
+            <field name="name">res.partner_geo_map.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Gmaps">
+                        <field name="geo_all" widget="gmaps"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
