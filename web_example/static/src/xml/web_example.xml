@@ -1,5 +1,5 @@
 <templates>
     
-    <div t-name="web_example.action" id="map_canvas" class="oe_map_canvas"></div>
+    <div t-name="web_example.Map" id="map_canvas" class="oe_map_canvas"></div>
     
 </templates>

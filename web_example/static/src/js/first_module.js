@@ -1,3 +1,5 @@
+openerp.web_example = function (instance){
+
 var map, polygon;
 var markers = [];
 var path = new google.maps.MVCArray;
@@ -70,12 +72,10 @@ function endShape() {
     google.maps.event.removeListener(event_click_map);
 }
 
-openerp.web_example = function (instance){
         
-    instance.web.client_actions.add('example.action','instance.web_example.Action');
 
-    instance.web_example.Action = instance.web.Widget.extend({
-        className: 'oe_map_canvas',
+    instance.web_example.Map = instance.web.Widget.extend({
+        template: 'web_example.Map',
         init: function(parent) {
 			this._super(parent);
 		},
@@ -124,11 +124,5 @@ openerp.web_example = function (instance){
 			);
         }
     });
-    
-    //~ instance.web.client_actions.add('boton','instance.web_example.Action');
-    //~ instance.web_example.Boton = instance.web.Widget.extend({
-		//~ className: 'boton',
-		//~ start: function () {
-		//~ }
-    //~ });
+    instance.web.client_actions.add('example.action','instance.web_example.Map');
 };
