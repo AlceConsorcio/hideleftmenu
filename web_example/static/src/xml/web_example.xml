@@ -36,7 +36,7 @@
         </section>
         <section class="row">
             <div class="container">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <p class="lead">Click aquí para seleccionar los puntos de un área</p>
                     <div id='shape_b' class='unselected'>
                     </div>
@@ -50,7 +50,7 @@
                 <div id="map_canvas" class="oe_map_canvas col-md-6">
                 </div>
                 <!--We add a placeholder where the list element widget will be appended to-->
-                <div class="col-md-2 oe_list_placeholder">
+                <div class="col-md-3 oe_list_placeholder">
                 </div>
             </div>
         </section>
@@ -68,14 +68,6 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td> ID </td>
-                    <td> name </td>
-                </tr>
-                <tr>
-                    <td> ID </td>
-                    <td> name </td>
-                </tr>
             </tbody>
         </table>
     </div>
