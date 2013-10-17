@@ -1,5 +1,19 @@
 <templates>
     
-    <div t-name="web_example.Map" id="map_canvas" class="oe_map_canvas"></div>
+    <div t-name="web_example.Map" class="bs3">
+        <div class="row container">
+            <a href="#" class="btn btn-success oe_load_map">Load Map</a>
+        </div>
+        <div class="row container">
+            <div id='shape_b' class='unselected'>
+            </div>
+            <div id='shape_area'>
+            </div>
+            <div id='paths'>
+            </div>
+        </div>
+        <div id="map_canvas" class="row oe_map_canvas col-md-9">
+        </div>
+    </div>
     
 </templates>
