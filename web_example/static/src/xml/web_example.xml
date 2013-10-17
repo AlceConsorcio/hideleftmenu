@@ -1,19 +1,46 @@
 <templates>
-    
     <div t-name="web_example.Map" class="bs3">
-        <div class="row container">
-            <a href="#" class="btn btn-success oe_load_map">Load Map</a>
-        </div>
-        <div class="row container">
-            <div id='shape_b' class='unselected'>
+        <section class="row porquevauxoo information">
+            <div class="project_main jumbotron">
+            <div class="container">
+            <div class="col-md-8">
+            <h1>Widget Test Google Maps embebido.</h1>
+            <p class="lead">Solamente requieres cargar el mapa, y podrás estimar áreas en la zona
+                de tu preferencia, éste widget es para efectos didácticos las especificaciones y
+                todas las funcionalidades estarán en producción.</p>
+            <a href="#" class="btn btn-success oe_load_map pull-right">Load Map</a>
             </div>
-            <div id='shape_area'>
+            <div class="col-md-4">
+                <img src="/web_example/static/src/img/destacada.gif" class="img-thumbnail"/>
             </div>
-            <div id='paths'>
             </div>
+            </div>
+        </section>
+        <hr/>
+        <section class="row">
+        <div class="container">
         </div>
-        <div id="map_canvas" class="row oe_map_canvas col-md-9">
+        </section>
+        <section class="row">
+        <div class="container">
         </div>
+        </section>
+        <section class="row">
+            <div class="container">
+                <div class="col-md-4">
+                    <p class="lead">Click aquí para seleccionar los puntos de un área</p>
+                    <div id='shape_b' class='unselected'>
+                    </div>
+                    <p class="lead">Área Calculada</p>
+                    <div id='shape_area'>
+                    </div>
+                    <p class="lead">Puntos del Path</p>
+                    <div id='paths'>
+                    </div>
+                </div>
+                <div id="map_canvas" class="oe_map_canvas col-md-8">
+                </div>
+            </div>
+        </section>
     </div>
-    
 </templates>

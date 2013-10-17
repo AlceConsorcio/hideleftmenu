@@ -121,7 +121,9 @@ openerp.web_example = function (instance){
         start: function() {
             var self = this;
 			this._super.apply(this, arguments);
-            this.$('a.oe_load_map').on('click', function(){self.loadMap(self)});
+            this.$('a.oe_load_map').on('click', function(){
+                self.loadMap(self);
+                self.$('.information').fadeOut(400);});
         }
     });
     instance.web.client_actions.add('example.action','instance.web_example.Map');
