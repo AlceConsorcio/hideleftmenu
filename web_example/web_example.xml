@@ -5,10 +5,11 @@
             <field name="tag">example.action</field>
             <field name="res_model">res.partner</field>
             <field name="params" eval="{
-                    'domain': [
-                    ],
+                'domain': [
+                    ('name', 'ilike', 'Vauxoo'),
+                ],
                     'context':{
-                    }
+                }
                 }"/>
         </record>
         <menuitem action="action_client_map" id="menu_client_example"/>
