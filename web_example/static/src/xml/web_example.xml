@@ -47,9 +47,36 @@
                     <div id='paths'>
                     </div>
                 </div>
-                <div id="map_canvas" class="oe_map_canvas col-md-8">
+                <div id="map_canvas" class="oe_map_canvas col-md-6">
+                </div>
+                <!--We add a placeholder where the list element widget will be appended to-->
+                <div class="col-md-2 oe_list_placeholder">
                 </div>
             </div>
         </section>
+    </div>
+    <div t-name="web_example.ListElements">
+        <t t-log="'Render something'"/>
+        <table class="table table-striped">
+        <!-- Bootstrap classes are added only for look and Feel remember all this code is not
+             necesary if you use a ViewList widget, but it is not our case becasue we want
+             ilustrate the "retreive data" concept -->
+            <thead>
+                <tr>
+                    <td> ID </td>
+                    <td> name </td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> ID </td>
+                    <td> name </td>
+                </tr>
+                <tr>
+                    <td> ID </td>
+                    <td> name </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </templates>

@@ -132,10 +132,24 @@ openerp.web_example = function (instance){
         start: function() {
             var self = this;
 			this._super.apply(this, arguments);
+            //We instanciate the widget with data, see the parameter passed is "Self" to be sure
+            //both objects are connected and retreive informatios from parent in the child.
+            //If you dont pass the self object, then you will need to be care of a lot of not
+            //necesary thing already in the framework.
+            this.elements = new instance.web_example.ListElements(self);
             this.$('a.oe_load_map').on('click', function(){
                 self.loadMap(self);
-                self.$('.information').fadeOut(400);});
+                self.$('.information').fadeOut(400);
+                //We just use Jquery to show the information where we need.
+                self.elements.appendTo(self.$('.oe_list_placeholder'));
+            });
         }
     });
+    instance.web_example.ListElements = instance.web.Widget.extend({
+        template: 'web_example.ListElements',
+        init: function(parent){
+            this._super();
+        }
+    })
     instance.web.client_actions.add('example.action','instance.web_example.Map');
 };
