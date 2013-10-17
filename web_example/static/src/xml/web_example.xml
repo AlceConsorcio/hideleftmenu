@@ -65,6 +65,7 @@
              ilustrate the "retreive data" concept -->
             <thead>
                 <tr>
+                    <td> Link </td>
                     <td> ID </td>
                     <td> name </td>
                     <td> comments </td>

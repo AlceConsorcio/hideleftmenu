@@ -165,13 +165,14 @@ openerp.web_example = function (instance){
         },
         render_list: function(){
             self = this;
-            this.obj_model_search.read_slice(['name'], self.options)
+            this.obj_model_search.read_slice(['name', 'comment'], self.options)
                 .done(function(results){
                 //Example of async render.
                 //It can be done with templating Qweb, or wired "building in the code the view".
                 //as we are doing here
                 _.each(results, function(res){
-                    row_ = $('<tr><td>'+res.id+'</td>'+'<td>'+res.name+'</td></tr>') 
+                    link = '<a href="#model='+self.model+'&id='+res.id+'" class="btn btn-warning">Open Record</a>'
+                    row_ = $('<tr>'+'<td>'+link+'</td>'+'<td>'+res.id+'</td>'+'<td>'+res.name+'</td>'+'<td>'+(res.comment || '') +'</td>'+'</tr>') 
                     row_.appendTo(self.$('tbody'));
                 })
                  
