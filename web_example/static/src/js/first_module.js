@@ -13,13 +13,13 @@ openerp.web_example = function (instance){
             //Take the "res_model" Field and become part of the widget.
             this.res_model = this.action.res_model; 
             //Take the "params[options]" part of Field and become part of the widget.
-            this.options = this.action.params.options; 
+            this.options = this.action.params.options || {}; 
             //Take the "params[domain]" part of Field and become part of the widget.
-            this.domain = this.action.params.domain; 
+            this.options.domain = this.action.params.domain; 
             //Take the "params[context]" part of Field and become part of the widget.
             //B care about the _.extend of underscore read the specific documentation to
             //understand why it is being used.
-            this.context = _.extend(this.action.params.context || {}, this.action.context || {});
+            this.options.context = _.extend(this.action.params.context || {}, this.action.context || {});
 			this._super(parent);
 		},
         writeArea: function () {
@@ -57,10 +57,10 @@ openerp.web_example = function (instance){
             
             google.maps.event.addListener(marker, 'dragend', function() {
                 var i = 0;
-                for (var I = markers.length; i < I && markers[i] != marker; ++i);
-                self.path.setAt(i, marker.getPosition());
+                for (var I = parent.markers.length; i < I && parent.markers[i] != marker; ++i);
+                parent.path.setAt(i, marker.getPosition());
                 
-                this.writeArea();
+                parent.writeArea();
             });
             
             this.writeArea();
@@ -120,12 +120,12 @@ openerp.web_example = function (instance){
 				function () {
 					$(this).removeClass("unselected");
 					$(this).addClass("selected");
-					self.startShape();
+					parent.startShape();
 				},
 				function () {
 					$(this).removeClass("selected");
 					$(this).addClass("unselected");
-					self.endShape();
+					parent.endShape();
 				}
 			);
         },
@@ -149,6 +149,32 @@ openerp.web_example = function (instance){
         template: 'web_example.ListElements',
         init: function(parent){
             this._super();
+            this.options = parent.options;
+            this.model = parent.res_model;
+            this.context = parent.options.context;
+            //Wired domain to search, it doesn't matter for this PoC how get the domain the search
+            //widget will do that for us.
+            this.domain = parent.options.domain;
+            this.obj_model_search = new instance.web.DataSetSearch( this, this.model, this.domain,
+                                                                    this.context);
+        },
+        start: function(){
+            this._super.apply(this, arguments);
+            this.render_list();
+        },
+        render_list: function(){
+            self = this;
+            this.obj_model_search.read_slice(['name'], self.options)
+                .done(function(results){
+                //Example of async render.
+                //It can be done with templating Qweb, or wired "building in the code the view".
+                //as we are doing here
+                _.each(results, function(res){
+                    row_ = $('<tr><td>'+res.id+'</td>'+'<td>'+res.name+'</td></tr>') 
+                    row_.appendTo(self.$('tbody'));
+                })
+                 
+            });
         }
     })
     instance.web.client_actions.add('example.action','instance.web_example.Map');
