@@ -9,7 +9,7 @@
             <p class="lead">Solamente requieres cargar el mapa, y podrás estimar áreas en la zona
                 de tu preferencia, éste widget es para efectos didácticos las especificaciones y
                 todas las funcionalidades estarán en producción.</p>
-            <a href="#section_map" class="btn btn-success oe_load_map pull-right"><span class="glyphicon glyphicon-film"></span> Cargar Mapa</a>
+            <a href="#" class="btn btn-success oe_load_map pull-right"><span class="glyphicon glyphicon-film"></span> Cargar Mapa</a>
             </div>
             <div class="col-md-4">
                 <img src="/web_example/static/src/img/destacada.gif" class="img-thumbnail"/>
@@ -20,6 +20,14 @@
         <hr id="section_map"/>
         <section class="row">
         <div class="container">
+            <p class="lead">
+                El modelo de trabajo será el configurado en la "Acción" para éste caso es:
+                <!-- widget.* te permitirá hacer raw de todos los elementos asociados a this en JS.
+                     -->
+                <b>
+                <t t-raw="widget.res_model"/>
+                </b>
+            </p>
         </div>
         </section>
         <section class="row">

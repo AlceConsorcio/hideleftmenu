@@ -8,7 +8,18 @@ openerp.web_example = function (instance){
 
     instance.web_example.Map = instance.web.Widget.extend({
         template: 'web_example.Map',
-        init: function(parent) {
+        init: function(parent, action) {
+            this.action = _.clone(action);
+            //Take the "res_model" Field and become part of the widget.
+            this.res_model = this.action.res_model; 
+            //Take the "params[options]" part of Field and become part of the widget.
+            this.options = this.action.params.options; 
+            //Take the "params[domain]" part of Field and become part of the widget.
+            this.domain = this.action.params.domain; 
+            //Take the "params[context]" part of Field and become part of the widget.
+            //B care about the _.extend of underscore read the specific documentation to
+            //understand why it is being used.
+            this.context = _.extend(this.action.params.context || {}, this.action.context || {});
 			this._super(parent);
 		},
         writeArea: function () {
