@@ -4,11 +4,12 @@
             <div class="project_main jumbotron">
             <div class="container">
             <div class="col-md-8">
-            <h1>Widget Test Google Maps embebido.</h1>
+            <h1>Widget Test</h1>
+            <h2>Google Maps embebido.</h2>
             <p class="lead">Solamente requieres cargar el mapa, y podrás estimar áreas en la zona
                 de tu preferencia, éste widget es para efectos didácticos las especificaciones y
                 todas las funcionalidades estarán en producción.</p>
-            <a href="#" class="btn btn-success oe_load_map pull-right">Load Map</a>
+            <a href="#section_map" class="btn btn-success oe_load_map pull-right"><span class="glyphicon glyphicon-film"></span> Cargar Mapa</a>
             </div>
             <div class="col-md-4">
                 <img src="/web_example/static/src/img/destacada.gif" class="img-thumbnail"/>
@@ -16,7 +17,7 @@
             </div>
             </div>
         </section>
-        <hr/>
+        <hr id="section_map"/>
         <section class="row">
         <div class="container">
         </div>
