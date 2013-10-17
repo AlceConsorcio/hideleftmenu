@@ -56,7 +56,13 @@
         </section>
     </div>
     <div t-name="web_example.ListElements">
-        <t t-log="'Render something'"/>
+        <t t-if="widget.session.username=='anonymous'">
+            <div class="alert alert-danger">
+                <p class="lead">Debes estar logueado para ver los efectos de hacer pull y push de
+                    datos</p>
+            </div>
+        </t>
+        <t t-if="!(widget.session.username=='anonymous')">
         <table class="table table-striped">
         <!-- Bootstrap classes are added only for look and Feel remember all this code is not
              necesary if you use a ViewList widget, but it is not our case becasue we want
@@ -70,5 +76,6 @@
             <tbody>
             </tbody>
         </table>
+        </t>
     </div>
 </templates>
