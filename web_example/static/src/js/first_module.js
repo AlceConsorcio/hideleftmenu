@@ -140,6 +140,7 @@ openerp.web_example = function (instance){
             this.$('a.oe_load_map').on('click', function(){
                 self.loadMap(self);
                 self.$('.information').fadeOut(400);
+                self.$('.oe_section_map').fadeIn(400);
                 //We just use Jquery to show the information where we need.
                 self.elements.appendTo(self.$('.oe_list_placeholder'));
             });

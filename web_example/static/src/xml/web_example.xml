@@ -18,9 +18,9 @@
             </div>
         </section>
         <hr id="section_map"/>
-        <section class="row">
+        <section class="row oe_section_map" style="display: none;">
         <div class="container">
-            <p class="lead">
+            <p class="lead text-center">
                 El modelo de trabajo será el configurado en la "Acción" para éste caso es:
                 <!-- widget.* te permitirá hacer raw de todos los elementos asociados a this en JS.
                      -->
@@ -28,29 +28,25 @@
                 <t t-raw="widget.res_model"/>
                 </b>
             </p>
-        </div>
-        </section>
-        <section class="row">
-        <div class="container">
-        </div>
-        </section>
-        <section class="row">
-            <div class="container">
-                <div class="col-md-3">
-                    <p class="lead">Click aquí para seleccionar los puntos de un área</p>
-                    <div id='shape_b' class='unselected'>
+                <div class="col-md-4 text-center">
+                    <h4>Activa el botón.</h4>
+                    <small>Para comenzar a dibujar un área.</small>
+                    <div id='shape_b' class='unselected text-center'>
                     </div>
-                    <p class="lead">Área Calculada</p>
-                    <div id='shape_area'>
+                    <h4 class="text-center">Área Calculada</h4>
+                    <div id='shape_area' class="lead text-center">
+                        0
                     </div>
-                    <p class="lead">Puntos del Path</p>
+                    <!--We add a placeholder where the list element widget will be appended to-->
+                    <div class="oe_list_placeholder">
+                    </div>
+                </div>
+                <div id="map_canvas" class="oe_map_canvas col-md-7">
+                </div>
+                <div class="col-md-1">
+                    <h4 class="text-center">Puntos del Path</h4>
                     <div id='paths'>
                     </div>
-                </div>
-                <div id="map_canvas" class="oe_map_canvas col-md-6">
-                </div>
-                <!--We add a placeholder where the list element widget will be appended to-->
-                <div class="col-md-3 oe_list_placeholder">
                 </div>
             </div>
         </section>
@@ -71,6 +67,7 @@
                 <tr>
                     <td> ID </td>
                     <td> name </td>
+                    <td> comments </td>
                 </tr>
             </thead>
             <tbody>
