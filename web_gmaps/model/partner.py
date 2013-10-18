@@ -23,7 +23,12 @@
 from openerp import pooler, tools
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
-from googlemaps import GoogleMaps
+import logging
+_logger = logging.getLogger(__name__)
+try:
+    from googlemaps import GoogleMaps
+except:
+    _logger.error('Install googlemaps "sudo pip install googlemaps" to use web_gmaps module.')
 
 class partner_geo_map(osv.osv):
     """
