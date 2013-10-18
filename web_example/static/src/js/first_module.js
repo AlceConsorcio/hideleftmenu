@@ -23,8 +23,8 @@ openerp.web_example = function (instance){
 			this._super(parent);
 		},
         writeArea: function () {
-            this.area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
-            $("#shape_area").html(this.area + " m<sup>2</sup>");
+            area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
+            $("#shape_area").html(area + " m<sup>2</sup>");
             
             $("#paths").html("");
             for (var i = 0; i < this.path.length; ++i)
@@ -67,7 +67,7 @@ openerp.web_example = function (instance){
         },
         startShape: function() {
             self = this;
-            this.polygon.setPath(new google.maps.MVCArray([self.path]));
+            this.polygon.setPath(new google.maps.MVCArray([this.path]));
             this.event_click_map = google.maps.event.addListener(this.map, 'click', function(e){
                 self.addPoint(e, self)
             });
@@ -75,12 +75,11 @@ openerp.web_example = function (instance){
         endShape: function() {
             google.maps.event.removeListener(this.event_click_map);
         },
-        loadMap: function(parent){
-            self = this;
-            this.map, this.polygon;
-            this.markers = [];
-            parent.path = new google.maps.MVCArray;
-            this.event_click_map;
+        loadMap: function(self){
+            self.map, this.polygon;
+            self.markers = [];
+            self.path = new google.maps.MVCArray;
+            self.event_click_map;
 
             $.fn.clicktoggle = function(a, b) {
                 return this.each(function() {
@@ -120,12 +119,12 @@ openerp.web_example = function (instance){
 				function () {
 					$(this).removeClass("unselected");
 					$(this).addClass("selected");
-					parent.startShape();
+					self.startShape();
 				},
 				function () {
 					$(this).removeClass("selected");
 					$(this).addClass("unselected");
-					parent.endShape();
+					self.endShape();
 				}
 			);
         },
@@ -149,7 +148,7 @@ openerp.web_example = function (instance){
     instance.web_example.ListElements = instance.web.Widget.extend({
         template: 'web_example.ListElements',
         init: function(parent){
-            this._super();
+            this.parent = parent
             this.options = parent.options;
             this.model = parent.res_model;
             this.context = parent.options.context;
@@ -158,12 +157,14 @@ openerp.web_example = function (instance){
             this.domain = parent.options.domain;
             this.obj_model_search = new instance.web.DataSetSearch( this, this.model, this.domain,
                                                                     this.context);
+            this._super(parent);
         },
         start: function(){
             this._super.apply(this, arguments);
-            this.render_list(this);
+            this.render_list(this, this.parent);
         },
-        render_list: function(parent){
+        render_list: function(self, windows){
+            //parent is the "Parent View"
             self = this;
             this.obj_model_search.read_slice(['name', 'comment'], self.options)
                 .done(function(results){
@@ -188,20 +189,16 @@ openerp.web_example = function (instance){
                     //The correct way to get this information is reading the object .map
                     //But the concept is only push information in the database, not amanipulate
                     //map information
-                    PATHS =self.$('#paths').text();
-                    AREA =self.$('#shape_area').text();
-                    console.log(ev);
-                    parent.save_result(self, PATHS, AREA, ev.currentTarget.dataset.id);
+                    PATHS = windows.$('#paths').text();
+                    AREA = windows.$('#shape_area').text();
+                    self.save_result(self, PATHS, AREA, ev.currentTarget.dataset.id);
                 });
                  
             });
         },
         save_result: function(parent, paths, area, id ){
             self = this; 
-            console.log(id);
-            console.log(paths);
-            console.log(area);
-            this.ds_model = new instance.web.DataSet(parent, this.model, this.options.context)
+            this.ds_model = new instance.web.DataSet(self, this.model, this.options.context)
             //this.obj_model_search.read_slice(['name', 'comment'], self.options)
             TextToSave = '<p><b>Area  :</b><br/>' +
                          area + '</p>' +
@@ -209,9 +206,8 @@ openerp.web_example = function (instance){
                          paths
             this.ds_model.write(parseInt(id),
                     {'comment': TextToSave},
-                    parent.options).done(function(res){
+                    self.options).done(function(res){
                         self.$('#cell'+id).html(TextToSave); 
-                        parent.$('.alert').fadeIn(400);
                     })
 
         },
