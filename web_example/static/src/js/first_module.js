@@ -169,10 +169,18 @@ openerp.web_example = function (instance){
                 .done(function(results){
                 //Example of async render.
                 //It can be done with templating Qweb, or wired "building in the code the view".
-                //as we are doing here
+                //as we are doing here almost all time will be more easy use templates
                 _.each(results, function(res){
-                    link = '<a href="#model='+self.model+'&id='+res.id+'" class="btn btn-warning">Open Record</a>'
-                    row_ = $('<tr>'+'<td>'+link+'</td>'+'<td>'+res.id+'</td>'+'<td>'+res.name+'</td>'+'<td>'+(res.comment || '') +'</td>'+'</tr>') 
+                    btn = '<div class="btn-group">'+
+                          '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">'+
+                          'Actions'+
+                          '<span class="caret"></span>'+
+                          '</button>'+
+                          '<ul class="dropdown-menu">'
+                    link = '<li><a href="#model='+self.model+'&id='+res.id+'" >Open Record</a></li>'
+                    link2 = '<li><a href="#" data-id="'+res.id+'" class="oe_save_btn" title="update the comment with computed info">Save Info</a></li>'
+                    act = btn+link+link2+'</ul></div>'
+                    row_ = $('<tr>'+'<td>'+act+'</td>'+'<td>'+res.id+'</td>'+'<td>'+res.name+'</td>'+'<td>'+(res.comment || '') +'</td>'+'</tr>') 
                     row_.appendTo(self.$('tbody'));
                 })
                  
