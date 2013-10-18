@@ -136,6 +136,7 @@ openerp.web_example = function (instance){
             //If you dont pass the self object, then you will need to be care of a lot of not
             //necesary thing already in the framework.
             this.elements = new instance.web_example.ListElements(self);
+            this.$('.oe_warning_bs3').alert(); 
             this.$('a.oe_load_map').on('click', function(){
                 self.loadMap(self);
                 self.$('.information').fadeOut(400);
@@ -191,12 +192,12 @@ openerp.web_example = function (instance){
                     //map information
                     PATHS = windows.$('#paths').text();
                     AREA = windows.$('#shape_area').text();
-                    self.save_result(self, PATHS, AREA, ev.currentTarget.dataset.id);
+                    self.save_result(self, PATHS, AREA, ev.currentTarget.dataset.id, windows);
                 });
                  
             });
         },
-        save_result: function(parent, paths, area, id ){
+        save_result: function(parent, paths, area, id, windows){
             self = this; 
             this.ds_model = new instance.web.DataSet(self, this.model, this.options.context)
             //this.obj_model_search.read_slice(['name', 'comment'], self.options)
@@ -208,6 +209,7 @@ openerp.web_example = function (instance){
                     {'comment': TextToSave},
                     self.options).done(function(res){
                         self.$('#cell'+id).html(TextToSave); 
+                        windows.$('.oe_warning_bs3').fadeIn(400); 
                     })
 
         },
