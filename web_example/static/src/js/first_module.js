@@ -161,9 +161,9 @@ openerp.web_example = function (instance){
         },
         start: function(){
             this._super.apply(this, arguments);
-            this.render_list();
+            this.render_list(this);
         },
-        render_list: function(){
+        render_list: function(parent){
             self = this;
             this.obj_model_search.read_slice(['name', 'comment'], self.options)
                 .done(function(results){
@@ -180,12 +180,40 @@ openerp.web_example = function (instance){
                     link = '<li><a href="#model='+self.model+'&id='+res.id+'" >Open Record</a></li>'
                     link2 = '<li><a href="#" data-id="'+res.id+'" class="oe_save_btn" title="update the comment with computed info">Save Info</a></li>'
                     act = btn+link+link2+'</ul></div>'
-                    row_ = $('<tr>'+'<td>'+act+'</td>'+'<td>'+res.id+'</td>'+'<td>'+res.name+'</td>'+'<td>'+(res.comment || '') +'</td>'+'</tr>') 
+                    row_ = $('<tr>'+'<td>'+act+'</td>'+'<td>'+res.id+'</td>'+'<td>'+res.name+'</td>'+'<td id="cell'+res.id+'">'+(res.comment || '') +'</td>'+'</tr>') 
                     row_.appendTo(self.$('tbody'));
-                })
+                });
+                //Binding "Click Event"
+                self.$('.oe_save_btn').on('click', function(ev){
+                    //The correct way to get this information is reading the object .map
+                    //But the concept is only push information in the database, not amanipulate
+                    //map information
+                    PATHS =self.$('#paths').text();
+                    AREA =self.$('#shape_area').text();
+                    console.log(ev);
+                    parent.save_result(self, PATHS, AREA, ev.currentTarget.dataset.id);
+                });
                  
             });
-        }
+        },
+        save_result: function(parent, paths, area, id ){
+            self = this; 
+            console.log(id);
+            console.log(paths);
+            console.log(area);
+            this.ds_model = new instance.web.DataSet(parent, this.model, this.options.context)
+            //this.obj_model_search.read_slice(['name', 'comment'], self.options)
+            TextToSave = '<p><b>Area  :</b><br/>' +
+                         area + '</p>' +
+                         '<p><b>Puntos :</b></p>' +
+                         paths
+            this.ds_model.write(parseInt(id),
+                    {'comment': TextToSave},
+                    parent.options).done(function(res){
+                        self.$('#cell'+id).html(TextToSave); 
+                    })
+
+        },
     })
     instance.web.client_actions.add('example.action','instance.web_example.Map');
 };
