@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <record model="ir.actions.client" id="action_client_map">
+            <field name="name">Google Map</field>
+            <field name="tag">example.action</field>
+            <field name="res_model">res.partner</field>
+            <field name="params" eval="{
+                'domain': [
+                    ('name', 'ilike', 'Vauxoo'),
+                ],
+                    'context':{
+                }
+                }"/>
+        </record>
+        <menuitem action="action_client_map" id="menu_client_example"/>
+    </data>
+</openerp>
+

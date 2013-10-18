@@ -1,0 +1,85 @@
+<templates>
+    <div t-name="web_example.Map" class="bs3">
+        <div class="container oe_warning_bs3 alert alertblock alertdanger fade in" style="display: none;">
+                <a class="close" datadismiss="alert" href="#" ariahidden="true">X</a>
+                <h4>Saved data fine.</h4>
+                <p>It is just an example for Ajax answer managed with the $.deferred. One of the most important concepts to understand when using openerp web api is in the middle.</p>
+        </div>
+
+        <section class="row porquevauxoo information">
+            <div class="project_main jumbotron">
+            <div class="container">
+            <div class="col-md-8">
+            <h1>Widget Test</h1>
+            <h2>Google Maps embebido.</h2>
+            <p class="lead">Solamente requieres cargar el mapa, y podrás estimar áreas en la zona
+                de tu preferencia, éste widget es para efectos didácticos las especificaciones y
+                todas las funcionalidades estarán en producción.</p>
+            <a href="#" class="btn btn-success oe_load_map pull-right"><span class="glyphicon glyphicon-film"></span> Cargar Mapa</a>
+            </div>
+            <div class="col-md-4">
+                <img src="/web_example/static/src/img/destacada.gif" class="img-thumbnail"/>
+            </div>
+            </div>
+            </div>
+        </section>
+        <hr id="section_map"/>
+        <section class="row oe_section_map" style="display: none;">
+        <div class="container">
+            <p class="lead text-center">
+                El modelo de trabajo será el configurado en la "Acción" para éste caso es:
+                <!-- widget.* te permitirá hacer raw de todos los elementos asociados a this en JS.
+                     -->
+                <b>
+                <t t-raw="widget.res_model"/>
+                </b>
+            </p>
+                <div class="col-md-4 text-center">
+                    <h4>Activa el botón.</h4>
+                    <small>Para comenzar a dibujar un área.</small>
+                    <div id='shape_b' class='unselected text-center'>
+                    </div>
+                    <h4 class="text-center">Área Calculada</h4>
+                    <div id='shape_area' class="lead text-center">
+                        0
+                    </div>
+                    <!--We add a placeholder where the list element widget will be appended to-->
+                    <div class="oe_list_placeholder">
+                    </div>
+                </div>
+                <div id="map_canvas" class="oe_map_canvas col-md-7">
+                </div>
+                <div class="col-md-1">
+                    <h4 class="text-center">Puntos del Path</h4>
+                    <div id='paths'>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div t-name="web_example.ListElements">
+        <t t-if="widget.session.username=='anonymous'">
+            <div class="alert alert-danger">
+                <p class="lead">Debes estar logueado para ver los efectos de hacer pull y push de
+                    datos</p>
+            </div>
+        </t>
+        <t t-if="!(widget.session.username=='anonymous')">
+        <table class="table table-striped">
+        <!-- Bootstrap classes are added only for look and Feel remember all this code is not
+             necesary if you use a ViewList widget, but it is not our case becasue we want
+             ilustrate the "retreive data" concept -->
+            <thead>
+                <tr>
+                    <td> Link </td>
+                    <td> ID </td>
+                    <td> name </td>
+                    <td> comments </td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </t>
+    </div>
+</templates>

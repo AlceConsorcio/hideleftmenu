@@ -1,0 +1,27 @@
+.openerp .oe_map_canvas{
+    height: 500px;
+}
+
+.openerp #shape_b {
+    width:31px;
+    height:31px;
+    top: 300px;
+}
+
+.openerp #shape_b.selected {
+    background-image: url(http://google.com/mapfiles/ms/t/Bpd.png);
+}
+
+.openerp #shape_b.unselected {
+    width:31px;
+    height:31px;
+    background-image: url(http://google.com/mapfiles/ms/t/Bpu.png);
+}
+
+.openerp #shape_area {
+    top: 450px;
+}
+
+.openerp #paths {
+    top: 400px;
+}
