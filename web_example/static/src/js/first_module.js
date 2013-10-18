@@ -211,6 +211,7 @@ openerp.web_example = function (instance){
                     {'comment': TextToSave},
                     parent.options).done(function(res){
                         self.$('#cell'+id).html(TextToSave); 
+                        parent.$('.alert').fadeIn(400);
                     })
 
         },

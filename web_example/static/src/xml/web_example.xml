@@ -1,5 +1,10 @@
 <templates>
     <div t-name="web_example.Map" class="bs3">
+        <div class="container oe_warning_bs3 alert alert-block alert-danger fade in" style="display: none;">
+            <a class="close" data-dismiss="alert" href="#" aria-hidden="true">X</a>
+            <h4>Saved data fine.</h4>
+            <p>It is just an example for Ajax answer managed with the $.deferred One of the most important concepts to understand when using openerp web api is in the middle.</p>
+        </div>
         <section class="row porquevauxoo information">
             <div class="project_main jumbotron">
             <div class="container">
