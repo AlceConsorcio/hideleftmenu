@@ -47,19 +47,22 @@ TODO: write an step by step to do that.
 
 { google_key: YOURKEY }
     ''',
-    'depends':['web',
+    'depends':[
+        'web',
         ],
     'data':[
         ],
     'demo':[
-        'web_gmaps_demo.xml'
+        #'web_gmaps_demo.xml'
         ],
     'js':[
-        'static/src/js/gmaps.js',
+        #'static/src/js/gmaps.js',
         ],
     'css':[
-        'static/src/css/gmaps.css'
+        #'static/src/css/gmaps.css'
         ],
-    'qweb':['static/src/xml/gmaps.xml'],
+    'qweb':[
+        #'static/src/xml/gmaps.xml'
+        ],
 }
 
