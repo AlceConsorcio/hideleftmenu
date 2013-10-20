@@ -17,6 +17,8 @@ web.controllers.main.html_template = """<!DOCTYPE html>
                 %(init)s
             });
         </script>
+        <script src='"""+config.get('gmaps_api_key', '')+"""' type="text/javascript">
+        </script>
     </head>
     <body>
         <!--[if lte IE 8]>
