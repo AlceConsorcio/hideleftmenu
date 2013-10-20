@@ -41,14 +41,17 @@ To configure be sure you have an "API Key" from google.
 
 Information: https://developers.google.com/console/help/#generatingdevkeys
 
-And add the key in the config parameters configuration.
+And add the url key in the config file with gmaps_api_key.
 
 TODO: write an step by step to do that.
 
-{ google_key: YOURKEY }
+code::
+
+    gmaps_api_key = https://maps.googleapis.com/maps/api/js?key=YOURKEYISALONGWIERDCHARACTERS&sensor=true 
     ''',
     'depends':[
         'web',
+        'web_allow_custom_root',
         ],
     'data':[
         ],
