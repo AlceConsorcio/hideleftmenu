@@ -1,9 +1,3 @@
-var script = document.createElement("script");
-script.type = "text/javascript";
-script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBwNE-vFDyyOb62ODaRiqpiL2kz8wR0aTc&sensor=true&callback=gmap_draw"
-$("head").append(script);
-window.gmap_draw = function(){
-}
 openerp.web_example = function (instance){
 
     instance.web_example.Map = instance.web.Widget.extend({
@@ -213,6 +207,6 @@ openerp.web_example = function (instance){
                     })
 
         },
-    })
-    instance.web.client_actions.add('example.action','instance.web_example.Map');
+    });
+    instance.web.client_actions.add('gmaps.example','instance.web_example.Map');
 };

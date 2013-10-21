@@ -1,18 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
         <record model="ir.actions.client" id="action_client_map">
-            <field name="name">Google Map</field>
-            <field name="tag">example.action</field>
+            <field name="name">Example Gmaps</field>
+            <field name="tag">gmaps.example</field>
             <field name="res_model">res.partner</field>
             <field name="params" eval="{
                 'domain': [
                     ('name', 'ilike', 'Vauxoo'),
                 ],
-                    'context':{
-                }
+                'context':{
+                },
+                'qweb_action': 'qweb_gmaps'
                 }"/>
         </record>
-        <menuitem action="action_client_map" id="menu_client_example"/>
+        <menuitem action="action_client_map" id="example_gmaps" sequence="1000"/>
     </data>
 </openerp>
 

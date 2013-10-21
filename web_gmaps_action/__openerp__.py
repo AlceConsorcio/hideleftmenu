@@ -23,8 +23,8 @@
 ##############################################################################
 {
     'name':"Web Action with Google Maps.",
-    'description':"Basic example of a (Future) web module",
     'category':'Hidden',
+    'author': 'Vauxoo',
     'description': '''
 Gmaps view:
 ===========
@@ -51,21 +51,25 @@ code::
     ''',
     'depends':[
         'web',
+        'contacts',
         'web_allow_custom_root',
+        'decimal_precision',
         ],
     'data':[
+        'res_partner_view.xml',
+        'gmaps_point_view.xml',
         ],
     'demo':[
-        #'web_gmaps_demo.xml'
+        'web_gmaps_demo.xml'
         ],
     'js':[
-        #'static/src/js/gmaps.js',
+#        'static/src/js/gmaps.js',
         ],
     'css':[
-        #'static/src/css/gmaps.css'
+#        'static/src/css/gmaps.css'
         ],
     'qweb':[
-        #'static/src/xml/gmaps.xml'
+#        'static/src/xml/gmaps.xml'
         ],
 }
 

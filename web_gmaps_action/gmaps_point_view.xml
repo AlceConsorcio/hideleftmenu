@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_gmaps_point_form">
+            <field name="model">gmaps.point</field>
+            <field name="name">gmaps.point.form</field>
+            <field name="arch" type="xml">
+                <form string="Point" version="7.0">
+                    <header>
+                        <label for="author_id" class="oe_inline"/>
+                        <field name="author_id" class="oe_inline"/>
+                        <label for="company_id" class="oe_inline"/>
+                        <field name="company_id" readonly="True" class="oe_inline"/>
+                        <label for="model" class="oe_inline"/>
+                        <field name="model" readonly="True" class="oe_inline"/>
+                    </header>
+                    <sheet>
+                        <separator string="Coordinates"/>
+                        <label for="name" class="oe_inline"/>
+                        <field name="name" class="oe_inline"/>
+                        <label for="sequence" class="oe_inline"/>
+                        <field name="sequence" class="oe_inline"/>
+                        <label for="gmaps_lat" class="oe_inline"/>
+                        <field name="gmaps_lat" class="oe_inline"/>
+                        <label for="gmaps_lon" class="oe_inline"/>
+                        <field name="gmaps_lon" class="oe_inline"/>
+                        <separator string="Description"/>
+                        <field name="description" nolabel="True"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_gmaps_point_tree">
+            <field name="model">gmaps.point</field>
+            <field name="name">gmaps.point.tree</field>
+            <field name="arch" type="xml">
+                <tree string="Points">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="gmaps_lat"/>
+                    <field name="gmaps_lon"/>
+                    <field name="author_id"/>
+                    <field name="company_id" readonly="True"/>
+                    <field name="model" readonly="True"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</openerp>
