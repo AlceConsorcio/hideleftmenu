@@ -93,8 +93,8 @@
     </div>
     <t t-name='Gmaps.action_buttons'>
        <div class="btn-group">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                          Actions
+          <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-cog"/>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
@@ -102,5 +102,13 @@
           <li><a href="#" t-att-data-id="result.id" class="oe_save_btn" title="update the comment with computed info">Save Info</a></li>
           </ul>
         </div>
+    </t>
+    <t t-name='Gmaps.data_row'>
+        <tr>
+            <td><t t-raw='act'/></td>
+            <td><t t-raw='result.id'/></td>
+            <td><t t-raw='result.name'/></td>
+            <td></td>
+        </tr> 
     </t>
 </templates>

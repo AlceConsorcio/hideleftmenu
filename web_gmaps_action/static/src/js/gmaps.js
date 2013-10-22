@@ -204,7 +204,7 @@ openerp.web_gmaps_action = function (instance) {
                 //as we are doing here almost all time will be more easy use templates
                 _.each(results, function(result){
                     act = instance.web.qweb.render('Gmaps.action_buttons', {'widget': self, 'result': result}) 
-                    row_ = $('<tr>'+'<td>'+act+'</td>'+'<td>'+result.id+'</td>'+'<td>'+result.name+'</td>'+'<td id="cell'+result.id+'">'+(result.comment || '') +'</td>'+'</tr>') 
+                    row_ = $(instance.web.qweb.render('Gmaps.data_row', {'widget': self, 'result': result, 'act': act})); 
                     row_.appendTo(self.$('tbody'));
                 });
                 //Binding "Click Event"
