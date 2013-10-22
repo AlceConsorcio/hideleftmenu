@@ -132,14 +132,12 @@ openerp.web_gmaps_action = function (instance) {
 
 			$(".shape_b").clicktoggle(
 				function () {
-					$(this).addClass("btn-warning");
-					$(this).removeClass("btn-default");
+					$(this).addClass("btn-success");
                     $(this).text('Deactivate Map Controls');
 					self.startShape();
 				},
 				function () {
-					$(this).removeClass("btn-warning");
-					$(this).addClass("btn-default");
+					$(this).removeClass("btn-success");
                     $(this).text('Activate Map Controls');
 					self.endShape();
 				}
