@@ -1,5 +1,5 @@
 <templates>
-    <div t-name="web_example.Map" class="bs3">
+    <div t-name="web_gmaps_action.Map" class="bs3">
         <section class="row information">
             <t t-raw="widget.action.help"/>
         </section>
@@ -37,7 +37,7 @@
             </div>
         </section>
     </div>
-    <div t-name="web_example.ListElements">
+    <div t-name="web_gmaps_action.ListElements">
         <t t-if="widget.session.username=='anonymous'">
             <div class="alert alert-danger">
                 <p class="lead">Debes estar logueado para ver los efectos de hacer pull y push de

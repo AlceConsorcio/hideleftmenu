@@ -53,6 +53,7 @@ code::
         'web',
         'contacts',
         'web_allow_custom_root',
+        'web_bootstrap3',
         'decimal_precision',
         ],
     'data':[
@@ -63,13 +64,13 @@ code::
         'web_gmaps_demo.xml'
         ],
     'js':[
-#        'static/src/js/gmaps.js',
+        'static/src/js/gmaps.js',
         ],
     'css':[
-#        'static/src/css/gmaps.css'
+        'static/src/css/gmaps.css'
         ],
     'qweb':[
-#        'static/src/xml/gmaps.xml'
+        'static/src/xml/gmaps.xml'
         ],
 }
 

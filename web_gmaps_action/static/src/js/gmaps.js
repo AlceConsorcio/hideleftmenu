@@ -1,7 +1,23 @@
-openerp.web_example = function (instance){
+openerp.web_gmaps_action = function (instance) {
 
-    instance.web_example.Map = instance.web.Widget.extend({
-        template: 'web_example.Map',
+    var _t = instance.web._t,
+       _lt = instance.web._lt;
+    instance.web.form.widgets.add('gmaps_sector', 'instance.web_gmaps_action.GmapsSector');
+    instance.web_gmaps_action.GmapsSector = instance.web.form.FieldOne2Many.extend({
+
+        init: function (field_manager, node) {
+            console.log(node);
+            console.log(field_manager);
+            this._super.apply(this, arguments);
+        },
+
+        start: function () {
+            this._super.apply(this, arguments);
+        },
+    });
+
+    instance.web_gmaps_action.Map = instance.web.Widget.extend({
+        template: 'web_gmaps_action.Map',
         init: function(parent, action) {
             this.action = _.clone(action);
             //Take the "res_model" Field and become part of the widget.
@@ -129,7 +145,7 @@ openerp.web_example = function (instance){
             //both objects are connected and retreive informatios from parent in the child.
             //If you dont pass the self object, then you will need to be care of a lot of not
             //necesary thing already in the framework.
-            this.elements = new instance.web_example.ListElements(self);
+            this.elements = new instance.web_gmaps_action.ListElements(self);
             this.$('.oe_warning_bs3').alert(); 
             this.$('a.oe_load_map').on('click', function(){
                 self.loadMap(self);
@@ -140,8 +156,8 @@ openerp.web_example = function (instance){
             });
         }
     });
-    instance.web_example.ListElements = instance.web.Widget.extend({
-        template: 'web_example.ListElements',
+    instance.web_gmaps_action.ListElements = instance.web.Widget.extend({
+        template: 'web_gmaps_action.ListElements',
         init: function(parent){
             this.parent = parent
             this.options = parent.options;
@@ -208,5 +224,5 @@ openerp.web_example = function (instance){
 
         },
     });
-    instance.web.client_actions.add('gmaps.example','instance.web_example.Map');
+    instance.web.client_actions.add('gmaps.example','instance.web_gmaps_action.Map');
 };

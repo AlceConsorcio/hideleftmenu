@@ -7,7 +7,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//notebook/page[@string='Internal Notes']" position="after">
                     <page string="Gmaps">
-                        <field name="gmaps_point_ids"/>
+                        <field name="gmaps_point_ids" context="{'default_model': 'res.partner'}"
+                            widget="gmaps_sector"/>
                     </page>
                 </xpath>
             </field>

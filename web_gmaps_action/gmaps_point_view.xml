@@ -11,8 +11,7 @@
                         <field name="author_id" class="oe_inline"/>
                         <label for="company_id" class="oe_inline"/>
                         <field name="company_id" readonly="True" class="oe_inline"/>
-                        <label for="model" class="oe_inline"/>
-                        <field name="model" readonly="True" class="oe_inline"/>
+                        <field name="model" invisible="True" class="oe_inline"/>
                     </header>
                     <sheet>
                         <separator string="Coordinates"/>
@@ -40,10 +39,20 @@
                     <field name="gmaps_lat"/>
                     <field name="gmaps_lon"/>
                     <field name="author_id"/>
-                    <field name="company_id" readonly="True"/>
-                    <field name="model" readonly="True"/>
                 </tree>
             </field>
         </record>
+        <record id="action_points" model="ir.actions.act_window">
+            <field name="name">List of Gmaps Points</field>
+            <field name="res_model">gmaps.point</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  List of Points.
+              </p>
+            </field>
+        </record>
+        <menuitem parent="base.next_id_9" groups="base.group_no_one" id="menu_points" action="action_points"/>
     </data>
 </openerp>
