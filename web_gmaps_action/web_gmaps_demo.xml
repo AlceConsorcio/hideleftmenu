@@ -7,7 +7,6 @@
             <field name="res_model">res.partner</field>
             <field name="params" eval="{
                 'domain': [
-                    ('name', 'ilike', 'Vauxoo'),
                 ],
                 'context':{
                 },

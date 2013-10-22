@@ -82,8 +82,9 @@
                 <tr>
                     <td> Link </td>
                     <td> ID </td>
-                    <td> name </td>
-                    <td> comments </td>
+                    <td> Name </td>
+                    <td> Lat </td>
+                    <td> Lon </td>
                 </tr>
             </thead>
             <tbody>
@@ -98,7 +99,8 @@
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu">
-          <li><a t-att-href="'#model='+widget.model+'&amp;id='+result.id" >Open Record</a></li>
+          <li><a t-att-href="'#model='+widget.model+'&amp;id='+result.res_id" >Open Parent Record</a></li>
+          <li><a t-att-href="'#model=gmaps.point&amp;id='+result.id" >Open Point</a></li>
           <li><a href="#" t-att-data-id="result.id" class="oe_save_btn" title="update the comment with computed info">Save Info</a></li>
           </ul>
         </div>
@@ -108,7 +110,8 @@
             <td><t t-raw='act'/></td>
             <td><t t-raw='result.id'/></td>
             <td><t t-raw='result.name'/></td>
-            <td></td>
+            <td><t t-raw='result.gmaps_lat'/></td>
+            <td><t t-raw='result.gmaps_lon'/></td>
         </tr> 
     </t>
 </templates>

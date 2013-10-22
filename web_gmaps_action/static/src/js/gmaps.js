@@ -6,8 +6,6 @@ openerp.web_gmaps_action = function (instance) {
     instance.web_gmaps_action.GmapsSector = instance.web.form.FieldOne2Many.extend({
 
         init: function (field_manager, node) {
-            console.log(node);
-            console.log(field_manager);
             this._super.apply(this, arguments);
         },
 
@@ -156,6 +154,8 @@ openerp.web_gmaps_action = function (instance) {
             //If you dont pass the self object, then you will need to be care of a lot of not
             //necesary thing already in the framework.
             this.elements = new instance.web_gmaps_action.ListElements(self);
+            //Just adding the help windows in buttons (read dat-* on template to see how to get the
+            //information to show.
             this.$('.helpbutton').popover();
             this.$('.oe_load_map').popover();
             this.$('.shape_b').popover();
@@ -183,8 +183,8 @@ openerp.web_gmaps_action = function (instance) {
             this.context = parent.options.context;
             //Wired domain to search, it doesn't matter for this PoC how get the domain the search
             //widget will do that for us.
-            this.domain = parent.options.domain;
-            this.obj_model_search = new instance.web.DataSetSearch( this, this.model, this.domain,
+            this.domain = [['model', 'ilike', this.model]];
+            this.obj_model_search = new instance.web.DataSetSearch( this, 'gmaps.point', this.domain,
                                                                     this.context);
             this._super(parent);
         },
@@ -197,12 +197,14 @@ openerp.web_gmaps_action = function (instance) {
         render_list: function(self, windows){
             //parent is the "Parent View"
             self = this;
-            this.obj_model_search.read_slice(['name', 'comment'], self.options)
+            console.log(this);
+            this.obj_model_search.read_slice(['name', 'gmaps_lat', 'gmaps_lon', 'description', 'res_id'], self.options)
                 .done(function(results){
                 //Example of async render.
                 //It can be done with templating Qweb, or wired "building in the code the view".
                 //as we are doing here almost all time will be more easy use templates
                 _.each(results, function(result){
+                    console.log(result); 
                     act = instance.web.qweb.render('Gmaps.action_buttons', {'widget': self, 'result': result}) 
                     row_ = $(instance.web.qweb.render('Gmaps.data_row', {'widget': self, 'result': result, 'act': act})); 
                     row_.appendTo(self.$('tbody'));
