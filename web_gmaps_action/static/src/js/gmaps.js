@@ -157,6 +157,8 @@ openerp.web_gmaps_action = function (instance) {
             //Just adding the help windows in buttons (read dat-* on template to see how to get the
             //information to show.
             this.$('.helpbutton').popover();
+            this.$('.gmaps_save').popover();
+            this.$('.gmaps_cancel').popover();
             this.$('.oe_load_map').popover();
             this.$('.shape_b').popover();
             this.$('a.oe_load_map').on('click', function(){
@@ -197,8 +199,7 @@ openerp.web_gmaps_action = function (instance) {
         render_list: function(self, windows){
             //parent is the "Parent View"
             self = this;
-            console.log(this);
-            this.obj_model_search.read_slice(['name', 'gmaps_lat', 'gmaps_lon', 'description', 'res_id'], self.options)
+            this.obj_model_search.read_slice(['name', 'gmaps_lat', 'gmaps_lon', 'description', 'res_id', 'sequence'], self.options)
                 .done(function(results){
                 //Example of async render.
                 //It can be done with templating Qweb, or wired "building in the code the view".
