@@ -91,4 +91,16 @@
         </table>
         </t>
     </div>
+    <t t-name='Gmaps.action_buttons'>
+       <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                          Actions
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu">
+          <li><a t-att-href="'#model='+widget.model+'&amp;id='+result.id" >Open Record</a></li>
+          <li><a href="#" t-att-data-id="result.id" class="oe_save_btn" title="update the comment with computed info">Save Info</a></li>
+          </ul>
+        </div>
+    </t>
 </templates>

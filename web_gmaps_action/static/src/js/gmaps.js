@@ -202,17 +202,9 @@ openerp.web_gmaps_action = function (instance) {
                 //Example of async render.
                 //It can be done with templating Qweb, or wired "building in the code the view".
                 //as we are doing here almost all time will be more easy use templates
-                _.each(results, function(res){
-                    btn = '<div class="btn-group">'+
-                          '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">'+
-                          'Actions'+
-                          '<span class="caret"></span>'+
-                          '</button>'+
-                          '<ul class="dropdown-menu">'
-                    link = '<li><a href="#model='+self.model+'&id='+res.id+'" >Open Record</a></li>'
-                    link2 = '<li><a href="#" data-id="'+res.id+'" class="oe_save_btn" title="update the comment with computed info">Save Info</a></li>'
-                    act = btn+link+link2+'</ul></div>'
-                    row_ = $('<tr>'+'<td>'+act+'</td>'+'<td>'+res.id+'</td>'+'<td>'+res.name+'</td>'+'<td id="cell'+res.id+'">'+(res.comment || '') +'</td>'+'</tr>') 
+                _.each(results, function(result){
+                    act = instance.web.qweb.render('Gmaps.action_buttons', {'widget': self, 'result': result}) 
+                    row_ = $('<tr>'+'<td>'+act+'</td>'+'<td>'+result.id+'</td>'+'<td>'+result.name+'</td>'+'<td id="cell'+result.id+'">'+(result.comment || '') +'</td>'+'</tr>') 
                     row_.appendTo(self.$('tbody'));
                 });
                 //Binding "Click Event"
