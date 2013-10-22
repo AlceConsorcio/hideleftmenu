@@ -43,7 +43,8 @@ openerp.web_gmaps_action = function (instance) {
                 $("#paths").html($("#paths").html() + "<br />" + this.path.getAt(i)); 
             }
         },
-
+        changePoint: function(){
+        },
         addPoint: function(event, parent){
             self = this;
             parent.path.insertAt(this.path.length, event.latLng);
@@ -52,6 +53,7 @@ openerp.web_gmaps_action = function (instance) {
                 position: event.latLng,
                 map: this.map,
                 draggable: true,
+                changed: this.changePoint,
                 animation: "BOUNCE"
             });
             parent.markers.push(marker);
@@ -74,8 +76,14 @@ openerp.web_gmaps_action = function (instance) {
                 
                 parent.writeArea();
             });
-            
+            console.log(marker); 
             this.writeArea();
+            this.elements.add_point_list(this.elements, {'name': 'added',
+                'gmaps_lat': marker.position.lb,
+                'gmaps_lon': marker.position.mb,
+                'description': 'Hello',
+                'res_id': 0,
+                'sequence': 19});
         },
 
         startShape: function() {
@@ -193,7 +201,15 @@ openerp.web_gmaps_action = function (instance) {
             this._super.apply(this, arguments);
             this.render_list(this, this.parent);
         },
-
+        /**
+         * list: Object list instanciated.
+         * result: Element with data to show.
+         */
+        add_point_list: function(list, result){
+            act = instance.web.qweb.render('Gmaps.action_buttons', {'widget': self, 'result': result}) 
+            row_ = $(instance.web.qweb.render('Gmaps.data_row', {'widget': self, 'result': result, 'act': act})); 
+            row_.appendTo(this.$('tbody'));
+        },
         render_list: function(self, windows){
             //parent is the "Parent View"
             self = this;
@@ -203,10 +219,7 @@ openerp.web_gmaps_action = function (instance) {
                 //It can be done with templating Qweb, or wired "building in the code the view".
                 //as we are doing here almost all time will be more easy use templates
                 _.each(results, function(result){
-                    console.log(result); 
-                    act = instance.web.qweb.render('Gmaps.action_buttons', {'widget': self, 'result': result}) 
-                    row_ = $(instance.web.qweb.render('Gmaps.data_row', {'widget': self, 'result': result, 'act': act})); 
-                    row_.appendTo(self.$('tbody'));
+                    self.add_point_list(self, result);
                 });
                 //Binding "Click Event"
                 self.$('.oe_save_btn').on('click', function(ev){

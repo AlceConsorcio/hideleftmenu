@@ -138,8 +138,8 @@
             <td><t t-raw='result.id'/></td>
             <td><t t-raw='result.sequence'/></td>
             <td><t t-raw='result.name'/></td>
-            <td><t t-raw='result.gmaps_lat'/></td>
-            <td><t t-raw='result.gmaps_lon'/></td>
+            <td class="text-overflow"><t t-raw='result.gmaps_lat'/></td>
+            <td class="text-overflow"><t t-raw='result.gmaps_lon'/></td>
             <td><a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-expand"/></a></td>
         </tr> 
     </t>
