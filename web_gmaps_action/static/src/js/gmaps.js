@@ -19,6 +19,9 @@ openerp.web_gmaps_action = function (instance) {
     instance.web_gmaps_action.Map = instance.web.Widget.extend({
         template: 'web_gmaps_action.Map',
         init: function(parent, action) {
+            if (action.params.qweb_action_template){
+                this.template = action.params.qweb_action_template
+            }
             this.action = _.clone(action);
             //Take the "res_model" Field and become part of the widget.
             this.res_model = this.action.res_model; 
@@ -42,6 +45,7 @@ openerp.web_gmaps_action = function (instance) {
                 $("#paths").html($("#paths").html() + "<br />" + this.path.getAt(i)); 
             }
         },
+
         addPoint: function(event, parent){
             self = this;
             parent.path.insertAt(this.path.length, event.latLng);
@@ -75,6 +79,7 @@ openerp.web_gmaps_action = function (instance) {
             
             this.writeArea();
         },
+
         startShape: function() {
             self = this;
             this.polygon.setPath(new google.maps.MVCArray([this.path]));
@@ -82,9 +87,11 @@ openerp.web_gmaps_action = function (instance) {
                 self.addPoint(e, self)
             });
         },
+
         endShape: function() {
             google.maps.event.removeListener(this.event_click_map);
         },
+
         loadMap: function(self){
             self.map, this.polygon;
             self.markers = [];
@@ -125,19 +132,22 @@ openerp.web_gmaps_action = function (instance) {
 			this.polygon = new google.maps.Polygon(polygonOptions);
 			this.polygon.setMap(this.map);
 
-			$("#shape_b").clicktoggle(
+			$(".shape_b").clicktoggle(
 				function () {
-					$(this).removeClass("unselected");
-					$(this).addClass("selected");
+					$(this).addClass("btn-warning");
+					$(this).removeClass("btn-default");
+                    $(this).text('Deactivate Map Controls');
 					self.startShape();
 				},
 				function () {
-					$(this).removeClass("selected");
-					$(this).addClass("unselected");
+					$(this).removeClass("btn-warning");
+					$(this).addClass("btn-default");
+                    $(this).text('Activate Map Controls');
 					self.endShape();
 				}
 			);
         },
+
         start: function() {
             var self = this;
 			this._super.apply(this, arguments);
@@ -146,19 +156,27 @@ openerp.web_gmaps_action = function (instance) {
             //If you dont pass the self object, then you will need to be care of a lot of not
             //necesary thing already in the framework.
             this.elements = new instance.web_gmaps_action.ListElements(self);
-            this.$('.oe_warning_bs3').alert(); 
+            this.$('.helpbutton').popover();
+            this.$('.oe_load_map').popover();
+            this.$('.shape_b').popover();
             this.$('a.oe_load_map').on('click', function(){
                 self.loadMap(self);
                 self.$('.information').fadeOut(400);
                 self.$('.oe_section_map').fadeIn(400);
+                self.$('a.oe_load_map').addClass('disabled');
                 //We just use Jquery to show the information where we need.
                 self.elements.appendTo(self.$('.oe_list_placeholder'));
             });
         }
+
     });
+
     instance.web_gmaps_action.ListElements = instance.web.Widget.extend({
         template: 'web_gmaps_action.ListElements',
         init: function(parent){
+            if (parent.action.params.qweb_list_template){
+                this.template = parent.action.params.qweb_list_template
+            }
             this.parent = parent
             this.options = parent.options;
             this.model = parent.res_model;
@@ -170,10 +188,12 @@ openerp.web_gmaps_action = function (instance) {
                                                                     this.context);
             this._super(parent);
         },
+
         start: function(){
             this._super.apply(this, arguments);
             this.render_list(this, this.parent);
         },
+
         render_list: function(self, windows){
             //parent is the "Parent View"
             self = this;
@@ -207,6 +227,7 @@ openerp.web_gmaps_action = function (instance) {
                  
             });
         },
+
         save_result: function(parent, paths, area, id, windows){
             self = this; 
             this.ds_model = new instance.web.DataSet(self, this.model, this.options.context)
@@ -221,7 +242,6 @@ openerp.web_gmaps_action = function (instance) {
                         self.$('#cell'+id).html(TextToSave); 
                         windows.$('.oe_warning_bs3').fadeIn(400); 
                     })
-
         },
     });
     instance.web.client_actions.add('gmaps.example','instance.web_gmaps_action.Map');
