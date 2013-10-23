@@ -4,7 +4,6 @@ openerp.web_camera = function(instance){
 	var Enable_change_button;
 	var width;
 	var height
-	var first;
 	var check;
 	var canvas;
 	var context;
@@ -29,21 +28,11 @@ openerp.web_camera = function(instance){
     			        		var self=this;
     			        		$("#save_as").children("img").remove();
     			        		$('#change_snap').attr('disabled',false);
-    			        		canvas = document.getElementById("canvas");
-			            		context = canvas.getContext("2d");
-			            		video = document.getElementById("video");
-			            		videoObj = { "video": true };
-			            		errBack = function(error) {
-			            			console.log("Video capture error: ", error.code); 
-			            		};
-			            	
-			            	self.on_start_camera();
     			        	}
     			        	
-    			        	$('#snap').attr('disabled',true);
+    			        	$('#snap').hide();
     			        	$('canvas').hide();
     			        	$('video').hide();
-    			        	$('#snap').children("b").hide();
     			        	$("#change_snap").children("img").hide();
     			            	url = 'data:image/png;base64,' + this.get('value');
     			            
@@ -68,34 +57,22 @@ openerp.web_camera = function(instance){
     			            	{
     			            	var self=this;
     			            	$('#change_snap').attr("disabled",false);
-    			            	canvas = document.getElementById("canvas");
-			            		context = canvas.getContext("2d");
-			            		video = document.getElementById("video");
-			            		videoObj = { "video": true };
-			            		errBack = function(error) {
-			            			console.log("Video capture error: ", error.code); 
-			            		};
-			            	
-			            		self.on_start_camera();
+
     			            	}
-    			            $('#snap').children("b").hide();
-    			            $('#snap').attr("disabled",true);
+    			            $('#snap').hide();
     			            $('#canvas').hide();
     			            $('#video').hide();
     			        }
     			        else {
     			        	var self=this
     			        	first="yes";
-    			        	$("#snap").children("img").hide();
     			        	$("#save_as").children("img").remove();
     			        	$("#save_button").hide();
     			        	if(check=="yes")
 			    			        	{
     			        				$("#video").show();
     			        				$("#change_snap").attr("disabled",true);
-    			        				$("#snap").children("img").remove();
-    			        				$("#snap").children("b").show();
-    			        				$("#snap").attr("disabled",false);    			        				
+    			        				$("#snap").show();    			        				
 			    			        	}
     			        	 self.on_start_camera();
     			        	 url = this.placeholder;
@@ -117,13 +94,7 @@ openerp.web_camera = function(instance){
     			        	$("#change_snap").attr("disabled",false);
     			        	Enable_change_button="no"
     			        }
-    			        $("#snap").children("b").show();
-    			        $("#snap").children("img").remove();
-    			        if(first=="yes")
-    			        {
-    			        	$("#snap").children("img").hide();
-    			        	first="no";
-    			    	}
+    			        
     			        
     			        $("#save_as").children("img").remove();
     			        $("#change_snap").children("img").remove();
@@ -137,7 +108,7 @@ openerp.web_camera = function(instance){
 			            	image_src = canvas.toDataURL("image/png");
 			            	$("#canvas").hide();
 			            	$("#video").hide();
-			            	$('#snap').attr('disabled',true);
+			            	$('#snap').hide();
 			            	file_base64=image_src.replace("data:image/png;base64,", "");
 			                self.on_file_uploaded_and_valid1(file_base64);
 			                $("#change_snap").children("img").hide();
@@ -145,11 +116,10 @@ openerp.web_camera = function(instance){
 			                $("#save_as").children("img").remove();
 			           });
     			        $("#change_snap").click(function(){
+    			        	self.on_start_camera();
     			        	$("#save_as").children("img").remove();
     			        	$("#change_snap").attr("disabled",true);
-    			        	  $('#snap').children("b").show();
-    			        	  $('#snap').children("img").hide();
-    			        	  $('#snap').attr("disabled",false);
+    			        	  $('#snap').show();
     			        	  $('#video').show();
     			          });
     			    },
@@ -193,6 +163,7 @@ openerp.web_camera = function(instance){
     			    },
     			    
     			    on_file_uploaded_and_valid: function(size, name, content_type, file_base64) {
+    			    	
     			    	Enable_change_button="yes";
     			        this.internal_set_value(file_base64);
     			        this.binary_value = true;

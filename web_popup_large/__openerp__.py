@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2009-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
+#    OpenERP, Open Source Management Solution
+#    This module copyright (C) 2013 Therp BV (<http://therp.nl>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,22 +18,17 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
-    'name': "Webcam Widget Module",
-    'version': "1.0",
-    'description': """
-        Widget for Capturing Image using a webcam.
+    "name": "Large pop-ups in web client",
+    "version": "7.0.1.0",
+    "author": "Therp BV",
+    "category": 'Usability',
+    "description": """
+Pop-ups in the web client have a width of 900 pixels by default.
+This module changes this default width to 95% of the parent window.
     """,
+    'website': 'https://launchpad.net/web-addons',
     'depends': ['web'],
-    'website' : "http://www.techreceptives.com",
-    'author': "Tech-Receptives Solutions Pvt. Ltd",
-    'js': ['static/src/js/view.js'],
-    'qweb': ['static/src/xml/webcam_template.xml'],
-    'css' : ['static/src/css/base.css'],
-    'installable': True,
-    'auto_install': False,
-    'application': True,
+    "license": 'AGPL-3',
+    "js": ['static/src/js/web_popup_large.js'],
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
