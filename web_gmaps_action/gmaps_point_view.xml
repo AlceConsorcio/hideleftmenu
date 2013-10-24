@@ -1,6 +1,25 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
+        <record model="ir.ui.view" id="view_gmaps_point_search">
+            <field name="model">gmaps.point</field>
+            <field name="name">gmaps.point.search</field>
+            <field name="arch" type="xml">
+                <search string="Point" version="7.0">
+                    <field name="name"/>
+                    <field name="model"/>
+                    <field name="res_id"/>
+                    <field name="id"/>
+                    <field name="description"/>
+                    <field name="gmaps_lat"/>
+                    <field name="gmaps_lon"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Model" context="{'group_by':'model'}"/>
+                        <filter string="Resource ID" context="{'group_by':'res_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
         <record model="ir.ui.view" id="view_gmaps_point_form">
             <field name="model">gmaps.point</field>
             <field name="name">gmaps.point.form</field>
@@ -49,6 +68,8 @@
                     <field name="gmaps_lat"/>
                     <field name="gmaps_lon"/>
                     <field name="author_id"/>
+                    <field name="model" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
                 </tree>
             </field>
         </record>
