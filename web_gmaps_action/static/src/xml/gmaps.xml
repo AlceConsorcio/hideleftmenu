@@ -1,13 +1,13 @@
 <templates>
     <t t-name="Gmaps.search">
-        <form class="navbar-form navbar-left" role="search">
+        <div class="navbar-form navbar-left" role="search">
             <div class="form-group">
-                <input class="form-control" type="text" placeholder="Search"></input>
+                <input class="form-control oe_input_search" type="text" placeholder="Search"></input>
             </div>
-            <button class="btn btn-default" type="submit">
+            <button class="btn btn-default oe_load_points" type="submit">
                 Submit
             </button>
-        </form>
+        </div>
     </t>
     <t t-name="Gmaps.navbar">
         <section class="row">
@@ -17,9 +17,7 @@
                     <a class="navbar-brand" href="#"><img width="20px" src="/web_gmaps_action/static/src/img/iconvauxoo.ico"/></a>
                 </div>
                 <ul class="nav navbar-nav">
-                   <li><a href="#" class="oe_load_map" data-placement="bottom"
-                   data-original-title="Load View" data-content="Load the map view, it is
-                   generally loaded one time." data-trigger="hover">Load map</a></li>
+                   <li><t t-call="Gmaps.search"/></li>
                    <li><a href="#" class='shape_b' data-placement="right"
                    data-original-title="Activate map Controls" 
                    data-content="Click here to be able to Add point, if not you only will be able to 'Edit them'."
@@ -33,7 +31,6 @@
                 </ul>
                 <!-- TODO: here should be the search box placeholder 
                      May Be call a many2one widget or the search box, not decided yet.-->
-                <t t-call="Gmaps.search"/>
                 <ul class="nav navbar-nav navbar-right">
                    <li><a href="#" t-if="widget.action.help" class="helpbutton"
                      data-placement="bottom" data-animation="true" data-html="true"

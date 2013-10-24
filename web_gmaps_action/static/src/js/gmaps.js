@@ -159,7 +159,6 @@ openerp.web_gmaps_action = function (instance) {
             //both objects are connected and retreive informatios from parent in the child.
             //If you dont pass the self object, then you will need to be care of a lot of not
             //necesary thing already in the framework.
-            this.elements = new instance.web_gmaps_action.ListElements(self);
             //Just adding the help windows in buttons (read dat-* on template to see how to get the
             //information to show.
             this.$('.helpbutton').popover();
@@ -167,13 +166,16 @@ openerp.web_gmaps_action = function (instance) {
             this.$('.gmaps_cancel').popover();
             this.$('.oe_load_map').popover();
             this.$('.shape_b').popover();
-            this.$('a.oe_load_map').on('click', function(){
+            this.$('.oe_load_points').on('click', function(){
+                if (self.elements) {
+                    self.elements.destroy();
+                }
+                self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.$('.oe_input_search')[0].value});
+                self.elements.appendTo(self.$('.oe_list_placeholder'));
                 self.loadMap(self);
                 self.$('.information').fadeOut(400);
                 self.$('.oe_section_map').fadeIn(400);
                 self.$('a.oe_load_map').addClass('disabled');
-                //We just use Jquery to show the information where we need.
-                self.elements.appendTo(self.$('.oe_list_placeholder'));
             });
         }
 
@@ -181,7 +183,10 @@ openerp.web_gmaps_action = function (instance) {
 
     instance.web_gmaps_action.ListElements = instance.web.Widget.extend({
         template: 'web_gmaps_action.ListElements',
-        init: function(parent){
+        init: function(parent, res_id){
+            if (res_id.res_id){
+                this.res_id = res_id.res_id
+            }
             if (parent.action.params.qweb_list_template){
                 this.template = parent.action.params.qweb_list_template
             }
@@ -191,7 +196,8 @@ openerp.web_gmaps_action = function (instance) {
             this.context = parent.options.context;
             //Wired domain to search, it doesn't matter for this PoC how get the domain the search
             //widget will do that for us.
-            this.domain = [['model', 'ilike', this.model]];
+            this.domain = [['model', 'ilike', this.model], ['res_id', '=', parseInt(this.res_id)]];
+            this.options.domain = this.domain;
             this.obj_model_search = new instance.web.DataSetSearch( this, 'gmaps.point', this.domain,
                                                                     this.context);
             this._super(parent);
@@ -218,12 +224,9 @@ openerp.web_gmaps_action = function (instance) {
         render_list: function(self, windows){
             //parent is the "Parent View"
             self = this;
+            console.log(self.options);
             this.obj_model_search.read_slice(['name', 'gmaps_lat', 'gmaps_lon', 'description', 'res_id', 'sequence'], self.options)
                 .done(function(results){
-                //Example of async render.
-                //It can be done with templating Qweb, or wired "building in the code the view".
-                //as we are doing here almost all time will be more easy use templates
-                //Binding "Click Event"
                 self.add_points_list(self, results);
                 self.$('.oe_save_btn').on('click', function(ev){
                     //The correct way to get this information is reading the object .map
@@ -240,7 +243,6 @@ openerp.web_gmaps_action = function (instance) {
         save_result: function(parent, paths, area, id, windows){
             self = this; 
             this.ds_model = new instance.web.DataSet(self, this.model, this.options.context)
-            //this.obj_model_search.read_slice(['name', 'comment'], self.options)
             TextToSave = '<p><b>Area  :</b><br/>' +
                          area + '</p>' +
                          '<p><b>Puntos :</b></p>' +
