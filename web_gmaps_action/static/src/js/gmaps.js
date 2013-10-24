@@ -34,8 +34,10 @@ openerp.web_gmaps_action = function (instance) {
 			this._super(parent);
 		},
         writeArea: function () {
-            area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
-            $("#shape_area").html(area + " m<sup>2</sup>");
+            Polygon = this.polygon.getPath();
+            //this.elements.add_point_list(this.elements, Polygon);
+            this.area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
+            $("#shape_area").html(this.area + " m<sup>2</sup>");
             
             $("#paths").html("");
             for (var i = 0; i < this.path.length; ++i)
@@ -43,7 +45,10 @@ openerp.web_gmaps_action = function (instance) {
                 $("#paths").html($("#paths").html() + "<br />" + this.path.getAt(i)); 
             }
         },
-        changePoint: function(){
+        /**
+         * Callback for marker, every point added will trigger this method.
+         */
+        changePoint: function(where){
         },
         addPoint: function(event, parent){
             self = this;
@@ -53,20 +58,22 @@ openerp.web_gmaps_action = function (instance) {
                 position: event.latLng,
                 map: this.map,
                 draggable: true,
-                changed: this.changePoint,
+                changed: function(){self.changePoint(self)},
                 animation: "BOUNCE"
             });
+            point = {'gmaps_lat': marker.position.lb,
+                     'gmaps_lon': marker.position.mb}
+            this.elements.add_point_list(this.elements, point);
             parent.markers.push(marker);
             marker.setTitle("#" + this.path.length);
 
             google.maps.event.addListener(marker, 'click', function() {
                 marker.setMap(null);
                 var i = 0;
-                for (var I = markers.length; i < I && markers[i] != marker; ++i); 
-                markers.splice(i, 1);
+                for (var I = self.markers.length; i < I && self.markers[i] != marker; ++i); 
+                self.markers.splice(i, 1);
                 self.path.removeAt(i);
-                
-                writeArea();
+                self.writeArea();
             });
             
             google.maps.event.addListener(marker, 'dragend', function() {
@@ -76,14 +83,7 @@ openerp.web_gmaps_action = function (instance) {
                 
                 parent.writeArea();
             });
-            console.log(marker); 
             this.writeArea();
-            this.elements.add_point_list(this.elements, {'name': 'added',
-                'gmaps_lat': marker.position.lb,
-                'gmaps_lon': marker.position.mb,
-                'description': 'Hello',
-                'res_id': 0,
-                'sequence': 19});
         },
 
         startShape: function() {
@@ -129,11 +129,11 @@ openerp.web_gmaps_action = function (instance) {
             this.map = new google.maps.Map(torender[0], mapOptions);
             
             var polygonOptions = { 
-				strokeColor: "#ff0000",//color,
+				strokeColor: "#AB0000",//color,
 				strokeOpacity: 0.8,
 				strokeWeight: 2,
-				fillColor: "#ff0000",//color,
-				fillOpacity: 0.35 
+				fillColor: "#DFDFDE",//color,
+				fillOpacity: 0.8 
 			}
 			this.polygon = new google.maps.Polygon(polygonOptions);
 			this.polygon.setMap(this.map);
@@ -201,14 +201,19 @@ openerp.web_gmaps_action = function (instance) {
             this._super.apply(this, arguments);
             this.render_list(this, this.parent);
         },
+        add_point_list: function(list, result){
+           act = instance.web.qweb.render('Gmaps.action_buttons', {'widget': list, 'result': result}) 
+           row_ = $(instance.web.qweb.render('Gmaps.data_row', {'widget': list, 'result': result, 'act': act})); 
+           row_.appendTo(list.$('tbody'));
+        },
         /**
          * list: Object list instanciated.
          * result: Element with data to show.
          */
-        add_point_list: function(list, result){
-            act = instance.web.qweb.render('Gmaps.action_buttons', {'widget': self, 'result': result}) 
-            row_ = $(instance.web.qweb.render('Gmaps.data_row', {'widget': self, 'result': result, 'act': act})); 
-            row_.appendTo(this.$('tbody'));
+        add_points_list: function(list, results){
+            _.each(results, function(result){
+                list.add_point_list(list, result);
+            });
         },
         render_list: function(self, windows){
             //parent is the "Parent View"
@@ -218,10 +223,8 @@ openerp.web_gmaps_action = function (instance) {
                 //Example of async render.
                 //It can be done with templating Qweb, or wired "building in the code the view".
                 //as we are doing here almost all time will be more easy use templates
-                _.each(results, function(result){
-                    self.add_point_list(self, result);
-                });
                 //Binding "Click Event"
+                self.add_points_list(self, results);
                 self.$('.oe_save_btn').on('click', function(ev){
                     //The correct way to get this information is reading the object .map
                     //But the concept is only push information in the database, not amanipulate

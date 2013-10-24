@@ -28,7 +28,6 @@ class gmaps_point(osv.Model):
     '''
 
     def default_get(self, cr, uid, fields, context=None):
-        print context
         # protection for `default_type` values leaking from menu action context (e.g. for invoices)
         if context and context.get('default_type') and context.get('default_type') not in self._columns['type'].selection:
             context = dict(context, default_type=None)

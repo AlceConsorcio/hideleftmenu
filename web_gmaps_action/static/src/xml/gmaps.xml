@@ -106,12 +106,8 @@
             <thead>
                 <tr>
                     <td></td>
-                    <td> id </td>
-                    <td> Sequence </td>
-                    <td> Name </td>
-                    <td> Lat </td>
-                    <td> Lon </td>
-                    <td> Info </td>
+                    <td> id/seq </td>
+                    <td> Name/Lat/Lon </td>
                 </tr>
             </thead>
             <tbody>
@@ -135,12 +131,15 @@
     <t t-name='Gmaps.data_row'>
         <tr>
             <td><t t-raw='act'/></td>
-            <td><t t-raw='result.id'/></td>
-            <td><t t-raw='result.sequence'/></td>
-            <td><t t-raw='result.name'/></td>
-            <td class="text-overflow"><t t-raw='result.gmaps_lat'/></td>
-            <td class="text-overflow"><t t-raw='result.gmaps_lon'/></td>
-            <td><a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-expand"/></a></td>
+            <td>
+                <section class="row"><t t-raw='result.id'/><a href="#" class="btn btn-xs"><span class="glyphicon glyphicon-expand"/></a></section>
+                <section class="row"><t t-raw='result.sequence'/></section>
+            </td>
+            <td>
+                <section class="row"><t t-raw='result.name'/></section>
+                <section class="row"><t t-raw='result.gmaps_lat'/></section>
+                <section class="row"><t t-raw='result.gmaps_lon'/></section>
+            </td>
         </tr> 
     </t>
 </templates>
