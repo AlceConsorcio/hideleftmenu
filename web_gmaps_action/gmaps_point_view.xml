@@ -6,25 +6,35 @@
             <field name="name">gmaps.point.form</field>
             <field name="arch" type="xml">
                 <form string="Point" version="7.0">
-                    <header>
-                        <label for="author_id" class="oe_inline"/>
-                        <field name="author_id" class="oe_inline"/>
-                        <label for="company_id" class="oe_inline"/>
-                        <field name="company_id" readonly="True" class="oe_inline"/>
-                        <field name="model" invisible="True" class="oe_inline"/>
-                    </header>
                     <sheet>
-                        <separator string="Coordinates"/>
-                        <label for="name" class="oe_inline"/>
-                        <field name="name" class="oe_inline"/>
-                        <label for="sequence" class="oe_inline"/>
-                        <field name="sequence" class="oe_inline"/>
-                        <label for="gmaps_lat" class="oe_inline"/>
-                        <field name="gmaps_lat" class="oe_inline"/>
-                        <label for="gmaps_lon" class="oe_inline"/>
-                        <field name="gmaps_lon" class="oe_inline"/>
-                        <separator string="Description"/>
-                        <field name="description" nolabel="True"/>
+                        <notebook>
+                            <page string="Point">
+                                <separator string="Order and Search"/>
+                                <label for="name" class="oe_inline"/>
+                                <field name="name" class="oe_inline"/>
+                                <label for="sequence" class="oe_inline"/>
+                                <field name="sequence" class="oe_inline"/>
+                                <separator string="Coordinates"/>
+                                <label for="gmaps_lat" class="oe_inline"/>
+                                <field name="gmaps_lat" class="oe_inline"/>
+                                <label for="gmaps_lon" class="oe_inline"/>
+                                <field name="gmaps_lon" class="oe_inline"/>
+                                <separator string="Description"/>
+                                <field name="description" nolabel="True"/>
+                            </page>
+                            <page string="Technical Information">
+                                <separator string="Authoring Information"/>
+                                <label for="author_id" class="oe_inline"/>
+                                <field name="author_id" class="oe_inline"/>
+                                <label for="company_id" class="oe_inline"/>
+                                <field name="company_id" readonly="True" class="oe_inline"/>
+                                <separator string="Technical Information"/>
+                                <label for="model" class="oe_inline"/>
+                                <field name="model" class="oe_inline"/>
+                                <label for="res_id" class="oe_inline"/>
+                                <field name="res_id" class="oe_inline"/>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
