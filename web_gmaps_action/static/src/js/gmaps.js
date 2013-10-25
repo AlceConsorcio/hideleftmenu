@@ -162,7 +162,7 @@ openerp.web_gmaps_action = function (instance) {
             this.searchview = new instance.web.SearchView(this, ds_model, false, defaults || {}, false);
             this.searchview.appendTo(this.$('.oe_view_manager_view_search'))
                 .then(function () { self.searchview.on('search_data', self, self.do_searchview_search); });
-            if (this.searchview.has_defaults) {
+            if (this.searchview.has_defaults && !self.ListObjectRecords) {
                 this.searchview.ready.then(this.searchview.do_search);
             }
             return this.searchview
@@ -212,16 +212,6 @@ openerp.web_gmaps_action = function (instance) {
             this.$('.shape_b').popover();
             this.$('.oe_section_map').fadeIn(400);
             var searchview_loaded = this.load_searchview(this.defaults);
-            this.$('.oe_load_points').on('click', function(){
-                if (self.elements) {
-                    self.elements.destroy();
-                }
-                self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.$('.oe_input_search')[0].value});
-                self.elements.appendTo(self.$('.oe_list_placeholder'));
-                self.loadMap(self);
-                self.$('.information').fadeOut(400);
-                self.$('a.oe_load_map').addClass('disabled');
-            });
         }
 
     });
@@ -253,7 +243,19 @@ openerp.web_gmaps_action = function (instance) {
             self = this;
             this.obj_model_search.read_slice(['name'], self.options) .done(function(results){
                     _.each(results, function(res){
-                        $('<tr><td>'+res.name+'</td></tr>').appendTo(self.$('tbody.records_placeholder'));
+                        $('<tr><td class="oe_load_points" data-id='+res.id+'>'+res.name+'</td></tr>').appendTo(self.$('tbody.records_placeholder'));
+                        this.$('.oe_load_points').on('click', function(){
+                            if (self.parent.ListObjectRecords){
+                                self.parent.ListObjectRecords.destroy();
+                            }
+                            if (self.parent.elements) {
+                                self.parent.elements.destroy();
+                            }
+                            self.parent.elements = new instance.web_gmaps_action.ListElements(self.parent, {'res_id': $(this).attr('data-id') });
+                            self.parent.elements.appendTo(self.parent.$('.oe_list_placeholder'));
+                            self.parent.loadMap(self.parent);
+                            self.parent.$('.information').fadeOut(400);
+                        });
                     });
                 })
         }
