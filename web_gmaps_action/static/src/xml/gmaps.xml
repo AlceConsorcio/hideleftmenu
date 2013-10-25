@@ -1,12 +1,7 @@
 <templates>
     <t t-name="Gmaps.search">
         <div class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <input class="form-control oe_input_search" type="text" placeholder="Search"></input>
-            </div>
-            <button class="btn btn-default oe_load_points" type="submit">
-                Submit
-            </button>
+            <div class="oe_view_manager_view_search"></div>
         </div>
     </t>
     <t t-name="Gmaps.navbar">
@@ -22,7 +17,7 @@
                    data-original-title="Activate map Controls" 
                    data-content="Click here to be able to Add point, if not you only will be able to 'Edit them'."
                    data-trigger="hover">Activate Map Controls</a></li>
-                   <li><div class="oe_view_manager_view_search"></div></li>
+                   <li></li>
                    <li><a href="#" class='gmaps_save' data-placement="botton"
                    data-original-title="Save" 
                    data-content="Save the data changed." data-trigger="hover">Save</a></li>
@@ -43,6 +38,8 @@
                 </ul>
             </nav>
             </div>
+        </section>
+        <section class="list_records_placeholder">
         </section>
     </t>
     <t t-name="Gmaps.Results">
@@ -89,6 +86,20 @@
             </table> 
         </div>
         </section>
+    </div>
+    <div t-name="web_gmaps_action.ListObjectRecords" class="container">
+        <table class="table table-striped">
+        <!-- Bootstrap classes are added only for look and Feel remember all this code is not
+             necesary if you use a ViewList widget, but it is not our case becasue we want
+             ilustrate the "retreive data" concept -->
+            <thead>
+                <tr>
+                    <td>Name</td>
+                </tr>
+            </thead>
+            <tbody class="records_placeholder">
+            </tbody>
+        </table>
     </div>
     <div t-name="web_gmaps_action.ListElements">
         <t t-if="widget.session.username=='anonymous'">

@@ -1,5 +1,4 @@
 openerp.web_gmaps_action = function (instance) {
-
     var _t = instance.web._t,
        _lt = instance.web._lt;
     instance.web.form.widgets.add('gmaps_sector', 'instance.web_gmaps_action.GmapsSector');
@@ -31,6 +30,7 @@ openerp.web_gmaps_action = function (instance) {
             //B care about the _.extend of underscore read the specific documentation to
             //understand why it is being used.
             this.options.context = _.extend(this.action.params.context || {}, this.action.context || {});
+            this.defaults = {};
 			this._super(parent);
 		},
         writeArea: function () {
@@ -152,6 +152,53 @@ openerp.web_gmaps_action = function (instance) {
 			);
         },
 
+        /**
+         * Load the mail.message search view
+         * @param {Object} defaults ??
+         */
+        load_searchview: function (defaults) {
+            var self = this;
+            var ds_model = new instance.web.DataSetSearch(this, this.res_model);
+            this.searchview = new instance.web.SearchView(this, ds_model, false, defaults || {}, false);
+            this.searchview.appendTo(this.$('.oe_view_manager_view_search'))
+                .then(function () { self.searchview.on('search_data', self, self.do_searchview_search); });
+            if (this.searchview.has_defaults) {
+                this.searchview.ready.then(this.searchview.do_search);
+            }
+            return this.searchview
+        },
+        /**
+         * Get the domains, contexts and groupbys in parameter from search
+         * view, then render the filtered threads.
+         * @param {Array} domains
+         * @param {Array} contexts
+         * @param {Array} groupbys
+         */
+        do_searchview_search: function (domains, contexts, groupbys) {
+            var self = this;
+            instance.web.pyeval.eval_domains_and_contexts({
+                domains: domains || [],
+                contexts: contexts || [],
+                group_by_seq: groupbys || []
+            }).then(function (results) {
+                if (self.elements) {
+                    self.elements.destroy();
+                }
+                if (self.ListObjectRecords){
+                    self.ListObjectRecords.destroy();
+                }
+                self.ListObjectRecords = new instance.web_gmaps_action.ListRecords(self, results); 
+                self.ListObjectRecords.appendTo(self.$('.list_records_placeholder'));
+                /**
+                if(self.root) {
+                    $('<span class="oe_mail-placeholder"/>').insertAfter(self.root.$el);
+                    self.root.destroy();
+                }
+                */
+                return true; 
+            });
+        },
+
         start: function() {
             var self = this;
 			this._super.apply(this, arguments);
@@ -162,10 +209,9 @@ openerp.web_gmaps_action = function (instance) {
             //Just adding the help windows in buttons (read dat-* on template to see how to get the
             //information to show.
             this.$('.helpbutton').popover();
-            this.$('.gmaps_save').popover();
-            this.$('.gmaps_cancel').popover();
-            this.$('.oe_load_map').popover();
             this.$('.shape_b').popover();
+            this.$('.oe_section_map').fadeIn(400);
+            var searchview_loaded = this.load_searchview(this.defaults);
             this.$('.oe_load_points').on('click', function(){
                 if (self.elements) {
                     self.elements.destroy();
@@ -174,11 +220,43 @@ openerp.web_gmaps_action = function (instance) {
                 self.elements.appendTo(self.$('.oe_list_placeholder'));
                 self.loadMap(self);
                 self.$('.information').fadeOut(400);
-                self.$('.oe_section_map').fadeIn(400);
                 self.$('a.oe_load_map').addClass('disabled');
             });
         }
 
+    });
+
+    instance.web_gmaps_action.ListRecords = instance.web.Widget.extend({
+        template: 'web_gmaps_action.ListObjectRecords',
+        init: function(parent, result){
+            if (parent.action.params.qweb_list_template){
+                this.template = parent.action.params.qweb_list_template
+            }
+            this.parent = parent
+            this.options = parent.options;
+            this.model = parent.res_model;
+            this.context = parent.options.context;
+            //Wired domain to search, it doesn't matter for this PoC how get the domain the search
+            //widget will do that for us.
+            this.domain = result.domain 
+            this.options.domain = this.domain;
+            this.obj_model_search = new instance.web.DataSetSearch( this, this.model, this.domain,
+                                                                    this.context);
+            this._super(parent);
+        },
+        start: function(){
+            this._super.apply(this, arguments);
+            this.render_list(this, this.parent);
+        },
+        render_list: function(self, windows){
+            //parent is the "Parent View"
+            self = this;
+            this.obj_model_search.read_slice(['name'], self.options) .done(function(results){
+                    _.each(results, function(res){
+                        $('<tr><td>'+res.name+'</td></tr>').appendTo(self.$('tbody.records_placeholder'));
+                    });
+                })
+        }
     });
 
     instance.web_gmaps_action.ListElements = instance.web.Widget.extend({
@@ -224,7 +302,6 @@ openerp.web_gmaps_action = function (instance) {
         render_list: function(self, windows){
             //parent is the "Parent View"
             self = this;
-            console.log(self.options);
             this.obj_model_search.read_slice(['name', 'gmaps_lat', 'gmaps_lon', 'description', 'res_id', 'sequence'], self.options)
                 .done(function(results){
                 self.add_points_list(self, results);
