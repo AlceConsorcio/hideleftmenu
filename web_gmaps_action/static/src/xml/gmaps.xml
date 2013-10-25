@@ -22,6 +22,7 @@
                    data-original-title="Activate map Controls" 
                    data-content="Click here to be able to Add point, if not you only will be able to 'Edit them'."
                    data-trigger="hover">Activate Map Controls</a></li>
+                   <li><div class="oe_view_manager_view_search"></div></li>
                    <li><a href="#" class='gmaps_save' data-placement="botton"
                    data-original-title="Save" 
                    data-content="Save the data changed." data-trigger="hover">Save</a></li>
