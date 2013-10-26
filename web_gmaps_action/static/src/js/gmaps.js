@@ -103,6 +103,7 @@ openerp.web_gmaps_action = function (instance) {
             self.markers = [];
             self.path = new google.maps.MVCArray;
             self.event_click_map;
+            google.maps.visualRefresh = true;
 
             $.fn.clicktoggle = function(a, b) {
                 return this.each(function() {
