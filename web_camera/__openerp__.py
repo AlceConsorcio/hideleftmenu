@@ -23,7 +23,15 @@
     'name': "Webcam Widget Module",
     'version': "1.0",
     'description': """
-        Widget for Capturing Image using a webcam.
+Widget for Capturing Image using a webcam.
+==========================================
+
+How can you use this widget?
+
+Define a field type "binary"
+Define in the view for the field widget="webcam"
+
+It is all!
     """,
     'depends': ['web'],
     'website' : "http://www.techreceptives.com",
