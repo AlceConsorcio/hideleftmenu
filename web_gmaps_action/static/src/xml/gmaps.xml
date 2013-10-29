@@ -49,6 +49,7 @@
                   <div class="panel-heading"><b>Record Information:</b> <t t-raw="widget.record_name"/></div>
                   <div class="panel-body">
                     <dl>
+                      <a class="btn btn-default btn-xs oe_loadonmap" href="#">Load Points to Map</a>
                       <div class="oe_list_placeholder">
                       </div>
                       <dt>Area</dt>

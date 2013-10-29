@@ -37,18 +37,29 @@ openerp.web_gmaps_action = function (instance) {
             Polygon = this.polygon.getPath();
             //this.elements.add_point_list(this.elements, Polygon);
             this.area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
-            $("#shape_area").html(this.area + " m<sup>2</sup>");
-            
-            $("#paths").html("");
-            for (var i = 0; i < this.path.length; ++i)
-            {
-                $("#paths").html($("#paths").html() + "<br />" + this.path.getAt(i)); 
-            }
         },
         /**
          * Callback for marker, every point added will trigger this method.
          */
         changePoint: function(where){
+        },
+        loadPoints: function(points){
+            self = this;
+            _.each(points, function(point){
+                pp = new google.maps.LatLng(point.gmaps_lat, point.gmaps_lon);
+                console.log(pp);
+                var point = point || {},
+                    marker = new google.maps.Marker({
+                        position: pp,
+                        map: self.map,
+                        draggable: true,
+                        changed: function(){self.changePoint(self)},
+                        animation: "BOUNCE"
+                    });
+                self.markers.push(marker);
+            });
+            self.writeArea();
+
         },
         addPoint: function(event, parent){
             self = this;
@@ -80,7 +91,6 @@ openerp.web_gmaps_action = function (instance) {
                 var i = 0;
                 for (var I = parent.markers.length; i < I && parent.markers[i] != marker; ++i);
                 parent.path.setAt(i, marker.getPosition());
-                
                 parent.writeArea();
             });
             this.writeArea();
@@ -99,7 +109,7 @@ openerp.web_gmaps_action = function (instance) {
         },
 
         loadMap: function(self){
-            self.map, this.polygon;
+            self.map, self.polygon;
             self.markers = [];
             self.path = new google.maps.MVCArray;
             self.event_click_map;
@@ -118,7 +128,6 @@ openerp.web_gmaps_action = function (instance) {
                     });
                 });
             };
-			
             var mapCoords = new google.maps.LatLng(21.150975, -101.645336);
             var mapOptions = { 
 				center: mapCoords, 
@@ -127,7 +136,7 @@ openerp.web_gmaps_action = function (instance) {
 			}
             var torender = this.$el.find('#map_canvas');
 
-            this.map = new google.maps.Map(torender[0], mapOptions);
+            self.map = new google.maps.Map(torender[0], mapOptions);
             
             var polygonOptions = { 
 				strokeColor: "#AB0000",//color,
@@ -136,8 +145,8 @@ openerp.web_gmaps_action = function (instance) {
 				fillColor: "#DFDFDE",//color,
 				fillOpacity: 0.8 
 			}
-			this.polygon = new google.maps.Polygon(polygonOptions);
-			this.polygon.setMap(this.map);
+			self.polygon = new google.maps.Polygon(polygonOptions);
+			self.polygon.setMap(self.map);
 
 			$(".shape_b").clicktoggle(
 				function () {
@@ -190,12 +199,6 @@ openerp.web_gmaps_action = function (instance) {
                 }
                 self.ListObjectRecords = new instance.web_gmaps_action.ListRecords(self, results); 
                 self.ListObjectRecords.appendTo(self.$('.list_records_placeholder'));
-                /**
-                if(self.root) {
-                    $('<span class="oe_mail-placeholder"/>').insertAfter(self.root.$el);
-                    self.root.destroy();
-                }
-                */
                 return true; 
             });
         },
@@ -203,15 +206,14 @@ openerp.web_gmaps_action = function (instance) {
         start: function() {
             var self = this;
 			this._super.apply(this, arguments);
-            //We instanciate the widget with data, see the parameter passed is "Self" to be sure
-            //both objects are connected and retreive informatios from parent in the child.
-            //If you dont pass the self object, then you will need to be care of a lot of not
-            //necesary thing already in the framework.
-            //Just adding the help windows in buttons (read dat-* on template to see how to get the
-            //information to show.
             this.$('.helpbutton').popover();
             this.$('.shape_b').popover();
             this.$('.oe_section_map').fadeIn(400);
+            this.$('.oe_loadonmap').on('click', function(){
+                console.log(self);
+                console.log(self.points);
+                self.loadPoints(self.points);
+            });
             var searchview_loaded = this.load_searchview(this.defaults);
         }
 
@@ -240,7 +242,6 @@ openerp.web_gmaps_action = function (instance) {
             this.render_list(this, this.parent);
         },
         render_list: function(self, windows){
-            //parent is the "Parent View"
             self = this;
             this.obj_model_search.read_slice(['name'], self.options) .done(function(results){
                     _.each(results, function(res){
@@ -308,6 +309,8 @@ openerp.web_gmaps_action = function (instance) {
             this.obj_model_search.read_slice(['name', 'gmaps_lat', 'gmaps_lon', 'description', 'res_id', 'sequence'], self.options)
                 .done(function(results){
                 self.add_points_list(self, results);
+                console.log(self);
+                windows.points = results;
                 self.$('.oe_save_btn').on('click', function(ev){
                     //The correct way to get this information is reading the object .map
                     //But the concept is only push information in the database, not amanipulate
