@@ -57,6 +57,7 @@ code::
         'decimal_precision',
         ],
     'data':[
+        'data/gmaps_data.xml',
         'res_partner_view.xml',
         'gmaps_point_view.xml',
         ],
