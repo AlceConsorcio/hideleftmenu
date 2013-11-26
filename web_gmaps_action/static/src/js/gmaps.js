@@ -31,7 +31,7 @@ openerp.web_gmaps_action = function (instance) {
             //B care about the _.extend of underscore read the specific documentation to
             //understand why it is being used.
             this.options.context = _.extend(this.action.params.context || {}, this.action.context || {});
-            this.defaults = {};
+            this.defaults = this.action.context;
 			this._super(parent);
 		},
         writeArea: function () {
