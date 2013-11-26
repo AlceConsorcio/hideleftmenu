@@ -72,8 +72,8 @@ openerp.web_gmaps_action = function (instance) {
                 changed: function(){self.changePoint(self)},
                 animation: "BOUNCE"
             });
-            console.log("mapa" + this.map);
-            console.log(marker);
+            //console.log("mapa" + this.map);
+            //console.log(marker);
             point = {'gmaps_lat': marker.position.ob,
                      'gmaps_lon': marker.position.pb,
                      'sequence': sequen,
@@ -84,6 +84,7 @@ openerp.web_gmaps_action = function (instance) {
             parent.markers.push(marker);
             marker.setTitle("#" + this.path.length);
 
+            var del_mov =  false;
             google.maps.event.addListener(marker, 'click', function() {
                 marker.setMap(null);
                 var i = 0;
@@ -91,15 +92,24 @@ openerp.web_gmaps_action = function (instance) {
                 self.markers.splice(i, 1);
                 self.path.removeAt(i);
                 self.writeArea();
+                console.log('se elimina punto');
+                del_mov = true;
             });
-            
             google.maps.event.addListener(marker, 'dragend', function() {
                 var i = 0;
                 for (var I = parent.markers.length; i < I && parent.markers[i] != marker; ++i);
-                parent.path.setAt(i, marker.getPosition());
+                parent.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 parent.writeArea();
+                //Cambiar valores aqui al moverser
+                console.log('se movio ' + marker.position.ob + ' ' + marker.position.pb);
+                del_mov = true;
             });
             this.writeArea();
+            if( del_mov == false){
+                var modelAction = new instance.web.Model('gmaps.point');
+                modelAction.call('createPoints', [[self.action.res_model], [self.action.res_id], [point]] );
+                console.log('se crea punto');
+            }
         },
 
         startShape: function() {
@@ -164,14 +174,6 @@ openerp.web_gmaps_action = function (instance) {
 					$(this).removeClass("btn-success");
                     $(this).text('Activate Map Controls');
 					self.endShape();
-				}
-			);
-			$(".gmaps_save").clicktoggle(
-				function () {
-					$(this).addClass("btn-success");
-				},
-				function () {
-					$(this).removeClass("btn-success");
 				}
 			);
         },

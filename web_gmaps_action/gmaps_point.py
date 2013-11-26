@@ -78,7 +78,25 @@ class gmaps_point(osv.Model):
 
     def create(self, cr, uid, values, context=None): 
         created_id = super(gmaps_point, self).create(cr, uid, values, context=context)
+        print  "\nCREADO!!!!\n"
         return created_id
+
+    def createPoints(self, cr, uid, module, res_id, point, context=None):
+        
+       # {'description': False, 'sequence': 8, 'gmaps_lat': 9, 'gmaps_lon': 6, 'author_id': 1,
+       #         'res_id': 1, 'model': 'freight.zone', 'name': 'trhrth'}
+        values = {
+                'model':module[0],
+                'res_id': res_id[0],
+                'name':point[0].get('name', ''),
+                'sequence':point[0].get('sequence', 0),
+                'gmaps_lat':point[0].get('gmaps_lat', 0),
+                'gmaps_lon':point[0].get('gmaps_lon', 0),
+                'author_id':1,
+                'description': False,
+                }
+        self.create(cr, uid, values, context=context)
+        return True
 
 class gmaps_group(osv.AbstractModel):
     _name = 'gmaps.group'
