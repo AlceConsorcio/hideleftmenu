@@ -1,6 +1,7 @@
 openerp.web_gmaps_action = function (instance) {
     var _t = instance.web._t,
-       _lt = instance.web._lt;
+       _lt = instance.web._lt,
+       sequen = 1;
     instance.web.form.widgets.add('gmaps_sector', 'instance.web_gmaps_action.GmapsSector');
     instance.web_gmaps_action.GmapsSector = instance.web.form.FieldOne2Many.extend({
 
@@ -64,7 +65,6 @@ openerp.web_gmaps_action = function (instance) {
         addPoint: function(event, parent){
             self = this;
             parent.path.insertAt(this.path.length, event.latLng);
-
             var marker = new google.maps.Marker({
                 position: event.latLng,
                 map: this.map,
@@ -72,8 +72,14 @@ openerp.web_gmaps_action = function (instance) {
                 changed: function(){self.changePoint(self)},
                 animation: "BOUNCE"
             });
-            point = {'gmaps_lat': marker.position.lb,
-                     'gmaps_lon': marker.position.mb}
+            console.log("mapa" + this.map);
+            console.log(marker);
+            point = {'gmaps_lat': marker.position.ob,
+                     'gmaps_lon': marker.position.pb,
+                     'sequence': sequen,
+                     'name': 'Point ' + sequen,
+                    }
+            sequen += 1;
             this.elements.add_point_list(this.elements, point);
             parent.markers.push(marker);
             marker.setTitle("#" + this.path.length);
@@ -158,6 +164,14 @@ openerp.web_gmaps_action = function (instance) {
 					$(this).removeClass("btn-success");
                     $(this).text('Activate Map Controls');
 					self.endShape();
+				}
+			);
+			$(".gmaps_save").clicktoggle(
+				function () {
+					$(this).addClass("btn-success");
+				},
+				function () {
+					$(this).removeClass("btn-success");
 				}
 			);
         },

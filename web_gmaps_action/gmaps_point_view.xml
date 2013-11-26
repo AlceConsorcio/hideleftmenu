@@ -84,6 +84,7 @@
               </p>
             </field>
         </record>
+
         <menuitem parent="base.next_id_9" groups="base.group_no_one" id="menu_points" action="action_points"/>
     </data>
 </openerp>
