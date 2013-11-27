@@ -107,7 +107,6 @@ openerp.web_gmaps_action = function (instance) {
                      'name': 'Point ' + sequen,
                     }
             sequen += 1;
-            this.elements.add_point_list(this.elements, point);
             parent.markers.push(marker);
             marker.setTitle("#" + this.path.length);
 
@@ -132,7 +131,19 @@ openerp.web_gmaps_action = function (instance) {
             this.writeArea();
             if( del_mov == false){
                 var modelAction = new instance.web.Model('gmaps.point');
-                modelAction.call('createPoints', [[self.action.res_model], [self.action.res_id], [point]] );
+                point_id = modelAction.call('createPoints', [[self.action.res_model], [self.action.res_id], [point]] ).done(
+                    function( p_id  ){
+                        self.elements.add_point_list(self.elements,
+                                {'gmaps_lat': marker.position.ob,
+                                 'gmaps_lon': marker.position.pb,
+                                 'sequence': sequen,
+                                 'name': 'Point ' + sequen,
+                                  'id':p_id,
+                                }
+                            );
+                        
+                    }
+                    );
             }
         },
 

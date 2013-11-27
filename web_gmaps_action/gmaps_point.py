@@ -95,8 +95,8 @@ class gmaps_point(osv.Model):
                 'author_id':1,
                 'description': False,
                 }
-        self.create(cr, uid, values, context=context)
-        return True
+        point_id = self.create(cr, uid, values, context=context)
+        return point_id
 
 class gmaps_group(osv.AbstractModel):
     _name = 'gmaps.group'
