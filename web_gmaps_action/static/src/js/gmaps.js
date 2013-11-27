@@ -36,7 +36,7 @@ openerp.web_gmaps_action = function (instance) {
 		},
         writeArea: function () {
             Polygon = this.polygon.getPath();
-            //this.elements.add_point_list(this.elements, Polygon);
+            this.elements.add_point_list(this.elements, Polygon);
             this.area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
         },
         /**
@@ -46,8 +46,16 @@ openerp.web_gmaps_action = function (instance) {
         },
         loadPoints: function(points){
             self = this;
+            console.log(points);
+            if( points.length > 0  ){
+                mapCoords = new google.maps.LatLng(points[0].gmaps_lat, points[0].gmaps_lon);
+                self.map.center = mapCoords;
+                self.map.zoom = 12; 
+            }
             _.each(points, function(point){
                 pp = new google.maps.LatLng(point.gmaps_lat, point.gmaps_lon);
+                self.path.insertAt(self.path.length, pp);
+
                 var point = point || {},
                     marker = new google.maps.Marker({
                         position: pp,
@@ -56,9 +64,27 @@ openerp.web_gmaps_action = function (instance) {
                         changed: function(){self.changePoint(self)},
                         animation: "BOUNCE"
                     });
-                self.markers.push(marker);
+
+
+            self.markers.push(marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                marker.setMap(null);
+                var i = 0;
+                for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i); 
+                self.markers.splice(i, 1);
+                self.path.removeAt(i);
+                self.writeArea();
             });
-            self.writeArea();
+            google.maps.event.addListener(marker, 'dragend', function() {
+                var i = 0;
+                for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i);
+                self.path.setAt(i, marker.getPosition());//Solo modifica el objeto
+                self.writeArea();
+            });
+
+            });
+            self.polygon.setPath(self.path);
+            //OJOOOO self.writeArea();
 
         },
         addPoint: function(Point, parent){
@@ -172,7 +198,6 @@ openerp.web_gmaps_action = function (instance) {
 					self.endShape();
 				}
 			);
-
         },
 
         /**
@@ -268,7 +293,6 @@ openerp.web_gmaps_action = function (instance) {
                             self.parent.elements.appendTo(self.parent.$('.oe_list_placeholder'));
                             self.parent.loadMap(self.parent);
                             self.parent.$('.information').fadeOut(400);
-
                         });
                     });
                 })
@@ -322,6 +346,16 @@ openerp.web_gmaps_action = function (instance) {
                 .done(function(results){
                 self.add_points_list(self, results);
                 windows.points = results;
+
+                self.parent.loadPoints(windows.points);
+                /*
+                for(i = 0; i < windows.points.length; i++){
+                    console.log( windows.points[i] );                
+                    pp = new google.maps.LatLng(windows.points[i].gmaps_lat, windows.points[i].gmaps_lon);
+                    console.log(pp);
+                }
+                */
+
                 self.$('.oe_save_btn').on('click', function(ev){
                     //The correct way to get this information is reading the object .map
                     //But the concept is only push information in the database, not amanipulate
