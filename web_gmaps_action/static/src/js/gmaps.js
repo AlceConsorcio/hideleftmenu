@@ -12,6 +12,9 @@ openerp.web_gmaps_action = function (instance) {
         start: function () {
             this._super.apply(this, arguments);
         },
+        destroy :function(){
+            this._super();
+		},
     });
 
     instance.web_gmaps_action.Map = instance.web.Widget.extend({
@@ -36,7 +39,7 @@ openerp.web_gmaps_action = function (instance) {
 		},
         writeArea: function () {
             Polygon = this.polygon.getPath();
-            this.elements.add_point_list(this.elements, Polygon);
+            //this.elements.add_point_list(this.elements, Polygon);
             this.area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
         },
         /**
@@ -48,7 +51,8 @@ openerp.web_gmaps_action = function (instance) {
             self = this;
             console.log(points);
             if( points.length > 0  ){
-                mapCoords = new google.maps.LatLng(points[0].gmaps_lat, points[0].gmaps_lon);
+            console.log("ENtro a centrar");
+                mapCoords =  new google.maps.LatLng(points[0].gmaps_lat, points[0].gmaps_lon);
                 self.map.center = mapCoords;
                 self.map.zoom = 12; 
             }
@@ -64,8 +68,7 @@ openerp.web_gmaps_action = function (instance) {
                         changed: function(){self.changePoint(self)},
                         animation: "BOUNCE"
                     });
-
-
+                
             self.markers.push(marker);
             google.maps.event.addListener(marker, 'click', function() {
                 marker.setMap(null);
@@ -85,7 +88,7 @@ openerp.web_gmaps_action = function (instance) {
             });
             self.polygon.setPath(self.path);
             //OJOOOO self.writeArea();
-
+            
         },
         addPoint: function(Point, parent){
             self = this;
@@ -169,7 +172,7 @@ openerp.web_gmaps_action = function (instance) {
             var mapCoords = new google.maps.LatLng(21.150975, -101.645336);
             var mapOptions = { 
 				center: mapCoords, 
-				zoom:17, 
+				zoom:0, 
 				mapTypeId: google.maps.MapTypeId.ROADMAP 
 			}
             var torender = this.$el.find('#map_canvas');
@@ -247,11 +250,20 @@ openerp.web_gmaps_action = function (instance) {
             this.$('.helpbutton').popover();
             this.$('.shape_b').popover();
             this.$('.oe_section_map').fadeIn(400);
-            this.$('.oe_loadonmap').on('click', function(){
+            /*this.$('.oe_loadonmap').on('click', function(){
                 self.loadPoints(self.points);
-            });
+            });*/
             var searchview_loaded = this.load_searchview(this.defaults);
-        }
+        }, 
+
+        writeArea: function () {
+            Polygon = this.polygon.getPath();
+            //this.elements.add_point_list(this.elements, Polygon);
+            this.area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
+        },
+        destroy :function(){
+            this._super();
+		},
 
     });
 
@@ -296,7 +308,11 @@ openerp.web_gmaps_action = function (instance) {
                         });
                     });
                 })
-        }
+        },
+        destroy :function(){
+            this._super();
+		},
+
     });
 
     instance.web_gmaps_action.ListElements = instance.web.Widget.extend({
@@ -348,13 +364,6 @@ openerp.web_gmaps_action = function (instance) {
                 windows.points = results;
 
                 self.parent.loadPoints(windows.points);
-                /*
-                for(i = 0; i < windows.points.length; i++){
-                    console.log( windows.points[i] );                
-                    pp = new google.maps.LatLng(windows.points[i].gmaps_lat, windows.points[i].gmaps_lon);
-                    console.log(pp);
-                }
-                */
 
                 self.$('.oe_save_btn').on('click', function(ev){
                     //The correct way to get this information is reading the object .map
@@ -382,6 +391,9 @@ openerp.web_gmaps_action = function (instance) {
                         windows.$('.oe_warning_bs3').fadeIn(400); 
                     })
         },
+        destroy :function(){
+            this._super();
+		},
     });
     instance.web.client_actions.add('gmaps.example','instance.web_gmaps_action.Map');
 };
