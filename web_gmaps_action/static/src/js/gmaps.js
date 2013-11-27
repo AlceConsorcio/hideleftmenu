@@ -48,7 +48,6 @@ openerp.web_gmaps_action = function (instance) {
             self = this;
             _.each(points, function(point){
                 pp = new google.maps.LatLng(point.gmaps_lat, point.gmaps_lon);
-                console.log(pp);
                 var point = point || {},
                     marker = new google.maps.Marker({
                         position: pp,
@@ -62,18 +61,17 @@ openerp.web_gmaps_action = function (instance) {
             self.writeArea();
 
         },
-        addPoint: function(event, parent){
+        addPoint: function(Point, parent){
             self = this;
-            parent.path.insertAt(this.path.length, event.latLng);
+
+            parent.path.insertAt(this.path.length, Point);
             var marker = new google.maps.Marker({
-                position: event.latLng,
+                position: Point,
                 map: this.map,
                 draggable: true,
                 changed: function(){self.changePoint(self)},
                 animation: "BOUNCE"
             });
-            //console.log("mapa" + this.map);
-            //console.log(marker);
             point = {'gmaps_lat': marker.position.ob,
                      'gmaps_lon': marker.position.pb,
                      'sequence': sequen,
@@ -92,7 +90,6 @@ openerp.web_gmaps_action = function (instance) {
                 self.markers.splice(i, 1);
                 self.path.removeAt(i);
                 self.writeArea();
-                console.log('se elimina punto');
                 del_mov = true;
             });
             google.maps.event.addListener(marker, 'dragend', function() {
@@ -101,22 +98,21 @@ openerp.web_gmaps_action = function (instance) {
                 parent.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 parent.writeArea();
                 //Cambiar valores aqui al moverser
-                console.log('se movio ' + marker.position.ob + ' ' + marker.position.pb);
                 del_mov = true;
             });
             this.writeArea();
             if( del_mov == false){
                 var modelAction = new instance.web.Model('gmaps.point');
                 modelAction.call('createPoints', [[self.action.res_model], [self.action.res_id], [point]] );
-                console.log('se crea punto');
             }
         },
 
         startShape: function() {
             self = this;
             this.polygon.setPath(new google.maps.MVCArray([this.path]));
+
             this.event_click_map = google.maps.event.addListener(this.map, 'click', function(e){
-                self.addPoint(e, self)
+                self.addPoint(e.latLng, self)
             });
         },
 
@@ -176,6 +172,7 @@ openerp.web_gmaps_action = function (instance) {
 					self.endShape();
 				}
 			);
+
         },
 
         /**
@@ -226,8 +223,6 @@ openerp.web_gmaps_action = function (instance) {
             this.$('.shape_b').popover();
             this.$('.oe_section_map').fadeIn(400);
             this.$('.oe_loadonmap').on('click', function(){
-                console.log(self);
-                console.log(self.points);
                 self.loadPoints(self.points);
             });
             var searchview_loaded = this.load_searchview(this.defaults);
@@ -273,6 +268,7 @@ openerp.web_gmaps_action = function (instance) {
                             self.parent.elements.appendTo(self.parent.$('.oe_list_placeholder'));
                             self.parent.loadMap(self.parent);
                             self.parent.$('.information').fadeOut(400);
+
                         });
                     });
                 })
@@ -325,7 +321,6 @@ openerp.web_gmaps_action = function (instance) {
             this.obj_model_search.read_slice(['name', 'gmaps_lat', 'gmaps_lon', 'description', 'res_id', 'sequence'], self.options)
                 .done(function(results){
                 self.add_points_list(self, results);
-                console.log(self);
                 windows.points = results;
                 self.$('.oe_save_btn').on('click', function(ev){
                     //The correct way to get this information is reading the object .map
