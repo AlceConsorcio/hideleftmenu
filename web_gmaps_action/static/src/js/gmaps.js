@@ -49,9 +49,7 @@ openerp.web_gmaps_action = function (instance) {
         },
         loadPoints: function(points){
             self = this;
-            console.log(points);
             if( points.length > 0  ){
-            console.log("ENtro a centrar");
                 mapCoords =  new google.maps.LatLng(points[0].gmaps_lat, points[0].gmaps_lon);
                 self.map.center = mapCoords;
                 self.map.zoom = 12; 
@@ -125,23 +123,30 @@ openerp.web_gmaps_action = function (instance) {
                 for (var I = parent.markers.length; i < I && parent.markers[i] != marker; ++i);
                 parent.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 parent.writeArea();
-                //Cambiar valores aqui al moverser
+                var modelAction = new instance.web.Model('gmaps.point');
+                modelAction.call('writePoints', [[marker.position.ob], [marker.position.pb], [marker['id']]] ).done(
+                    function(){
+
+                            if (parent.elements) {
+                                parent.elements.destroy();
+                            }
+                            //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
+                            parent.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
+                            parent.$('.oe_list_placeholder').empty();
+                            parent.elements.appendTo(parent.$('.oe_list_placeholder'));
+                    }
+                );
                 del_mov = true;
             });
             this.writeArea();
             if( del_mov == false){
                 var modelAction = new instance.web.Model('gmaps.point');
                 point_id = modelAction.call('createPoints', [[self.action.res_model], [self.action.res_id], [point]] ).done(
-                    function( p_id  ){
-                        self.elements.add_point_list(self.elements,
-                                {'gmaps_lat': marker.position.ob,
-                                 'gmaps_lon': marker.position.pb,
-                                 'sequence': sequen,
-                                 'name': 'Point ' + sequen,
-                                  'id':p_id,
-                                }
-                            );
-                        
+                    function(p_id){
+                        //Cuando se crean los objetos puntos, guardo su id
+                        point['id'] = p_id;
+                        marker['id'] = p_id; 
+                        self.elements.add_point_list(self.elements, point );
                     }
                     );
             }
@@ -312,7 +317,8 @@ openerp.web_gmaps_action = function (instance) {
                             if (self.parent.elements) {
                                 self.parent.elements.destroy();
                             }
-                            self.parent.elements = new instance.web_gmaps_action.ListElements(self.parent, {'res_id': $(this).attr('data-id') });
+                            //El ultimo parametro indica que el mapa no esta cargado, por lo tanto debe cargarlo
+                            self.parent.elements = new instance.web_gmaps_action.ListElements(self.parent, {'res_id': $(this).attr('data-id') }, false);
                             self.parent.elements.appendTo(self.parent.$('.oe_list_placeholder'));
                             self.parent.loadMap(self.parent);
                             self.parent.$('.information').fadeOut(400);
@@ -328,13 +334,14 @@ openerp.web_gmaps_action = function (instance) {
 
     instance.web_gmaps_action.ListElements = instance.web.Widget.extend({
         template: 'web_gmaps_action.ListElements',
-        init: function(parent, res_id){
+        init: function(parent, res_id, mapa_ya_cargado){
             if (res_id.res_id){
                 this.res_id = res_id.res_id
             }
             if (parent.action.params.qweb_list_template){
                 this.template = parent.action.params.qweb_list_template
             }
+            this.mapa_ya_cargado = mapa_ya_cargado;
             this.parent = parent
             this.options = parent.options;
             this.model = parent.res_model;
@@ -362,6 +369,7 @@ openerp.web_gmaps_action = function (instance) {
          * result: Element with data to show.
          */
         add_points_list: function(list, results){
+            results.reverse();
             _.each(results, function(result){
                 list.add_point_list(list, result);
             });
@@ -373,9 +381,11 @@ openerp.web_gmaps_action = function (instance) {
                 .done(function(results){
                 self.add_points_list(self, results);
                 windows.points = results;
-
-                self.parent.loadPoints(windows.points);
-
+                
+                //Si no se ha cargado el mapa, debe cargarse 
+                if(self.mapa_ya_cargado == false){
+                    self.parent.loadPoints(windows.points);
+                }
                 self.$('.oe_save_btn').on('click', function(ev){
                     //The correct way to get this information is reading the object .map
                     //But the concept is only push information in the database, not amanipulate

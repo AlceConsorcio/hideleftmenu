@@ -81,10 +81,11 @@ class gmaps_point(osv.Model):
         print  "\nCREADO!!!!\n"
         return created_id
 
+    def writePoints(self, cr, uid, lat, lon, point_id, context=None):
+        return self.write(cr, uid, point_id[0], {'gmaps_lat':lat[0],'gmaps_lon':lon[0]}, context=context)
+
     def createPoints(self, cr, uid, module, res_id, point, context=None):
         
-       # {'description': False, 'sequence': 8, 'gmaps_lat': 9, 'gmaps_lon': 6, 'author_id': 1,
-       #         'res_id': 1, 'model': 'freight.zone', 'name': 'trhrth'}
         values = {
                 'model':module[0],
                 'res_id': res_id[0],
