@@ -66,8 +66,10 @@ openerp.web_gmaps_action = function (instance) {
                         changed: function(){self.changePoint(self)},
                         animation: "BOUNCE"
                     });
+            marker['id'] = point.id; 
                 
             self.markers.push(marker);
+
             google.maps.event.addListener(marker, 'click', function() {
                 marker.setMap(null);
                 var i = 0;
@@ -77,10 +79,24 @@ openerp.web_gmaps_action = function (instance) {
                 self.writeArea();
             });
             google.maps.event.addListener(marker, 'dragend', function() {
+                
                 var i = 0;
                 for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i);
                 self.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 self.writeArea();
+                var modelAction = new instance.web.Model('gmaps.point');
+                modelAction.call('writePoints', [[marker.position.ob], [marker.position.pb], [marker['id']]] ).done(
+                    function(){
+
+                            if (self.elements) {
+                                self.elements.destroy();
+                            }
+                            //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
+                            self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
+                            self.$('.oe_list_placeholder').empty();
+                            self.elements.appendTo(self.$('.oe_list_placeholder'));
+                    }
+                );
             });
 
             });
