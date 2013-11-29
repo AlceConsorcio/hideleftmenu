@@ -78,7 +78,6 @@ class gmaps_point(osv.Model):
 
     def create(self, cr, uid, values, context=None): 
         created_id = super(gmaps_point, self).create(cr, uid, values, context=context)
-        print  "\nCREADO!!!!\n"
         return created_id
 
     def writePoints(self, cr, uid, lat, lon, point_id, context=None):

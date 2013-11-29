@@ -62,7 +62,7 @@ code::
         'gmaps_point_view.xml',
         ],
     'demo':[
-        'web_gmaps_demo.xml'
+        #'web_gmaps_demo.xml'
         ],
     'js':[
         'static/src/js/gmaps.js',
