@@ -67,7 +67,6 @@ openerp.web_gmaps_action = function (instance) {
                         animation: "BOUNCE"
                     });
             marker['id'] = point.id; 
-                
             self.markers.push(marker);
 
             google.maps.event.addListener(marker, 'click', function() {
@@ -79,13 +78,12 @@ openerp.web_gmaps_action = function (instance) {
                 self.writeArea();
             });
             google.maps.event.addListener(marker, 'dragend', function() {
-                
                 var i = 0;
                 for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i);
                 self.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 self.writeArea();
                 var modelAction = new instance.web.Model('gmaps.point');
-                modelAction.call('writePoints', [[marker.position.ob], [marker.position.pb], [marker['id']]] ).done(
+                modelAction.call('writePoints', [[marker.position.d], [marker.position.e], [marker['id']]] ).done(
                     function(){
 
                             if (self.elements) {
@@ -115,8 +113,8 @@ openerp.web_gmaps_action = function (instance) {
                 changed: function(){self.changePoint(self)},
                 animation: "BOUNCE"
             });
-            point = {'gmaps_lat': marker.position.ob,
-                     'gmaps_lon': marker.position.pb,
+            point = {'gmaps_lat': marker.position.d,
+                     'gmaps_lon': marker.position.e,
                      'sequence': sequen,
                      'name': 'Point ' + sequen,
                     }
@@ -140,7 +138,7 @@ openerp.web_gmaps_action = function (instance) {
                 parent.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 parent.writeArea();
                 var modelAction = new instance.web.Model('gmaps.point');
-                modelAction.call('writePoints', [[marker.position.ob], [marker.position.pb], [marker['id']]] ).done(
+                modelAction.call('writePoints', [[marker.position.d], [marker.position.e], [marker['id']]] ).done(
                     function(){
 
                             if (parent.elements) {
