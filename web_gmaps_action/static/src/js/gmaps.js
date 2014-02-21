@@ -70,12 +70,29 @@ openerp.web_gmaps_action = function (instance) {
             self.markers.push(marker);
 
             google.maps.event.addListener(marker, 'click', function() {
+                //El evento se activa cuando se hace click en los puntos que ya estaban creados al entrar al mapa
                 marker.setMap(null);
                 var i = 0;
                 for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i); 
                 self.markers.splice(i, 1);
                 self.path.removeAt(i);
                 self.writeArea();
+
+                if( marker != null ){
+                var modelAction = new instance.web.Model('gmaps.point');
+                modelAction.call('deletePoint', [ [marker['id']]] ).done(
+                    function(){
+                            if (self.elements) {
+                                self.elements.destroy();
+                            }
+                            //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
+                            self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
+                            self.$('.oe_list_placeholder').empty();
+                            self.elements.appendTo(self.$('.oe_list_placeholder'));
+                    }
+               );
+               }
+
             });
             google.maps.event.addListener(marker, 'dragend', function() {
                 var i = 0;
@@ -124,6 +141,8 @@ openerp.web_gmaps_action = function (instance) {
 
             var del_mov =  false;
             google.maps.event.addListener(marker, 'click', function() {
+                //El evento se activa cuando se hace click en los puntos que se crean despues de
+                //cargar el mapa
                 marker.setMap(null);
                 var i = 0;
                 for (var I = self.markers.length; i < I && self.markers[i] != marker; ++i); 
@@ -131,6 +150,19 @@ openerp.web_gmaps_action = function (instance) {
                 self.path.removeAt(i);
                 self.writeArea();
                 del_mov = true;
+
+                var modelAction = new instance.web.Model('gmaps.point');
+                modelAction.call('deletePoint', [ [marker['id']]] ).done(
+                    function(){
+                            if (self.elements) {
+                                self.elements.destroy();
+                            }
+                            //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
+                            self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
+                            self.$('.oe_list_placeholder').empty();
+                            self.elements.appendTo(self.$('.oe_list_placeholder'));
+                    }
+               );
             });
             google.maps.event.addListener(marker, 'dragend', function() {
                 var i = 0;
@@ -321,7 +353,7 @@ openerp.web_gmaps_action = function (instance) {
         },
         render_list: function(self, windows){
             self = this;
-            this.obj_model_search.read_slice(['name'], self.options) .done(function(results){
+            this.obj_model_search.read_slice(['name'], self.options).done(function(results){
                     _.each(results, function(res){
                         $('<tr><td class="oe_load_points" data-id='+res.id+'>'+res.name+'</td></tr>').appendTo(self.$('tbody.records_placeholder'));
                         this.$('.oe_load_points').on('click', function(){

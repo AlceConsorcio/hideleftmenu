@@ -98,6 +98,10 @@ class gmaps_point(osv.Model):
         point_id = self.create(cr, uid, values, context=context)
         return point_id
 
+    def deletePoint(self, cr, uid, point_id, context=None):
+        self.unlink(cr, uid, point_id, context=context)
+        return True
+
 class gmaps_group(osv.AbstractModel):
     _name = 'gmaps.group'
     '''
