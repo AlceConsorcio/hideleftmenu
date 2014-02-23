@@ -23,9 +23,10 @@ try:
 except ImportError:
     import simplejson as json
 
-import web.http as openerpweb
+from openerp.addons.web import http                                                                    
+openerpweb = http
 
-from web.controllers.main import ExcelExport
+from openerp.addons.web.controllers.main import ExcelExport
 
 
 class ExcelExportView(ExcelExport):

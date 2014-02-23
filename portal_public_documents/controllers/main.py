@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from web import http
+from openerp.addons.web import http                                                                    
 from openerp.addons.web.controllers.main import Binary
 openerpweb = http
 import simplejson
