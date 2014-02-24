@@ -39,9 +39,9 @@ openerp.web_gmaps_action = function (instance) {
 		},
         writeArea: function () {
             Polygon = this.polygon.getPath();
-            //this.elements.add_point_list(this.elements, Polygon);
             this.area = google.maps.geometry.spherical.computeArea(this.polygon.getPath());
         },
+
         /**
          * Callback for marker, every point added will trigger this method.
          */
@@ -49,26 +49,33 @@ openerp.web_gmaps_action = function (instance) {
         },
         loadPoints: function(points){
             self = this;
+
+            //Se centra el mapa en el primer punto cargado
             if( points.length > 0  ){
                 mapCoords =  new google.maps.LatLng(points[0].gmaps_lat, points[0].gmaps_lon);
                 self.map.center = mapCoords;
                 self.map.zoom = 12; 
             }
+            
+            //Se recorre el vector de puntos
             _.each(points, function(point){
                 pp = new google.maps.LatLng(point.gmaps_lat, point.gmaps_lon);
-                self.path.insertAt(self.path.length, pp);
+                self.path.insertAt(self.path.length, pp); //Se inserta el punto en la ultima posicion del path
 
-                var point = point || {},
-                    marker = new google.maps.Marker({
+                
+                var point = point || {};
+                var marker = new google.maps.Marker({
                         position: pp,
                         map: self.map,
                         draggable: true,
                         changed: function(){self.changePoint(self)},
                         animation: "BOUNCE"
-                    });
-            marker['id'] = point.id; 
-            self.markers.push(marker);
+                });
 
+                marker['id'] = point.id; 
+                self.markers.push(marker);
+
+            //Configurar el evento click en el marker, se hace la llamada a una funcion
             google.maps.event.addListener(marker, 'click', function() {
                 //El evento se activa cuando se hace click en los puntos que ya estaban creados al entrar al mapa
                 marker.setMap(null);
@@ -94,6 +101,8 @@ openerp.web_gmaps_action = function (instance) {
                }
 
             });
+
+            //Configurar el evento dragend en el marker, se hace la llamada a una funcion
             google.maps.event.addListener(marker, 'dragend', function() {
                 var i = 0;
                 for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i);
@@ -116,7 +125,6 @@ openerp.web_gmaps_action = function (instance) {
 
             });
             self.polygon.setPath(self.path);
-            //OJOOOO self.writeArea();
             
         },
         addPoint: function(Point, parent){
