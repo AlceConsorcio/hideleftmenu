@@ -57,12 +57,12 @@ openerp.web_gmaps_action = function (instance) {
                 self.map.zoom = 12; 
             }
             
-            //Se recorre el vector de puntos
+            //Se recorre el vector de puntos y se inserta en el path
             _.each(points, function(point){
                 pp = new google.maps.LatLng(point.gmaps_lat, point.gmaps_lon);
                 self.path.insertAt(self.path.length, pp); //Se inserta el punto en la ultima posicion del path
 
-                
+                //Se almacena el punto en una variable, si no existe, se asigna vacio 
                 var point = point || {};
                 var marker = new google.maps.Marker({
                         position: pp,
@@ -72,13 +72,16 @@ openerp.web_gmaps_action = function (instance) {
                         animation: "BOUNCE"
                 });
 
-                marker['id'] = point.id; 
+                marker['id'] = point.id;
                 self.markers.push(marker);
 
             //Configurar el evento click en el marker, se hace la llamada a una funcion
             google.maps.event.addListener(marker, 'click', function() {
                 //El evento se activa cuando se hace click en los puntos que ya estaban creados al entrar al mapa
                 marker.setMap(null);
+
+                //Se busca la posicion del punto que activo el evento para borrarlo del path y
+                //del markers, y se reescribe el area
                 var i = 0;
                 for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i); 
                 self.markers.splice(i, 1);
@@ -86,32 +89,37 @@ openerp.web_gmaps_action = function (instance) {
                 self.writeArea();
 
                 if( marker != null ){
-                var modelAction = new instance.web.Model('gmaps.point');
-                modelAction.call('deletePoint', [ [marker['id']]] ).done(
-                    function(){
-                            if (self.elements) {
-                                self.elements.destroy();
-                            }
-                            //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
-                            self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
-                            self.$('.oe_list_placeholder').empty();
-                            self.elements.appendTo(self.$('.oe_list_placeholder'));
-                    }
-               );
+                    var modelAction = new instance.web.Model('gmaps.point');
+                    modelAction.call('deletePoint', [ [marker['id']]] ).done(
+                        function(){
+                                if (self.elements) {
+                                    self.elements.destroy();
+                                }
+                                //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
+                                self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
+                                self.$('.oe_list_placeholder').empty();
+                                self.elements.appendTo(self.$('.oe_list_placeholder'));
+                        }
+                   );
                }
 
             });
 
             //Configurar el evento dragend en el marker, se hace la llamada a una funcion
             google.maps.event.addListener(marker, 'dragend', function() {
+                
+                //Se busca la posicion del punto que activo el evento para modificarlo en el path
+                //y se reescribe el area
                 var i = 0;
                 for(var I = self.markers.length; i < I && self.markers[i] != marker; ++i);
                 self.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 self.writeArea();
+
+                //Se hace una llamada a un metodo en el modelo, para modificar el valor del punto
+                //en la base de datos, y luego actualizar la lista de puntos (elements)
                 var modelAction = new instance.web.Model('gmaps.point');
                 modelAction.call('writePoints', [[marker.position.d], [marker.position.e], [marker['id']]] ).done(
                     function(){
-
                             if (self.elements) {
                                 self.elements.destroy();
                             }
@@ -124,13 +132,15 @@ openerp.web_gmaps_action = function (instance) {
             });
 
             });
+            //Se dibuja el poligono con los puntos rojos(path) del mapa
             self.polygon.setPath(self.path);
             
         },
         addPoint: function(Point, parent){
             self = this;
 
-            parent.path.insertAt(this.path.length, Point);
+            parent.path.insertAt(this.path.length, Point);//Agregar el punto nuevo en la ultima
+            //posicion
             var marker = new google.maps.Marker({
                 position: Point,
                 map: this.map,
@@ -138,6 +148,8 @@ openerp.web_gmaps_action = function (instance) {
                 changed: function(){self.changePoint(self)},
                 animation: "BOUNCE"
             });
+
+            //Informacion de punto
             point = {'gmaps_lat': marker.position.d,
                      'gmaps_lon': marker.position.e,
                      'sequence': sequen,
@@ -152,35 +164,49 @@ openerp.web_gmaps_action = function (instance) {
                 //El evento se activa cuando se hace click en los puntos que se crean despues de
                 //cargar el mapa
                 marker.setMap(null);
+
+                //Se busca la posicion del punto que activo el evento para borrarlo del path y
+                //del markers, y se reescribe el area
                 var i = 0;
                 for (var I = self.markers.length; i < I && self.markers[i] != marker; ++i); 
                 self.markers.splice(i, 1);
                 self.path.removeAt(i);
                 self.writeArea();
+                
                 del_mov = true;
 
-                var modelAction = new instance.web.Model('gmaps.point');
-                modelAction.call('deletePoint', [ [marker['id']]] ).done(
-                    function(){
-                            if (self.elements) {
-                                self.elements.destroy();
-                            }
-                            //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
-                            self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
-                            self.$('.oe_list_placeholder').empty();
-                            self.elements.appendTo(self.$('.oe_list_placeholder'));
-                    }
-               );
+                if( marker != null ){
+                    var modelAction = new instance.web.Model('gmaps.point');
+                    modelAction.call('deletePoint', [ [marker['id']]] ).done(
+                        function(){
+                                if (self.elements) {
+                                    self.elements.destroy();
+                                }
+                                //El ultimo parametro indica al widget que el mapa ya esta cargado, y no lo cargue de nuevo
+                                self.elements = new instance.web_gmaps_action.ListElements(self, {'res_id': self.action.res_id }, true);
+                                self.$('.oe_list_placeholder').empty();
+                                self.elements.appendTo(self.$('.oe_list_placeholder'));
+                        }
+                   );
+                }
+
             });
+
+            //Configurar el evento dragend en el marker, se hace la llamada a una funcion
             google.maps.event.addListener(marker, 'dragend', function() {
+
+                //Se busca la posicion del punto que activo el evento para modificarlo en el path
+                //y se reescribe el area
                 var i = 0;
                 for (var I = parent.markers.length; i < I && parent.markers[i] != marker; ++i);
                 parent.path.setAt(i, marker.getPosition());//Solo modifica el objeto
                 parent.writeArea();
+
+                //Se hace una llamada a un metodo en el modelo, para modificar el valor del punto
+                //en la base de datos, y luego actualizar la lista de puntos (elements)
                 var modelAction = new instance.web.Model('gmaps.point');
                 modelAction.call('writePoints', [[marker.position.d], [marker.position.e], [marker['id']]] ).done(
                     function(){
-
                             if (parent.elements) {
                                 parent.elements.destroy();
                             }
