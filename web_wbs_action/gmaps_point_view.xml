@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_gmaps_point_search">
+            <field name="model">gmaps.point</field>
+            <field name="name">gmaps.point.search</field>
+            <field name="arch" type="xml">
+                <search string="Point" version="7.0">
+                    <field name="name"/>
+                    <field name="model"/>
+                    <field name="res_id"/>
+                    <field name="id"/>
+                    <field name="description"/>
+                    <field name="gmaps_lat"/>
+                    <field name="gmaps_lon"/>
+                    <group expand="1" string="Group By...">
+                        <filter string="Model" context="{'group_by':'model'}"/>
+                        <filter string="Resource ID" context="{'group_by':'res_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_gmaps_point_form">
+            <field name="model">gmaps.point</field>
+            <field name="name">gmaps.point.form</field>
+            <field name="arch" type="xml">
+                <form string="Point" version="7.0">
+                    <sheet>
+                        <notebook>
+                            <page string="Point">
+                                <separator string="Order and Search"/>
+                                <label for="name" class="oe_inline"/>
+                                <field name="name" class="oe_inline"/>
+                                <label for="sequence" class="oe_inline"/>
+                                <field name="sequence" class="oe_inline"/>
+                                <separator string="Coordinates"/>
+                                <label for="gmaps_lat" class="oe_inline"/>
+                                <field name="gmaps_lat" class="oe_inline"/>
+                                <label for="gmaps_lon" class="oe_inline"/>
+                                <field name="gmaps_lon" class="oe_inline"/>
+                                <separator string="Description"/>
+                                <field name="description" nolabel="True"/>
+                            </page>
+                            <page string="Technical Information">
+                                <separator string="Authoring Information"/>
+                                <label for="author_id" class="oe_inline"/>
+                                <field name="author_id" class="oe_inline"/>
+                                <label for="company_id" class="oe_inline"/>
+                                <field name="company_id" readonly="True" class="oe_inline"/>
+                                <separator string="Technical Information"/>
+                                <label for="model" class="oe_inline"/>
+                                <field name="model" class="oe_inline"/>
+                                <label for="res_id" class="oe_inline"/>
+                                <field name="res_id" class="oe_inline"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_gmaps_point_tree">
+            <field name="model">gmaps.point</field>
+            <field name="name">gmaps.point.tree</field>
+            <field name="arch" type="xml">
+                <tree string="Points">
+                    <field name="sequence"/>
+                    <field name="name"/>
+                    <field name="gmaps_lat"/>
+                    <field name="gmaps_lon"/>
+                    <field name="author_id"/>
+                    <field name="model" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_points" model="ir.actions.act_window">
+            <field name="name">List of Gmaps Points</field>
+            <field name="res_model">gmaps.point</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                  List of Points.
+              </p>
+            </field>
+        </record>
+
+        <menuitem parent="base.next_id_9" groups="base.group_no_one" id="menu_points" action="action_points"/>
+    </data>
+</openerp>
