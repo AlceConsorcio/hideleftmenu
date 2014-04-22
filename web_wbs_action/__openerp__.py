@@ -39,9 +39,9 @@ WBS view:
         'decimal_precision',
         ],
     'data':[
-        'data/gmaps_data.xml',
+        'data/wbs_data.xml',
         'res_partner_view.xml',
-        'gmaps_point_view.xml',
+        'wbs_point_view.xml',
         ],
     'demo':[
         #'web_gmaps_demo.xml'

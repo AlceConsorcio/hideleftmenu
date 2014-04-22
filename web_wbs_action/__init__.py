@@ -1,2 +1,2 @@
-import gmaps_point
+import wbs_point
 import res_partner
