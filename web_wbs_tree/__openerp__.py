@@ -40,7 +40,6 @@ WBS view:
         ],
     'data':[
         'data/wbs_data.xml',
-        'res_partner_view.xml',
         'wbs_point_view.xml',
         ],
     'demo':[
