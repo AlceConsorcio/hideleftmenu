@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    OpenERP, Open Source Management Solution    
+#    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>). All Rights Reserved
 #    Financed and Planified by Vauxoo
 #    developed by: nhomar@vauxoo.com
@@ -47,7 +47,7 @@ TODO: write an step by step to do that.
 
 code::
 
-    gmaps_api_key = https://maps.googleapis.com/maps/api/js?key=YOURKEYISALONGWIERDCHARACTERS&sensor=true 
+    gmaps_api_key = https://maps.googleapis.com/maps/api/js?key=YOURKEYISALONGWIERDCHARACTERS&sensor=true
     ''',
     'depends':[
         'web',
