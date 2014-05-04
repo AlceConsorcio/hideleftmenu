@@ -1,4 +1,6 @@
 import openerp.addons.web.controllers.main as main_c
+from openerp.addons.web import http
+from openerp.addons.web.http import request
 
 def wbs_fix_view_modes(action):
     """ For historical reasons, OpenERP has weird dealings in relation to
@@ -39,4 +41,13 @@ def wbs_fix_view_modes(action):
 
 main_c.fix_view_modes = wbs_fix_view_modes
 print main_c.fix_view_modes
+
+class wbs_tree(http.Controller):
+    @http.route('/static/wbs_tree', type='json', cors='*', auth='public')
+    def show_wbs(self,**post):
+        print "post ",post
+        cr, uid, context = request.cr, request.uid, request.context
+        data_obj = request.registry['ir.model.data']
+        #view_brw = data_obj.get_object(cr, uid, 'web_wbs_tree','')
+        return False
 
