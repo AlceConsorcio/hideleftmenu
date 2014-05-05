@@ -12,7 +12,6 @@ instance.web.TreeView.include({
     console.log(self);
     var has_toolbar = !!fields_view.arch.attrs.toolbar;
     var usage = false
-    console.log('superpasamamamguevo ..........');
     if (self.options.action.usage =='wbs') {
         usage = 'WbsTreeView';
     }
@@ -23,9 +22,9 @@ instance.web.TreeView.include({
         'title': self.fields_view.arch.attrs.string,
         'fields_view': self.fields_view.arch.children,
         'fields': self.fields,
-        'toolbar': has_toolbar
+        'toolbar': has_toolbar,
+        'wbs_field': 'MAMAGUEVO'
     }));
-    console.log('asynchronous');
     }
 });
 
