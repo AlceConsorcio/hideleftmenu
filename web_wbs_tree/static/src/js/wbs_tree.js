@@ -23,7 +23,6 @@ instance.web.TreeView.include({
         'fields_view': self.fields_view.arch.children,
         'fields': self.fields,
         'toolbar': has_toolbar,
-        'wbs_field': 'MAMAGUEVO'
     }));
     }
 });

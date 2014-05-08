@@ -34,10 +34,12 @@ Web WBS Tree:
     ''',
     'depends':[
         'web',
+        'account',
         ],
     'data':[
         ],
     'demo':[
+        'demo/account_view.xml',
         ],
     'js':[
         'static/src/js/*.js',

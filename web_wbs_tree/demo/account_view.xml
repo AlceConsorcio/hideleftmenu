@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="account_wbs_tree_view" model="ir.ui.view">
+            <field name="name">account.account.tree</field>
+            <field name="model">account.account</field>
+            <field name="field_parent">child_id</field>
+            <field name="arch" type="xml">
+                <tree toolbar="True" string="account Structure">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_wbs_tree_action" model="ir.actions.act_window">
+            <field name="name">WBS account</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.account</field>
+            <field name="view_type">tree</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_wbs_tree_view"/>
+        </record>
+
+        <record id="account_move_normal_action_tree" model="ir.actions.act_window">
+            <field name="name">Moves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.move</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{'account_id':active_id, 'search_default_account_id':active_id}</field>
+        </record>
+
+        <record id="ir_account_account_open" model="ir.values">
+            <field eval="'tree_but_open'" name="key2"/>
+            <field eval="'account.account'" name="model"/>
+            <field name="name">Account structure</field>
+            <field eval="'ir.actions.act_window,%d'%account_move_normal_action_tree" name="value"/>
+        </record>
+        <menuitem id="wbs_account_tree" name="WBS account" parent="account.account_account_menu" action="account_wbs_tree_action"/>
+    </data>
+</openerp>

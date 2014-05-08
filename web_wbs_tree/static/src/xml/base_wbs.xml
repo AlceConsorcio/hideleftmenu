@@ -19,7 +19,8 @@
         </table>
         </div>
         <div class='col-md-6'>
-            <h1>Mostrar Datos de WBS aquí</h1>
+            <div class="oe_list_wbs_view"></div>
+
             <t t-esc="wbs_field"/>        
         </div>
     </t>
