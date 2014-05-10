@@ -22,9 +22,6 @@ def wbs_fix_view_modes(action):
     """
     if not action.get('views'):
         generate_views(action)
-
-    print action
-    print "=====================mdified===="
     if action.pop('view_type', 'form') != 'form':
         return action
 

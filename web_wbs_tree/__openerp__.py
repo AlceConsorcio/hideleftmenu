@@ -34,7 +34,7 @@ Web WBS Tree:
     ''',
     'depends':[
         'web',
-        'account',
+        'account_accountant',
         ],
     'data':[
         ],
