@@ -22,20 +22,20 @@
             <field name="view_id" ref="account_wbs_tree_view"/>
         </record>
 
-        <record id="account_move_normal_action_tree" model="ir.actions.act_window">
-            <field name="name">Moves</field>
+        <record id="account_move_normal_action_wbs_tree" model="ir.actions.act_window">
+            <field name="name">Moves fuck you maduro</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">account.move</field>
+            <field name="res_model">account.move.line</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,kanban</field>
-            <field name="context">{'account_id': active_id,'search_default_account_id':active_id}</field>
+            <field name="context">{'account_id':active_id, 'search_default_account_id':active_id}</field>
         </record>
 
-        <record id="ir_account_account_open" model="ir.values">
+        <record id="action_move_line_select" model="ir.values">
             <field eval="'tree_but_open'" name="key2"/>
             <field eval="'account.account'" name="model"/>
             <field name="name">Account structure</field>
-            <field eval="'ir.actions.act_window,%d'%account_move_normal_action_tree" name="value"/>
+            <field eval="'ir.actions.act_window,%d'%account_move_normal_action_wbs_tree" name="value"/>
         </record>
         <menuitem id="wbs_account_tree" name="WBS account" parent="account.account_account_menu" action="account_wbs_tree_action"/>
     </data>
