@@ -9,7 +9,7 @@ instance.web.TreeView.include({
     load_tree: function(fields_view){
     console.log("USAGE==");
     self = this;
-    self._super(fields_viewa);
+    self._super(fields_view);
     var has_toolbar = !!fields_view.arch.attrs.toolbar;
     var usage = false
     console.log("USAGE");
@@ -31,7 +31,7 @@ instance.web.TreeView.include({
      * Sets up opening a row
      */
     hook_row_click: function () {
-        var self = this,
+        var self = this
         self._super();
             my_context = self.session.user_context
         this.$el.delegate('.treeview-td span, .treeview-tr span', 'click', function (e) {
@@ -127,4 +127,5 @@ instance.web.TreeView.include({
         }, null);
     }
 
+});
 })();
