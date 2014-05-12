@@ -11,7 +11,7 @@ instance.web.TreeView.include({
     self = this;
     self._super(fields_view);
     var has_toolbar = !!fields_view.arch.attrs.toolbar;
-    var usage = false
+    var usage = false;
     console.log("USAGE");
     console.log(self.options.action.usage);
     if (self.options.action.usage =='wbs') {
@@ -31,15 +31,15 @@ instance.web.TreeView.include({
      * Sets up opening a row
      */
     hook_row_click: function () {
-        var self = this
+        var self = this;
         self._super();
-            my_context = self.session.user_context
+            my_context = self.session.user_context;
         this.$el.delegate('.treeview-td span, .treeview-tr span', 'click', function (e) {
             e.stopImmediatePropagation();
             active_id = $(this).closest('tr').data('id');
             self.activate($(this).closest('tr').data('id')).then(function (new_action) {
             var ids = [],
-                placeholderwbs = $('.oe_list_wbs_view')
+                placeholderwbs = $('.oe_list_wbs_view');
             rel_field = self.get_field(new_action.context);
             var filtered_ids = new instance.web.DataSetSearch(self, 
                 new_action.res_model, my_context, [[rel_field, '=' ,parseInt(active_id)]]);
@@ -48,8 +48,6 @@ instance.web.TreeView.include({
                 ids.push(id.id);
             });
             var dataset = new instance.web.DataSetStatic(self, new_action.res_model, my_context, ids); 
-            var l = new instance.web.ListView({}, dataset, false, {editable: 'top'});
-            var ds = new instance.web.DataSetStatic(null, 'demo', null, [1, 2, 3]);
             var l = new instance.web.ListView({
                 do_action: openerp.testing.noop
             }, dataset, false, {editable: 'top'});
@@ -123,7 +121,7 @@ instance.web.TreeView.include({
             if (action.context) {
                 c.add(action.context);
             }
-            return action
+            return action;
         }, null);
     }
 
