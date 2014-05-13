@@ -23,7 +23,7 @@
         </record>
 
         <record id="account_move_normal_action_wbs_tree" model="ir.actions.act_window">
-            <field name="name">Moves fuck you maduro</field>
+            <field name="name">Account Moves</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.move.line</field>
             <field name="view_type">form</field>

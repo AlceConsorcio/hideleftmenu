@@ -1,25 +1,27 @@
 (function(){
 
 var instance = openerp;
-openerp.web.view_tree = {};
 var QWeb = instance.web.qweb,
       _lt = instance.web._lt;
 
 instance.web.TreeView.include({
+    init: function(parent, dataset, view_id, options) {
+    this._super(parent, dataset, view_id, options);
+    },
+
     load_tree: function(fields_view){
-    console.log("USAGE==");
+    this.hook_row_click_wbs();
     self = this;
     self._super(fields_view);
     var has_toolbar = !!fields_view.arch.attrs.toolbar;
     var usage = false;
-    console.log("USAGE");
-    console.log(self.options.action.usage);
     if (self.options.action.usage =='wbs') {
         usage = 'WbsTreeView';
     }
     else {
         usage = 'TreeView';
     }
+
     self.$el.html(QWeb.render(usage, {
         'title': self.fields_view.arch.attrs.string,
         'fields_view': self.fields_view.arch.children,
@@ -27,17 +29,20 @@ instance.web.TreeView.include({
         'toolbar': has_toolbar,
     }));
     },
+    get_field: function(context) {
+        field_name = context.substring(context.indexOf("'")+1,context.indexOf("':"));
+        return field_name;
+    },
     /**
      * Sets up opening a row
      */
-    hook_row_click: function () {
+    hook_row_click_wbs: function () {
         var self = this;
-        self._super();
             my_context = self.session.user_context;
         this.$el.delegate('.treeview-td span, .treeview-tr span', 'click', function (e) {
             e.stopImmediatePropagation();
             active_id = $(this).closest('tr').data('id');
-            self.activate($(this).closest('tr').data('id')).then(function (new_action) {
+            self.activate_wbs($(this).closest('tr').data('id')).then(function (new_action) {
             var ids = [],
                 placeholderwbs = $('.oe_list_wbs_view');
             rel_field = self.get_field(new_action.context);
@@ -71,8 +76,6 @@ instance.web.TreeView.include({
           }); 
             });
         });
-            
-
         this.$el.delegate('.treeview-tr', 'click', function () {
             var is_loaded = 0,
                 $this = $(this),
@@ -101,9 +104,8 @@ instance.web.TreeView.include({
     },
         
     // Get details in listview
-    activate: function(id) {
+    activate_wbs: function(id) {
         var self = this;
-        self._super(id);
         var local_context = {
             active_model: self.dataset.model,
             active_id: id,
