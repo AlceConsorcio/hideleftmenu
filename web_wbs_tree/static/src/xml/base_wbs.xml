@@ -21,7 +21,7 @@
         <div class='col-md-6'>
             <div class="oe_list_wbs_view"></div>
 
-            <t t-esc="wbs_field"/>        
+            <t t-esc="usage"/>        
         </div>
     </t>
 </templates>

@@ -37,8 +37,10 @@ instance.web.TreeView.include({
      * Sets up opening a row
      */
     hook_row_click_wbs: function () {
-        var self = this;
+        var self = this,
             my_context = self.session.user_context;
+        console.log(self);
+        console.log(this.$el);
         this.$el.delegate('.treeview-td span, .treeview-tr span', 'click', function (e) {
             e.stopImmediatePropagation();
             active_id = $(this).closest('tr').data('id');
