@@ -39,43 +39,43 @@ instance.web.TreeView.include({
     hook_row_click_wbs: function () {
         var self = this,
             my_context = self.session.user_context;
-        console.log(self);
-        console.log(this.$el);
         this.$el.delegate('.treeview-td span, .treeview-tr span', 'click', function (e) {
             e.stopImmediatePropagation();
             active_id = $(this).closest('tr').data('id');
             self.activate_wbs($(this).closest('tr').data('id')).then(function (new_action) {
-            var ids = [],
-                placeholderwbs = $('.oe_list_wbs_view');
-            rel_field = self.get_field(new_action.context);
-            var filtered_ids = new instance.web.DataSetSearch(self, 
-                new_action.res_model, my_context, [[rel_field, '=' ,parseInt(active_id)]]);
-            filtered_ids.read_slice(['id'], {}).then(function (r){
-            _.each(r, function (id) {
-                ids.push(id.id);
-            });
-            var dataset = new instance.web.DataSetStatic(self, new_action.res_model, my_context, ids); 
-            var l = new instance.web.ListView({
-                do_action: openerp.testing.noop
-            }, dataset, false, {editable: 'top'});
-            placeholderwbs.html('');
-            return l.appendTo(placeholderwbs)
-            .then(l.proxy('reload_content'))
-            .then(function () {
-                var d = $.Deferred();
-                l.records.bind('remove', function () {
-                    d.resolve();
-                });
-                placeholderwbs.find('table tbody tr:eq(1) button').click();
-                return d.promise();
-            })
-            .then(function () {
-                strictEqual(l.records.length, 2,
-                            "should have 2 records left");
-                strictEqual(placeholderwbs.find('table tbody tr[data-id]').length, 2,
-                            "should have 2 rows left");
-            });
-          }); 
+                if (new_action.usage == 'wbs'){
+                    var ids = [],
+                        placeholderwbs = $('.oe_list_wbs_view');
+                    rel_field = self.get_field(new_action.context);
+                    var filtered_ids = new instance.web.DataSetSearch(self, 
+                        new_action.res_model, my_context, [[rel_field, '=' ,parseInt(active_id)]]);
+                    filtered_ids.read_slice(['id'], {}).then(function (r){
+                    _.each(r, function (id) {
+                        ids.push(id.id);
+                    });
+                    var dataset = new instance.web.DataSetStatic(self, new_action.res_model, my_context, ids); 
+                    var l = new instance.web.ListView({
+                        do_action: openerp.testing.noop
+                    }, dataset, false, {editable: 'top'});
+                    placeholderwbs.html('');
+                    return l.appendTo(placeholderwbs)
+                    .then(l.proxy('reload_content'))
+                    .then(function () {
+                        var d = $.Deferred();
+                        l.records.bind('remove', function () {
+                            d.resolve();
+                        });
+                        placeholderwbs.find('table tbody tr:eq(1) button').click();
+                        return d.promise();
+                    })
+                    .then(function () {
+                        strictEqual(l.records.length, 2,
+                                    "should have 2 records left");
+                        strictEqual(placeholderwbs.find('table tbody tr[data-id]').length, 2,
+                                    "should have 2 rows left");
+                    });
+                  }); 
+                }
             });
         });
         this.$el.delegate('.treeview-tr', 'click', function () {
@@ -125,7 +125,18 @@ instance.web.TreeView.include({
             if (action.context) {
                 c.add(action.context);
             }
-            return action;
+            if (action.usage == 'wbs') {
+                return action;
+                } 
+            else {
+                return instance.web.pyeval.eval_domains_and_contexts({
+                    contexts: [c], domains: []
+                }).then(function (res) {
+                    action.context = res.context;
+                    return self.do_action(action);
+                }, null);
+            } 
+
         }, null);
     }
 
