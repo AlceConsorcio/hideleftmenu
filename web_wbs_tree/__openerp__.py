@@ -43,7 +43,7 @@ __________
     You must declare window actions like this, here is a known relation
     between two models: `account.account` and `account.move.line`.
 
-    .. code-block::
+    ::
 
         <record id="account_wbs_tree_action" model="ir.actions.act_window">
         <field name="name">WBS account</field>
@@ -71,6 +71,7 @@ __________
         <field name="name">Account structure</field>
         <field eval="'ir.actions.act_window,%d'%account_move_normal_action_wbs_tree" name="value"/>
         </record>
+
 Notice that the action declaration has a value on the `usage` field, it must be filled with 'wbs' value
 on both actions, also the `context` must have at least the relation field of the destination model and the `active_id`
 that is calling the destiny action.
